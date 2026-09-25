@@ -1,0 +1,654 @@
+/* ==================================================================
+   Font chữ toàn site: Work Sans
+   File nằm ở public/assets/fonts. Chỉ có 2 độ đậm:
+   400 (Regular) và 700 (Bold) — các weight khác trình duyệt tự giả lập.
+   ================================================================== */
+
+@font-face {
+    font-family: "Work Sans";
+    src: url("../fonts/WorkSans-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Work Sans";
+    src: url("../fonts/WorkSans-Bold.woff2") format("woff2");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Biến typography của Elementor Kit — mọi widget đọc từ đây */
+.elementor-kit-6,
+:root {
+    --e-global-typography-primary-font-family: "Work Sans";
+    --e-global-typography-secondary-font-family: "Work Sans";
+    --e-global-typography-text-font-family: "Work Sans";
+    --e-global-typography-accent-font-family: "Work Sans";
+}
+
+/* Lưới an toàn: bất kỳ chỗ nào còn sót font cũ.
+   Loại trừ các thẻ icon vì chúng dùng font biểu tượng riêng. */
+body,
+button,
+input,
+select,
+textarea,
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Work Sans", Helvetica, Arial, sans-serif;
+}
+
+/* ------------------------------------------------------------------
+   site.css — CSS tu viet cua du an (khong phai file Elementor sinh ra).
+   Nap sau cung trong layouts/app.blade.php nen luon de ghi de.
+   Chi dung bien mau/font co san cua Elementor Kit (post-6.css).
+   ------------------------------------------------------------------ */
+
+/* ===== Carousel "Tattoo Styles" (trang chu) ===== */
+.ci-styles { width: 100%; }
+
+.ci-styles__swiper { overflow: hidden; }
+
+.ci-style-card {
+    position: relative;
+    display: block;
+    height: auto;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+.ci-style-card img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    transition: transform .5s ease;
+}
+
+.ci-style-card:hover img { transform: scale(1.04); }
+
+/* lop phu toi o day de chu noi len anh */
+.ci-style-card::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0 0;
+    height: 55%;
+    background: linear-gradient(to top, rgba(0, 0, 0, .78), rgba(0, 0, 0, 0));
+    pointer-events: none;
+}
+
+.ci-style-card__label {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 22px;
+    z-index: 1;
+    padding: 0 12px;
+    text-align: center;
+    color: var(--e-global-color-39cd785, #fff);
+    font-family: var(--e-global-typography-accent-font-family, "Work Sans"), Sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+/* dot phan trang — dat ngoai .swiper nen phai bo position:absolute cua Swiper */
+.ci-styles__pagination {
+    /* Swiper canh giua dot dong bang left:50% + translateX(-50%) -> can position:relative */
+    position: relative;
+    margin-top: 28px;
+    text-align: center;
+}
+
+.ci-styles__pagination .swiper-pagination-bullet {
+    width: 9px;
+    height: 9px;
+    margin: 0 6px;
+    background: transparent;
+    border: 1px solid var(--e-global-color-1090670, #cfcfcf);
+    border-radius: 50%;
+    opacity: 1;
+}
+
+.ci-styles__pagination .swiper-pagination-bullet-active {
+    background: var(--e-global-color-accent, #e52222);
+    border-color: var(--e-global-color-accent, #e52222);
+}
+
+.ci-styles + .ci-styles-cta { margin-top: 34px; }
+
+/* ===== Section dich vu (Piercing / Eyebrows) tach ra tu section Tattoo Styles ===== */
+.elementor-593 .elementor-element.ci-services-section {
+    background-color: var(--e-global-color-primary, #000);
+    padding: 0 0 80px 0;
+}
+
+@media (max-width: 1024px) {
+    .elementor-593 .elementor-element.ci-services-section { padding: 0 40px 80px 40px; }
+}
+
+@media (max-width: 767px) {
+    .ci-style-card__label { bottom: 16px; font-size: 15px; letter-spacing: 2px; }
+    .elementor-593 .elementor-element.ci-services-section { padding: 0 25px 50px 25px; }
+}
+
+/* ===== Review khach hang — section "My Happy Clients!" (trang chu) ===== */
+.ci-reviews__lead {
+    margin: 0 auto;
+    max-width: 640px;
+    text-align: center;
+    color: var(--e-global-color-1090670, #cfcfcf);
+}
+
+.ci-reviews { width: 100%; margin-top: 34px; }
+
+.ci-reviews__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.ci-review {
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    border: 1px solid rgba(255, 255, 255, .10);
+    border-radius: 14px;
+    background-color: var(--e-global-color-182e802, #101010);
+}
+
+.ci-review__head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.ci-review__avatar {
+    flex: 0 0 auto;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.ci-review__avatar--initial {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--e-global-color-accent, #e52222);
+    color: var(--e-global-color-39cd785, #fff);
+    font-family: var(--e-global-typography-accent-font-family, "Work Sans"), Sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.ci-review__who { flex: 1 1 auto; min-width: 0; }
+
+.ci-review__name {
+    margin: 0;
+    color: var(--e-global-color-39cd785, #fff);
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.ci-review__date {
+    margin: 2px 0 0;
+    color: var(--e-global-color-1090670, #cfcfcf);
+    font-size: 14px;
+    opacity: .75;
+}
+
+.ci-review__source { flex: 0 0 auto; width: 22px; height: 22px; align-self: flex-start; }
+
+.ci-review__stars { display: flex; gap: 4px; margin: 18px 0 14px; }
+
+.ci-review__star {
+    width: 18px;
+    height: 18px;
+    fill: var(--e-global-color-accent, #e52222);
+}
+
+.ci-review__star--empty { fill: rgba(255, 255, 255, .22); }
+
+.ci-review__text {
+    margin: 0;
+    color: var(--e-global-color-1090670, #cfcfcf);
+    line-height: 1.7;
+}
+
+.ci-reviews__cta { margin-top: 34px; }
+
+@media (max-width: 1024px) {
+    .ci-reviews__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 767px) {
+    .ci-reviews__grid { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+}
+
+/* ===== Artist — bố cục xen kẽ ảnh / giới thiệu (trang chủ + /artists) ===== */
+.ci-artists { width: 100%; margin-top: 40px; }
+
+.ci-artist {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 0 60px;
+}
+
+.ci-artist + .ci-artist { margin-top: 50px; }
+
+/* hàng chẵn: ảnh sang phải, chữ căn phải */
+.ci-artist--reverse .ci-artist__media { order: 2; }
+.ci-artist--reverse .ci-artist__body  { order: 1; text-align: end; }
+.ci-artist--reverse .ci-artist__cta .elementor-button-wrapper { text-align: end; }
+
+.ci-artist__media img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+}
+
+.ci-artist__name {
+    margin: 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: var(--e-global-color-39cd785, #fff);
+}
+
+.ci-artist__role {
+    margin: 10px 0 0;
+    color: var(--e-global-color-accent, #e52222);
+    font-family: var(--e-global-typography-accent-font-family, "Work Sans"), Sans-serif;
+    font-size: 16px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.ci-artist__bio {
+    margin: 16px 0 0;
+    color: var(--e-global-color-39cd785, #fff);
+    line-height: 1.7;
+}
+
+.ci-artist__cta { margin-top: 26px; }
+
+.ci-artists__cta { margin-top: 50px; }
+
+@media (max-width: 1024px) {
+    .ci-artist { gap: 0 30px; }
+}
+
+@media (max-width: 767px) {
+    .ci-artist { grid-template-columns: minmax(0, 1fr); gap: 20px 0; }
+    /* trên mobile luôn ảnh trước, chữ sau, căn trái cho dễ đọc */
+    .ci-artist--reverse .ci-artist__media { order: 1; }
+    .ci-artist--reverse .ci-artist__body  { order: 2; text-align: start; }
+    .ci-artist--reverse .ci-artist__cta .elementor-button-wrapper { text-align: start; }
+    .ci-artist + .ci-artist { margin-top: 40px; }
+}
+
+/* ===== Nút dùng chung — trước nằm trong post-593.css nên chỉ chạy ở trang chủ,
+        chuyển hẳn ra đây để mọi trang dùng được (giá trị y hệt nút Elementor cũ) ===== */
+.ci-btn .elementor-button {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: var(--e-global-color-accent, #a20000);
+    color: #fff;
+    border: 1px solid var(--e-global-color-accent, #a20000);
+    border-radius: 0;
+    font-family: var(--e-global-typography-accent-font-family, "Work Sans"), Sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.ci-btn .elementor-button:hover,
+.ci-btn .elementor-button:focus {
+    background-color: var(--e-global-color-182e802, #101010);
+    color: var(--e-global-color-accent, #a20000);
+    border-color: var(--e-global-color-accent, #a20000);
+}
+
+.ci-btn .elementor-button-content-wrapper { flex-direction: row-reverse; gap: 10px; }
+.ci-btn .elementor-button:hover svg,
+.ci-btn .elementor-button:focus svg { fill: var(--e-global-color-accent, #a20000); }
+
+/* ===== Khung trang phụ (vd /artists) — dùng lại tông và typography của trang chủ ===== */
+.ci-page {
+    background-color: var(--e-global-color-182e802, #101010);
+    padding: 100px 0 80px;
+}
+
+.ci-page__inner {
+    width: 100%;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.ci-page__eyebrow {
+    margin: 0;
+    text-align: center;
+    font-family: "Work Sans", Sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--e-global-color-accent, #a20000);
+}
+
+.ci-page__title {
+    margin: 16px 0 0;
+    text-align: center;
+    font-family: var(--e-global-typography-primary-font-family, "Work Sans"), Sans-serif;
+    font-size: 42px;
+    font-weight: 500;
+    line-height: 1.2;
+    text-transform: uppercase;
+    color: var(--e-global-color-39cd785, #fff);
+}
+
+.ci-page__title span { color: var(--e-global-color-accent, #a20000); }
+
+/* tên artist: khớp h3 của trang chủ */
+.ci-artist__name {
+    font-family: var(--e-global-typography-primary-font-family, "Work Sans"), Sans-serif;
+    font-size: 24px;
+}
+
+@media (max-width: 767px) {
+    .ci-page { padding: 60px 0 50px; }
+    .ci-page__title { font-size: 24px; }
+    .ci-artist__name { font-size: 20px; }
+}
+
+/* ===== Social ở footer =====
+   Style viền tròn vốn chỉ gán cho 2 item cũ (elementor-repeater-item-da8f4de / -c8596be),
+   nên item thêm mới bị mất viền. Đưa về rule chung cho mọi item trong widget. */
+.elementor-16 .elementor-element.elementor-element-9b7e37e .ekit_social_media > li > a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0);
+    border: 1px solid var(--e-global-color-text, #54595f);
+}
+
+.elementor-16 .elementor-element.elementor-element-9b7e37e .ekit_social_media > li > a svg { fill: #fff; }
+
+.elementor-16 .elementor-element.elementor-element-9b7e37e .ekit_social_media > li > a:hover {
+    background-color: var(--e-global-color-accent, #a20000);
+}
+
+/* ===== Thanh social neo góc dưới bên phải (partials/social-dock) ===== */
+.ci-dock {
+    position: fixed;
+    right: 0;
+    bottom: 28px;
+    z-index: 900;
+    display: flex;
+    flex-direction: column;
+    width: 84px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, .10);
+    border-right: 0;
+    border-radius: 10px 0 0 10px;
+    background-color: rgba(10, 10, 10, .92);
+    backdrop-filter: blur(4px);
+    box-shadow: 0 8px 26px rgba(0, 0, 0, .45);
+}
+
+.ci-dock__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+    padding: 14px 6px;
+    color: var(--e-global-color-1090670, #cfcfcf);
+    text-decoration: none;
+    transition: background-color .25s, color .25s;
+}
+
+.ci-dock__item + .ci-dock__item { border-top: 1px solid rgba(255, 255, 255, .10); }
+
+.ci-dock__item:hover,
+.ci-dock__item:focus-visible {
+    background-color: var(--e-global-color-accent, #a20000);
+    color: #fff;
+}
+
+.ci-dock__icon { display: block; line-height: 0; }
+
+.ci-dock__icon svg {
+    width: 26px;
+    height: 26px;
+    fill: currentColor;
+}
+
+.ci-dock__label {
+    font-family: var(--e-global-typography-accent-font-family, "Work Sans"), Sans-serif;
+    font-size: 12px;
+    letter-spacing: .5px;
+    line-height: 1.2;
+}
+
+@media (max-width: 767px) {
+    .ci-dock { width: 62px; bottom: 16px; border-radius: 8px 0 0 8px; }
+    .ci-dock__item { padding: 10px 4px; gap: 5px; }
+    .ci-dock__icon svg { width: 20px; height: 20px; }
+    .ci-dock__label { font-size: 10px; }
+}
+
+@media print { .ci-dock { display: none; } }
+
+/* ===== Bộ chọn ngôn ngữ trên menu (partials/lang-switcher) ===== */
+.ci-lang {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 14px;
+}
+
+.ci-lang__item {
+    display: inline-flex;
+    padding: 0;
+    line-height: 0;
+    border-radius: 2px;
+    /* cờ chưa chọn mờ nhẹ thôi — header nền tối, mờ quá là không nhìn ra */
+    opacity: .75;
+    transition: opacity .25s, box-shadow .25s;
+}
+
+.ci-lang__item:hover,
+.ci-lang__item:focus-visible { opacity: 1; }
+
+.ci-lang__item.is-active {
+    opacity: 1;
+    box-shadow: 0 0 0 2px var(--e-global-color-accent, #a20000);
+}
+
+/* Mỗi lá cờ giữ đúng tỷ lệ gốc (cờ Anh rộng hơn cờ Việt).
+   Cần !important vì theme đặt img{max-width:100%;height:auto} ở mức ghi đè. */
+.ci-lang__item img {
+    display: block;
+    width: auto !important;
+    height: 18px !important;
+    max-width: none !important;
+}
+
+@media (max-width: 1024px) {
+    .ci-lang { margin: 10px 0 0 0; padding: 10px 0 0; }
+}
+
+/* ===== Form đặt lịch ở trang /contact-us (pages/contact-us.blade.php) ===== */
+.ci-booking { width: 100%; }
+
+.ci-booking__lead {
+    max-width: 760px;
+    margin: 16px auto 0;
+    text-align: center;
+    color: var(--e-global-color-1090670, #cfcfcf);
+    line-height: 1.7;
+}
+
+.ci-booking__form {
+    max-width: 880px;
+    margin: 0 auto;
+}
+
+.ci-booking__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 28px;
+}
+
+.ci-field { margin-bottom: 22px; }
+
+.ci-field__label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--e-global-color-39cd785, #fff);
+    font-family: var(--e-global-typography-accent-font-family, "Work Sans"), Sans-serif;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.ci-field__control {
+    width: 100%;
+    padding: 13px 16px;
+    border: 1px solid rgba(255, 255, 255, .18);
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, .04);
+    color: var(--e-global-color-39cd785, #fff);
+    font-family: inherit;
+    font-size: 15px;
+    line-height: 1.5;
+    transition: border-color .25s, background-color .25s;
+}
+
+.ci-field__control::placeholder { color: rgba(255, 255, 255, .38); }
+
+.ci-field__control:focus,
+.ci-field__control:focus-visible {
+    outline: none;
+    border-color: var(--e-global-color-accent, #a20000);
+    background-color: rgba(255, 255, 255, .07);
+}
+
+[tabindex]:not([tabindex="-1"]):focus-visible, a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible{
+    box-shadow: none;
+    outline-offset: 0;
+}
+
+.ci-field__control--area { min-height: 150px; resize: vertical; }
+
+/* select: bỏ mũi tên mặc định, vẽ lại cho khớp nền tối */
+.ci-field__control--select {
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 42px;
+    background-image: linear-gradient(45deg, transparent 50%, rgba(255, 255, 255, .55) 50%),
+                      linear-gradient(135deg, rgba(255, 255, 255, .55) 50%, transparent 50%);
+    background-position: calc(100% - 22px) calc(50% + 2px), calc(100% - 16px) calc(50% + 2px);
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+}
+
+.ci-field__control--select option { background-color: #101010; color: #fff; }
+
+/* nút ngày: icon lịch mặc định của Chrome màu đen, đảo sang trắng cho thấy trên nền tối */
+.ci-field__control[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); opacity: .6; cursor: pointer; }
+.ci-field__control[type="date"]::-webkit-calendar-picker-indicator:hover { opacity: 1; }
+
+.ci-booking__submit {
+    display: block;
+    width: 100%;
+    max-width: 520px;
+    margin: 34px auto 0;
+    padding: 15px 28px;
+    border: 1px solid var(--e-global-color-accent, #a20000);
+    border-radius: 0;
+    background-color: var(--e-global-color-accent, #a20000);
+    color: #fff;
+    font-family: inherit;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color .25s, color .25s;
+}
+
+.ci-booking__submit:hover,
+.ci-booking__submit:focus-visible {
+    background-color: var(--e-global-color-182e802, #101010);
+    color: var(--e-global-color-accent, #a20000);
+}
+
+.ci-booking__alert {
+    max-width: 880px;
+    margin: 0 auto 26px;
+    padding: 14px 18px;
+    border-radius: 6px;
+    line-height: 1.6;
+}
+
+.ci-booking__alert--ok {
+    border: 1px solid rgba(80, 200, 120, .45);
+    background-color: rgba(80, 200, 120, .10);
+    color: #9fe8b8;
+}
+
+.ci-booking__alert--error {
+    border: 1px solid var(--e-global-color-accent, #a20000);
+    background-color: rgba(162, 0, 0, .12);
+    color: #f3b6b6;
+}
+
+.ci-booking__alert ul { margin: 0; padding-left: 18px; }
+
+@media (max-width: 767px) {
+    .ci-booking__grid { grid-template-columns: minmax(0, 1fr); gap: 0; }
+    .ci-booking__submit { max-width: none; }
+}
+
+/* ===== Sửa lỗi: lớp phủ nền của Elementor chặn thao tác =====
+   .elementor-background-overlay là lớp trang trí, position:absolute phủ kín section/column.
+   Mặc định nó vẫn nhận pointer-event nên nằm đè lên input/select/nút là click không tới nơi
+   (đúng lỗi gặp ở form đặt lịch). Lớp này thuần trang trí -> cho click xuyên qua. */
+.elementor-background-overlay { pointer-events: none; }
+
+/* ===== flatpickr — chỉnh cho khớp tông của site ===== */
+.flatpickr-calendar { font-family: inherit; }
+
+.flatpickr-day.selected,
+.flatpickr-day.selected:hover,
+.flatpickr-day.startRange,
+.flatpickr-day.endRange {
+    background: var(--e-global-color-accent, #a20000);
+    border-color: var(--e-global-color-accent, #a20000);
+}
+
+.flatpickr-day.today { border-color: var(--e-global-color-accent, #a20000); }
+.flatpickr-day.today:hover { background: var(--e-global-color-accent, #a20000); }
+
+/* flatpickr tạo một ô hiển thị mới (altInput) — phải kế thừa đúng style ô nhập */
+.ci-field__control--date { cursor: pointer; }
+
+/* ===== Nền trang phụ: chống "menu trắng trên nền trắng" =====
+   Header của theme trong suốt và nằm đè lên đầu trang. Trang chủ kéo hero lên
+   bằng margin-top:-175px nên sau header là ảnh nền tối, chữ menu trắng đọc được.
+   Trang phụ (/artists, /artists/{slug}) không có hero, nền trắng mặc định của
+   body lộ ra sau header -> logo và chữ menu trắng biến mất.
+   Sơn nền body đúng tông của .ci-page là xong, không phải sửa header. */
+body.ci-dark-page {
+    background-color: var(--e-global-color-182e802, #101010);
+}
