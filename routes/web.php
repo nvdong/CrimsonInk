@@ -57,7 +57,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         Route::get('/', [BookingController::class, 'index'])->name('admin.booking');
         Route::post('/store', [BookingController::class, 'store'])->name('admin.booking.store');
         Route::get('/{id}/edit', [BookingController::class, 'edit'])->name('admin.booking.edit');
-        Route::post('/{id}', [BookingController::class, 'update'])->name('admin.booking.update');
+        Route::post('/update', [BookingController::class, 'update'])->name('admin.booking.update');
     });
 
     Route::get('/', [DashboardController::class, 'index'])->middleware('auth')->name('admin.index');

@@ -4,6 +4,7 @@
         <div class="container-fluid">
             <div class="row">
                 {!! Form::open(['url' => route('admin.booking.update', $booking), 'id' => 'file-upload-form', 'method' => 'POST']) !!}
+                <input type="hidden" name="id" value="{{$booking->id}}" />
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-campaign">
                     <div class="col-md-4 col-sm-12">
                         <div class="form-group">
