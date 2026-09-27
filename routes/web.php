@@ -5,6 +5,8 @@ use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\BookingController;
+use App\Models\Booking;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,6 +52,13 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     Route::post('/login', [LoginController::class, 'loginStore'])->name('admin.loginStore');
     Route::get('/callback', [LoginController::class, 'callback'])->name('admin.callback');
     Route::get('/logout', [DashboardController::class, 'logout'])->name('admin.logout');
+
+    Route::prefix('booking')->middleware('auth')->group(function () {
+        Route::get('/', [BookingController::class, 'index'])->name('admin.booking');
+        Route::post('/store', [BookingController::class, 'store'])->name('admin.booking.store');
+        Route::get('/{id}/edit', [BookingController::class, 'edit'])->name('admin.booking.edit');
+        Route::post('/{id}', [BookingController::class, 'update'])->name('admin.booking.update');
+    });
 
     Route::get('/', [DashboardController::class, 'index'])->middleware('auth')->name('admin.index');
 });

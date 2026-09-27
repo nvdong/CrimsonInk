@@ -115,7 +115,7 @@
 									<select class="ci-field__control ci-field__control--select" id="bk-artist" name="artist">
 										<option value="">Select artists</option>
 										@foreach ($artists as $artist)
-											<option value="{{ $artist['slug'] }}" @if (old('artist') === $artist['slug']) selected @endif>
+											<option value="{{ $artist['id'] }}" @if (old('artist') === $artist['id']) selected @endif>
 												{{ $artist['name'] }}@if (!empty($artist['role'])) — {{ $artist['role'] }}@endif
 											</option>
 										@endforeach

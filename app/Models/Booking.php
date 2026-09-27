@@ -11,6 +11,8 @@ class Booking extends Model
 {
     use SoftDeletes;
 
+    const STAT_NEW = 'new';
+
     protected $guarded = [];
 
     protected $dates = ['preferred_date'];

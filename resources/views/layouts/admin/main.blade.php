@@ -8,13 +8,8 @@
     <title>{{env('APP_NAME')}}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-    <!-- favicon
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
 
-		============================================ -->
-{{--<link rel="icon" type="image/png" href="{{env('APP_URL')}}/home_broad/img/icon_lg.jpg">--}}
-<!-- Google Fonts
-		============================================ -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
     <!-- Bootstrap CSS
 		============================================ -->
@@ -185,8 +180,6 @@
 <script src="{{asset('ui')}}/js/main.js"></script>
 
 <script src="{{asset('ui')}}/js/summernote/summernote.js"></script>
-<script src="{{asset('/js/upload-image.js')}}"></script>
-<script src="{{asset('/js/function.js')}}"></script>
 </body>
 
 </html>

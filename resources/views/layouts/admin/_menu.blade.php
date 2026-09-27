@@ -28,8 +28,8 @@
                         </a>
                     </li>
 
-                    <li class="{{$uri == 'campaigns'?'active':''}}">
-                        <a title="Campaign" href="#" aria-expanded="false">
+                    <li class="{{$uri == 'booking'?'active':''}}">
+                        <a title="Booking" href="{{route('admin.booking')}}" aria-expanded="false">
                             <i class="fa fa-list" aria-hidden="true"></i>
                             <span class="mini-click-non">DS Đặt Lịch</span>
                         </a>

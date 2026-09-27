@@ -3,18 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Artist;
+use App\Models\Booking;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 
-/**
- * Nhận yêu cầu đặt lịch xăm từ trang /contact-us.
- *
- * Mặc định chỉ ghi log (storage/logs). Đặt CONTACT_MAIL_TO trong .env
- * để đồng thời gửi email mỗi khi có người gửi form.
- */
+
 class ContactController extends Controller
 {
     public function store(Request $request): RedirectResponse
@@ -26,7 +22,7 @@ class ContactController extends Controller
             'phone'          => ['required', 'string', 'max:40'],
             'email'          => ['required', 'email', 'max:190'],
             'preferred_date' => ['nullable', 'date', 'after_or_equal:today'],
-            'artist'         => ['nullable', 'string', Rule::in($artists->pluck('slug')->all())],
+            'artist'         => ['nullable', 'string'],
             'message'        => ['required', 'string', 'max:5000'],
         ], [], [
             'full_name'      => 'full name',
@@ -38,13 +34,19 @@ class ContactController extends Controller
 
         // đổi slug artist sang tên cho dễ đọc trong log / email
         $artistName = $data['artist']
-            ? (optional($artists->firstWhere('slug', $data['artist']))->name ?: $data['artist'])
+            ? (optional($artists->firstWhere('id', $data['artist']))->name ?: $data['artist'])
             : null;
 
-        Log::info('Booking request', $data + [
-            'artist_name' => $artistName,
-            'ip'          => $request->ip(),
-        ]);
+        $booking = new Booking();
+        $booking->code = Booking::nextCode();
+        $booking->full_name = $data['full_name'];
+        $booking->phone = $data['phone'];
+        $booking->email = $data['email'];
+        $booking->preferred_date = $data['preferred_date'];
+        $booking->artist_id = $data['artist'];
+        $booking->status = Booking::STAT_NEW;
+        $booking->message= $data['message'];
+        $booking->save();
 
         if ($to = config('mail.contact_to')) {
             $body = implode("\n", array_filter([
