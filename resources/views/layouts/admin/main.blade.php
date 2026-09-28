@@ -180,6 +180,8 @@
 <script src="{{asset('ui')}}/js/main.js"></script>
 
 <script src="{{asset('ui')}}/js/summernote/summernote.js"></script>
+
+@yield('scripts')
 </body>
 
 </html>

@@ -35,16 +35,52 @@
                         </a>
                     </li>
 
-                    <li class="{{$uri == 'campaigns'?'active':''}}">
-                        <a title="Campaign" href="#" aria-expanded="false">
-                            <i class="fa fa-list" aria-hidden="true"></i>
+                    <li class="{{$uri == 'page'?'active':''}}">
+                        <a title="Trang" href="{{route('admin.page')}}" aria-expanded="false">
+                            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                            <span class="mini-click-non">Quản lý Trang</span>
+                        </a>
+                    </li>
+
+                    <li class="{{$uri == 'faq'?'active':''}}">
+                        <a title="FAQ" href="{{route('admin.faq')}}" aria-expanded="false">
+                            <i class="fa fa-question-circle" aria-hidden="true"></i>
+                            <span class="mini-click-non">Câu hỏi thường gặp</span>
+                        </a>
+                    </li>
+
+                    <li class="{{$uri == 'setting'?'active':''}}">
+                        <a title="Cấu hình" href="{{route('admin.setting')}}" aria-expanded="false">
+                            <i class="fa fa-cogs" aria-hidden="true"></i>
+                            <span class="mini-click-non">Cấu hình website</span>
+                        </a>
+                    </li>
+
+                    <li class="{{$uri == 'artist'?'active':''}}">
+                        <a title="Artist" href="{{route('admin.artist')}}" aria-expanded="false">
+                            <i class="fa fa-users" aria-hidden="true"></i>
                             <span class="mini-click-non">DS Artists</span>
                         </a>
                     </li>
-                    <li class="{{$uri == 'campaigns'?'active':''}}">
-                        <a title="Campaign" href="#" aria-expanded="false">
-                            <i class="fa fa-list" aria-hidden="true"></i>
+
+                    <li class="{{$uri == 'style'?'active':''}}">
+                        <a title="Style" href="{{route('admin.style')}}" aria-expanded="false">
+                            <i class="fa fa-magic" aria-hidden="true"></i>
                             <span class="mini-click-non">DS Style</span>
+                        </a>
+                    </li>
+
+                    <li class="{{$uri == 'media'?'active':''}}">
+                        <a title="Media" href="{{route('admin.media')}}" aria-expanded="false">
+                            <i class="fa fa-picture-o" aria-hidden="true"></i>
+                            <span class="mini-click-non">Thư viện ảnh</span>
+                        </a>
+                    </li>
+
+                    <li class="{{$uri == 'menu'?'active':''}}">
+                        <a title="Menu" href="{{route('admin.menu')}}" aria-expanded="false">
+                            <i class="fa fa-bars" aria-hidden="true"></i>
+                            <span class="mini-click-non">Quản lý Menu</span>
                         </a>
                     </li>
 

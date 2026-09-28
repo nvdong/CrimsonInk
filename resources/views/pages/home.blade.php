@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Tattoo Studio in Hanoi - Crimson Ink')
+@section('title', $page->meta_title)
 @section('body_class', 'home wp-singular page-template page-template-elementor_header_footer page page-id-593 wp-custom-logo wp-embed-responsive wp-theme-hello-elementor ehf-header ehf-footer ehf-template-hello-elementor ehf-stylesheet-hello-elementor hello-elementor-default elementor-default elementor-template-full-width elementor-kit-6 elementor-page elementor-page-593')
 
 @push('styles')
@@ -16,7 +16,7 @@
 @endpush
 
 @section('head')
-<meta name="description" content="Looking for the best tattoo studio in Hanoi? Crimson Ink Tattoo offers custom designs, hygienic studios, and expert artists since 2000." />
+<meta name="description" content="{{ $page->meta_description }}" />
 <link rel="canonical" href="{{ route('page.home') }}" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="{{ route('page.home') }}" />
@@ -29,6 +29,7 @@
 @endsection
 
 @section('content')
+
 <div data-elementor-type="wp-page" data-elementor-id="593" class="elementor elementor-593">
 	<section class="elementor-section elementor-top-section elementor-element elementor-element-34fa637 elementor-section-height-full elementor-section-boxed elementor-section-height-default elementor-section-items-middle" data-id="34fa637" data-element_type="section" data-e-type="section" data-settings="">
 		<div class="elementor-background-overlay"></div>
@@ -37,14 +38,14 @@
 				<div class="elementor-widget-wrap elementor-element-populated">
 					<div class="elementor-element elementor-element-1c1e799 elementor-widget elementor-widget-heading" data-id="1c1e799" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
 						<div class="elementor-widget-container">
-							<h2 class="elementor-heading-title elementor-size-default">Welcome to</h2>
+							<h2 class="elementor-heading-title elementor-size-default">{{ $sectionHero->eyebrow }}</h2>
 						</div>
 					</div>
 					<div class="elementor-element elementor-element-2381997 elementor-widget elementor-widget-elementskit-heading" data-id="2381997" data-element_type="widget" data-e-type="widget" data-widget_type="elementskit-heading.default">
 						<div class="elementor-widget-container">
 							<div class="ekit-wid-con" >
 								<div class="ekit-heading elementskit-section-title-wraper text_center   ekit_heading_tablet-   ekit_heading_mobile-">
-									<h1 class="ekit-heading--title elementskit-section-title ">Tattoo Studio in Hanoi</h1>
+									<h1 class="ekit-heading--title elementskit-section-title ">{{ $sectionHero->heading }}</h1>
 								</div>
 							</div>
 						</div>
@@ -59,13 +60,12 @@
 						</div>
 					</div>
 					<div class="elementor-element elementor-element-cac82c8 elementor-widget elementor-widget-text-editor" data-id="cac82c8" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
-						<div class="elementor-widget-container"><p>WHERE ART MEET SKIN</p></div>
+						<div class="elementor-widget-container"><p>{{ $sectionHero->subheading }}</p></div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</section>					
-
+	</section>
 
 	<section class="elementor-section elementor-top-section elementor-element elementor-element-cfe1e00 elementor-section-content-top elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="b39e206" data-element_type="section" data-e-type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
 		<div class="elementor-background-overlay"></div>
@@ -74,21 +74,21 @@
 				<div class="elementor-widget-wrap elementor-element-populated">
 					<div class="elementor-element elementor-element-276aac3 elementor-widget elementor-widget-heading" data-id="276aac3" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
 						<div class="elementor-widget-container">
-							<h5 class="elementor-heading-title elementor-size-default">MORE THAN TATTOOS</h5>
+							<h5 class="elementor-heading-title elementor-size-default">{{ $sectionWhychoose->eyebrow }}</h5>
 						</div>
 					</div>
 					<div class="elementor-element elementor-element-0d0a534 elementor-widget elementor-widget-elementskit-heading" data-id="0d0a534" data-element_type="widget" data-e-type="widget" data-widget_type="elementskit-heading.default">
 						<div class="elementor-widget-container">
 							<div class="ekit-wid-con" >
 								<div class="ekit-heading elementskit-section-title-wraper text_center   ekit_heading_tablet-   ekit_heading_mobile-">
-									<h2 class="ekit-heading--title elementskit-section-title ">Why Choose <span>Crimson Ink</span></h2>
+									<h2 class="ekit-heading--title elementskit-section-title ">{!! $sectionWhychoose->heading !!} </h2>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="elementor-element elementor-element-acf6a72 elementor-align-center elementor-widget elementor-widget-text-editor" data-id="acf6a72" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
 						<div class="elementor-widget-container">
-							<p>Every tattoo here starts with a fresh needle and hospital-grade sterilised equipment. Every design is drawn for you alone — never pulled from a template. And from the first free consultation through to aftercare, we stay with you at every step. That is why thousands of clients keep coming back.</p>
+							<p>{{ $sectionWhychoose->body }}</p>
 						</div>
 					</div>
 					<div class="elementor-element ci-btn elementor-align-center elementor-widget elementor-widget-button" data-id="ci-btn-book" data-element_type="widget" data-e-type="widget" data-widget_type="button.default">
@@ -97,7 +97,7 @@
 								<a class="elementor-button elementor-button-link elementor-size-sm" href="{{ route('page.contact-us') }}">
 									<span class="elementor-button-content-wrapper">
 										<span class="elementor-button-icon"><svg aria-hidden="true" class="e-font-icon-svg e-far-arrow-alt-circle-right" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M504 256C504 119 393 8 256 8S8 119 8 256s111 248 248 248 248-111 248-248zm-448 0c0-110.5 89.5-200 200-200s200 89.5 200 200-89.5 200-200 200S56 366.5 56 256zm72 20v-40c0-6.6 5.4-12 12-12h116v-67c0-10.7 12.9-16 20.5-8.5l99 99c4.7 4.7 4.7 12.3 0 17l-99 99c-7.6 7.6-20.5 2.2-20.5-8.5v-67H140c-6.6 0-12-5.4-12-12z"></path></svg></span>
-										<span class="elementor-button-text">Book an appointment</span>
+										<span class="elementor-button-text">{{ $sectionWhychoose->cta_label }}</span>
 									</span>
 								</a>
 							</div>
@@ -107,24 +107,8 @@
 			</div>
 		</div>
 	</section>
-				
-				
-				
+
 @php
-    /* Dữ liệu của trang chủ lấy từ DB — sửa nội dung trong admin, không sửa file này.
-       - Tattoo Styles : bảng tattoo_styles, cờ is_featured
-       - My Happy Clients : bảng reviews, cờ is_featured
-       - Professional Tattoo Artists : bảng artists, cờ is_featured
-       Hết artist featured thì nút "View all artists" tự ẩn. */
-
-    $tattooStyles = \App\Models\TattooStyle::active()->featured()->ordered()->get();
-
-    $clientReviews = \App\Models\Review::active()->featured()->ordered()->get();
-
-    $homeArtists    = \App\Models\Artist::active()->featured()->ordered()->get();
-    $totalArtists   = \App\Models\Artist::active()->count();
-    $hasMoreArtists = $totalArtists > $homeArtists->count();
-
     $reviewsUrl = 'https://www.google.com/maps/search/?api=1&query=Hanoiink+Tattoo';
 @endphp
 
@@ -134,14 +118,14 @@
 				<div class="elementor-widget-wrap elementor-element-populated">
 					<div class="elementor-element elementor-element-ad1531b elementor-widget elementor-widget-heading" data-id="ad1531b" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
 						<div class="elementor-widget-container">
-							<h5 class="elementor-heading-title elementor-size-default">Explore Our</h5>
+							<h5 class="elementor-heading-title elementor-size-default">{{ $sectionStyles->eyebrow }}</h5>
 						</div>
 					</div>
 					<div class="elementor-element elementor-element-78982ed elementor-widget elementor-widget-elementskit-heading" data-id="78982ed" data-element_type="widget" data-e-type="widget" data-widget_type="elementskit-heading.default">
 						<div class="elementor-widget-container">
 							<div class="ekit-wid-con" >
 								<div class="ekit-heading elementskit-section-title-wraper text_center   ekit_heading_tablet-   ekit_heading_mobile-">
-									<h2 class="ekit-heading--title elementskit-section-title ">Tattoo <span>Styles</span></h2>
+									<h2 class="ekit-heading--title elementskit-section-title ">{!! $sectionStyles->heading !!}</h2>
 								</div>
 							</div>
 						</div>
@@ -151,7 +135,7 @@
 						<div class="swiper ci-styles__swiper">
 							<div class="swiper-wrapper">
 								@foreach ($tattooStyles as $i => $style)
-																		<a class="swiper-slide ci-style-card" href="{{ $style['url'] }}">
+									<a class="swiper-slide ci-style-card" href="{{ $style['url'] }}">
 										<img src="{{ asset($style['cover_path']) }}" alt="{{ $style['name'] }} tattoo" loading="lazy" decoding="async" width="600" height="750">
 										<span class="ci-style-card__label">{{ $i + 1 }}. {{ $style['name'] }}</span>
 									</a>
@@ -167,7 +151,7 @@
 								<a class="elementor-button elementor-button-link elementor-size-sm" href="{{ route('page.tattoo-styles') }}">
 									<span class="elementor-button-content-wrapper">
 										<span class="elementor-button-icon"><svg aria-hidden="true" class="e-font-icon-svg e-far-arrow-alt-circle-right" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M504 256C504 119 393 8 256 8S8 119 8 256s111 248 248 248 248-111 248-248zm-448 0c0-110.5 89.5-200 200-200s200 89.5 200 200-89.5 200-200 200S56 366.5 56 256zm72 20v-40c0-6.6 5.4-12 12-12h116v-67c0-10.7 12.9-16 20.5-8.5l99 99c4.7 4.7 4.7 12.3 0 17l-99 99c-7.6 7.6-20.5 2.2-20.5-8.5v-67H140c-6.6 0-12-5.4-12-12z"></path></svg></span>
-										<span class="elementor-button-text">View all</span>
+										<span class="elementor-button-text">{{ $sectionStyles->cta_label }}</span>
 									</span>
 								</a>
 							</div>
@@ -178,65 +162,64 @@
 		</div>
 	</section>
 
-
-		<section class="elementor-section elementor-top-section elementor-element elementor-element-48483e0 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="48483e0" data-element_type="section" data-e-type="section">
-			<div class="elementor-container elementor-column-gap-default">
-				<div class="elementor-column elementor-col-100 elementor-top-column elementor-element" data-element_type="column" data-e-type="column">
-					<div class="elementor-widget-wrap elementor-element-populated">
-						<div class="elementor-element elementor-element-d14bf44 elementor-widget elementor-widget-heading" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
-							<div class="elementor-widget-container">
-								<h5 class="elementor-heading-title elementor-size-default">Meet Our</h5>
-							</div>
+	<section class="elementor-section elementor-top-section elementor-element elementor-element-48483e0 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="48483e0" data-element_type="section" data-e-type="section">
+		<div class="elementor-container elementor-column-gap-default">
+			<div class="elementor-column elementor-col-100 elementor-top-column elementor-element" data-element_type="column" data-e-type="column">
+				<div class="elementor-widget-wrap elementor-element-populated">
+					<div class="elementor-element elementor-element-d14bf44 elementor-widget elementor-widget-heading" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
+						<div class="elementor-widget-container">
+							<h5 class="elementor-heading-title elementor-size-default">{{ $sectionArtists->eyebrow }}</h5>
 						</div>
-						<div class="elementor-element elementor-element-930f9d1 elementor-widget elementor-widget-elementskit-heading" data-element_type="widget" data-e-type="widget" data-widget_type="elementskit-heading.default">
-							<div class="elementor-widget-container">
-								<div class="ekit-wid-con" >
-									<div class="ekit-heading elementskit-section-title-wraper text_center   ekit_heading_tablet-   ekit_heading_mobile-">
-										<h2 class="ekit-heading--title elementskit-section-title ">Professional Tattoo <span>Artists</span></h2>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="elementor-element ci-artists">
-							@foreach ($homeArtists as $i => $artist)
-								@include('partials.artist-row', ['artist' => $artist, 'reverse' => $i % 2 === 1])
-							@endforeach
-						</div>
-
-						@if ($hasMoreArtists)
-							<div class="elementor-element ci-btn ci-artists__cta elementor-align-center elementor-widget elementor-widget-button" data-element_type="widget" data-e-type="widget" data-widget_type="button.default">
-								<div class="elementor-widget-container">
-									<div class="elementor-button-wrapper">
-										<a class="elementor-button elementor-button-link elementor-size-sm" href="{{ route('page.artists') }}">
-											<span class="elementor-button-content-wrapper">
-												<span class="elementor-button-icon">@include('partials.icon-arrow')</span>
-												<span class="elementor-button-text">View all artists</span>
-											</span>
-										</a>
-									</div>
-								</div>
-							</div>
-						@endif
 					</div>
+					<div class="elementor-element elementor-element-930f9d1 elementor-widget elementor-widget-elementskit-heading" data-element_type="widget" data-e-type="widget" data-widget_type="elementskit-heading.default">
+						<div class="elementor-widget-container">
+							<div class="ekit-wid-con" >
+								<div class="ekit-heading elementskit-section-title-wraper text_center   ekit_heading_tablet-   ekit_heading_mobile-">
+									<h2 class="ekit-heading--title elementskit-section-title ">{!! $sectionArtists->heading !!}</h2>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="elementor-element ci-artists">
+						@foreach ($homeArtists as $i => $artist)
+							@include('partials.artist-row', ['artist' => $artist, 'reverse' => $i % 2 === 1])
+						@endforeach
+					</div>
+
+					@if ($hasMoreArtists)
+						<div class="elementor-element ci-btn ci-artists__cta elementor-align-center elementor-widget elementor-widget-button" data-element_type="widget" data-e-type="widget" data-widget_type="button.default">
+							<div class="elementor-widget-container">
+								<div class="elementor-button-wrapper">
+									<a class="elementor-button elementor-button-link elementor-size-sm" href="{{ route('page.artists') }}">
+										<span class="elementor-button-content-wrapper">
+											<span class="elementor-button-icon">@include('partials.icon-arrow')</span>
+											<span class="elementor-button-text">{{ $sectionArtists->cta_label }}</span>
+										</span>
+									</a>
+								</div>
+							</div>
+						</div>
+					@endif
 				</div>
 			</div>
-		</section>
+		</div>
+	</section>
 
-		<section class="elementor-section elementor-top-section elementor-element elementor-element-2a2e487 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="2a2e487" data-element_type="section" data-e-type="section" data-settings="">
+	<section class="elementor-section elementor-top-section elementor-element elementor-element-2a2e487 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="2a2e487" data-element_type="section" data-e-type="section" data-settings="">
 	<div class="elementor-container elementor-column-gap-default">
 		<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-569da24" data-id="569da24" data-element_type="column" data-e-type="column" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
 			<div class="elementor-widget-wrap elementor-element-populated">
 				<div class="elementor-element elementor-element-d14bf44 elementor-widget elementor-widget-heading" data-id="d14bf44" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
 					<div class="elementor-widget-container">
-						<h5 class="elementor-heading-title elementor-size-default">Real experiences</h5>				
+						<h5 class="elementor-heading-title elementor-size-default">{{ $sectionReview->eyebrow }}</h5>				
 					</div>
 				</div>
 				<div class="elementor-element elementor-element-930f9d1 elementor-widget elementor-widget-elementskit-heading" data-id="930f9d1" data-element_type="widget" data-e-type="widget" data-widget_type="elementskit-heading.default">
 					<div class="elementor-widget-container">
 						<div class="ekit-wid-con" >
 							<div class="ekit-heading elementskit-section-title-wraper text_center   ekit_heading_tablet-   ekit_heading_mobile-">
-								<h2 class="ekit-heading--title elementskit-section-title ">My Happy <span>Clients!</span></h2>
+								<h2 class="ekit-heading--title elementskit-section-title ">{!! $sectionReview->heading !!}</h2>
 							</div>
 						</div>
 					</div>
@@ -283,19 +266,17 @@
 							<a class="elementor-button elementor-button-link elementor-size-sm" href="{{ $reviewsUrl }}" target="_blank" rel="noopener nofollow">
 								<span class="elementor-button-content-wrapper">
 									<span class="elementor-button-icon"><svg aria-hidden="true" class="e-font-icon-svg e-far-arrow-alt-circle-right" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path d="M504 256C504 119 393 8 256 8S8 119 8 256s111 248 248 248 248-111 248-248zm-448 0c0-110.5 89.5-200 200-200s200 89.5 200 200-89.5 200-200 200S56 366.5 56 256zm72 20v-40c0-6.6 5.4-12 12-12h116v-67c0-10.7 12.9-16 20.5-8.5l99 99c4.7 4.7 4.7 12.3 0 17l-99 99c-7.6 7.6-20.5 2.2-20.5-8.5v-67H140c-6.6 0-12-5.4-12-12z"></path></svg></span>
-									<span class="elementor-button-text">Read more reviews</span>
+									<span class="elementor-button-text">{{ $sectionReview->cta_label }}</span>
 								</span>
 							</a>
 						</div>
 					</div>
 				</div>
 			</div>
-</section>
-
-
-
-		
-				</div>
+		</div>
+	</div>
+	</section>
+</div>
 @endsection
 
 @push('elementor-config')

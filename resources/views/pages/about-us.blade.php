@@ -64,13 +64,8 @@
 				</div>
 				<div class="elementor-element elementor-element-24a56a8 elementor-widget elementor-widget-text-editor" data-id="24a56a8" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
 				<div class="elementor-widget-container">
-									<p data-start="540" data-end="758">Welcome to CrimsonInk Tattoo Studio, the best place for tattoos in Hanoi! We are proud to be the first tattooist in Kuta, established in 2015 by professional Balinese artists CrimsonInk and Phong Nha.</p>
-									<p data-start="760" data-end="1081">At our studio, your safety and satisfaction always come first. We use new needles for every client, and you can open the packet yourself for full confidence. Every piece of equipment is clean, safe, and sterilized to hospital-grade standards using an autoclave machine approved by the health department.</p>
-									<p data-start="1083" data-end="1463">Our tattoo artists also wear new surgical gloves for every customer. We use only original tattoo inks such as Eternal Inks and Intenze Inks to ensure vibrant, long-lasting colors. Whether you love freehand designs, custom artwork, or bright color tattoos, we’ve got you covered. Plus, your privacy is always respected whenever you request it.</p>
-									<p data-start="1465" data-end="1794">We offer a clean, comfortable, and private environment where creativity flows freely. You can explore our wide design collection or bring your own tattoo ideas. Our artists also specialize in cover-ups and tattoo renewals, helping you refresh or transform your previous designs into something you’ll love again.</p>
-									<p data-start="1796" data-end="2113">At CrimsonInk Tattoo Studio, we’re known for our friendly service and lowest price guarantee in town. You’ll enjoy a fully air-conditioned studio, great music, cinema access, and a free pick-up service. Every visit also includes complimentary stickers and a free tattoo t-shirt.</p>
-									<p data-start="2115" data-end="2270">Experience the best in tattoo artistry and service at CrimsonInk Tattoo Studio — where your safety, comfort, and satisfaction always come first.</p>
-								</div>
+					{!! $page->body !!}
+				</div>
 				</div>
 					</div>
 		</div>

@@ -5,17 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="profile" href="http://gmpg.org/xfn/11" />
 <meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
-<!-- This site is optimized with the Yoast SEO -->
-<meta property="og:locale" content="en_US" />
-<meta property="og:title" content="Tattoo Studio &amp; Piercing Hanoi | Art, Safety &amp; Style" />
-<meta property="og:description" content="Discover Hanoi’s premier tattoo studio since 2000. Professional artists. Hospital-grade hygiene. Unique designs &amp; proud body art." />
-<meta property="og:site_name" content="Crimson Ink" />
-<meta property="article:publisher" content="https://www.facebook.com/" />
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="geo.placename" content="Hanoi" />
-<meta name="geo.position" content="-8.708831198090184;115.16908530037763" />
-<meta name="geo.region" content="VietNam" />
-<!-- / Yoast SEO Premium plugin. -->
 <style id="wp-img-auto-sizes-contain-inline-css">
 img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 /*# sourceURL=wp-img-auto-sizes-contain-inline-css */

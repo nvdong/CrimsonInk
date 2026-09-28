@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Artist;
+use App\Models\Page;
+use App\Models\Review;
+use App\Models\TattooStyle;
 use Illuminate\Contracts\View\View;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -17,12 +20,39 @@ class PageController extends Controller
 {
     public function home(): View
     {
-        return view('pages.home');
+        $page = Page::where('slug','home')->first();
+        $tattooStyles = TattooStyle::active()->featured()->ordered()->get();
+
+        $clientReviews = Review::active()->featured()->ordered()->get();
+
+        $homeArtists    = Artist::active()->featured()->ordered()->get();
+        $totalArtists   = Artist::active()->count();
+        $hasMoreArtists = $totalArtists > $homeArtists->count();
+
+        $sectionHero = \App\Models\PageSection::where('key','hero')->first();
+        $sectionWhychoose = \App\Models\PageSection::where('key','why_choose')->first();
+        $sectionArtists = \App\Models\PageSection::where('key','artists')->first();
+        $sectionStyles = \App\Models\PageSection::where('key','styles')->first();
+        $sectionReview = \App\Models\PageSection::where('key','reviews')->first();
+
+        return view('pages.home', [
+            'page'=> $page, 
+            'tattooStyles'=>$tattooStyles,
+            'clientReviews'=>$clientReviews,
+            'homeArtists'=>$homeArtists,
+            'hasMoreArtists'=>$hasMoreArtists,
+            'sectionHero'=>$sectionHero,
+            'sectionWhychoose'=>$sectionWhychoose,
+            'sectionArtists'=>$sectionArtists,
+            'sectionStyles'=>$sectionStyles,
+            'sectionReview'=>$sectionReview
+        ]);
     }
 
     public function aboutUs(): View
     {
-        return view('pages.about-us');
+        $page = Page::where('slug','about-us')->first();
+        return view('pages.about-us', ['page'=> $page]);
     }
 
     public function bestTattooStudioBali(): View
