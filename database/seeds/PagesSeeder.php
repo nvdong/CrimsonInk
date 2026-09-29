@@ -28,17 +28,8 @@ class PagesSeeder extends Seeder
             ['about-us', 'page', 'page.about-us', 'default',
              'About Us', 'Về chúng tôi'],
 
-            ['best-tattoo-studio-bali', 'page', 'page.best-tattoo-studio-bali', 'default',
-             'Best Tattoo Studio', 'Tiệm xăm tốt nhất'],
-
-            ['piercing', 'service', 'page.piercing', 'default',
-             'Piercing', 'Bấm khuyên'],
-
-            ['eyebrows-tattoo', 'service', 'page.eyebrows-tattoo', 'default',
-             'Eyebrows Tattoo', 'Phun xăm chân mày'],
-
-            ['exhibition', 'page', 'page.exhibition', 'default',
-             'Exhibition', 'Triển lãm'],
+            ['faqs', 'page', 'page.faqs', 'default',
+             'Frequently Asked Questions', 'Câu hỏi thường gặp'],
 
             ['gallery', 'page', 'page.gallery', 'gallery',
              'Gallery', 'Thư viện ảnh'],

@@ -18,6 +18,23 @@ class Faq extends Model
         'is_active' => 'boolean',
     ];
 
+    /** Nhãn nhóm hiển thị ngoài site. Khóa phải khớp FaqController::$groups. */
+    public static $groupLabels = [
+        'booking'   => ['en' => 'Booking', 'vi' => 'Đặt lịch'],
+        'aftercare' => ['en' => 'Aftercare', 'vi' => 'Chăm sóc sau xăm'],
+        'pricing'   => ['en' => 'Pricing', 'vi' => 'Giá cả'],
+        'general'   => ['en' => 'General', 'vi' => 'Chung'],
+    ];
+
+    public function getGroupLabelAttribute()
+    {
+        $locale = app()->getLocale();
+
+        return static::$groupLabels[$this->group][$locale]
+            ?? static::$groupLabels[$this->group]['en']
+            ?? $this->group;
+    }
+
     public function scopeActive(Builder $q)
     {
         return $q->where('is_active', true);

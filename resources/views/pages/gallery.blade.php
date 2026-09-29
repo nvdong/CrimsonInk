@@ -21,8 +21,6 @@
 <meta property="og:image:type" content="image/jpeg" />
 <meta name="twitter:label1" content="Est. reading time" />
 <meta name="twitter:data1" content="1 minute" />
-<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https:\/\/schema.org","@graph":[{"@type":"WebPage","@id":"{{ route('page.gallery') }}","url":"{{ route('page.gallery') }}","name":"Creative Tattoo Gallery Bali | Custom Art & Inspiration","isPartOf":{"@id":"{{ route('page.home') }}#website"},"primaryImageOfPage":{"@id":"{{ route('page.gallery') }}#primaryimage"},"image":{"@id":"{{ route('page.gallery') }}#primaryimage"},"thumbnailUrl":"{{ asset('assets/images/tattoo-gallery-2.jpg') }}","datePublished":"2023-12-14T05:39:20+00:00","dateModified":"2025-09-13T07:54:29+00:00","description":"Get inspired by our Bali tattoo gallery. Explore unique tattoo styles, custom artwork, and creative designs crafted by professional artists.","breadcrumb":{"@id":"{{ route('page.gallery') }}#breadcrumb"},"inLanguage":"en-US","potentialAction":[{"@type":"ReadAction","target":["{{ route('page.gallery') }}"]}]},{"@type":"ImageObject","inLanguage":"en-US","@id":"{{ route('page.gallery') }}#primaryimage","url":"{{ asset('assets/images/tattoo-gallery-2.jpg') }}","contentUrl":"{{ asset('assets/images/tattoo-gallery-2.jpg') }}","width":600,"height":900,"caption":"best gallery tattoo in bali"},{"@type":"BreadcrumbList","@id":"{{ route('page.gallery') }}#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"{{ route('page.home') }}"},{"@type":"ListItem","position":2,"name":"Gallery"}]},{"@type":"WebSite","@id":"{{ route('page.home') }}#website","url":"{{ route('page.home') }}","name":"Mr. Dolphin Tattoo Studio","description":"The Best Tattoo Studio and Piercing in Bali","publisher":{"@id":"{{ route('page.home') }}#organization"},"alternateName":"Mr. Dolphin Tattoo Studio","potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"{{ route('page.home') }}?s={search_term_string}"},"query-input":{"@type":"PropertyValueSpecification","valueRequired":true,"valueName":"search_term_string"}}],"inLanguage":"en-US"},{"@type":["Organization","Place","LocalBusiness"],"@id":"{{ route('page.home') }}#organization","name":"Mr. Dolphin Tattoo Studio","alternateName":"Mr. Dolphin Tattoo Studio","url":"{{ route('page.home') }}","logo":{"@id":"{{ route('page.gallery') }}#local-main-organization-logo"},"image":{"@id":"{{ route('page.gallery') }}#local-main-organization-logo"},"sameAs":["https:\/\/www.facebook.com\/dolphin.tattookuta\/","https:\/\/www.instagram.com\/dolphintattoostudio\/"],"description":"MR. DOLPHIN Tattoo Studio, the best tattoo studio in Bali and the first tattooist in Kuta since 1975, led by highly skilled and professional Balinese tattoo artists Mr. Dolphin and Junk Juz. We specialize in creating unique and custom tattoos in Bali while prioritizing your safety and satisfaction. Our studio follows the highest hygiene standards, every client receives brand-new, sterile needles that you can open yourself for peace of mind, and all equipment is thoroughly cleaned and sterilized using hospital-grade autoclave technology. Trusted by locals and travelers alike, MR. DOLPHIN Tattoo Studio is known for its exceptional artistry, safe environment, and commitment to delivering a hygienic tattoo experience in Bali.","address":{"@id":"{{ route('page.gallery') }}#local-main-place-address"},"geo":{"@type":"GeoCoordinates","latitude":"-8.708831198090184","longitude":"115.16908530037763"},"telephone":["+62 878-6156-6823"],"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],"opens":"09:00","closes":"22:00"}],"email":"mrdolphin@mrdolphintattoo.com","areaServed":"Bali","priceRange":"$","currenciesAccepted":"IDR","paymentAccepted":"Credit Card, Debit Card & Cash"},{"@type":"PostalAddress","@id":"{{ route('page.gallery') }}#local-main-place-address","streetAddress":"Jl. Melasti No.14, Legian, Kuta, Bali 80361 – Indonesia","addressLocality":"Denpasar","postalCode":"80361","addressRegion":"Bali","addressCountry":"ID"},{"@type":"ImageObject","inLanguage":"en-US","@id":"{{ route('page.gallery') }}#local-main-organization-logo","url":"{{ asset('assets/images/logo-mr-dolphin-tattoo-studio.png') }}","contentUrl":"{{ asset('assets/images/logo-mr-dolphin-tattoo-studio.png') }}","width":512,"height":512,"caption":"Mr. Dolphin Tattoo Studio"}]}</script>
-<meta name="ti-site-data" content="eyJyIjoiMTowITc6MCEzMDowIiwibyI6Imh0dHBzOlwvXC93d3cubXJkb2xwaGludGF0dG9vLmNvbT90aS1vbmxpbmUtdXNlcnMtZ29vZ2xlPTEmYW1wO3A9JTJGZ2FsbGVyeSUyRiZhbXA7X3dwbm9uY2U9ODdiZmNlYzFjZCJ9" />
 @endsection
 
 @section('content')
@@ -64,7 +62,7 @@
 		</div>
 					</div>
 		</section>
-				<section class="elementor-section elementor-top-section elementor-element elementor-element-535e636 elementor-section-content-middle elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="535e636" data-element_type="section" data-e-type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+				<section class="elementor-section elementor-top-section elementor-element elementor-element-535e636 elementor-section-content-middle elementor-section-boxed elementor-section-height-default elementor-section-height-default elementor-aboutUs" data-id="535e636" data-element_type="section" data-e-type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
 						<div class="elementor-container elementor-column-gap-default">
 					<div class="elementor-column elementor-col-100 elementor-top-column elementor-element elementor-element-e9c659b" data-id="e9c659b" data-element_type="column" data-e-type="column">
 			<div class="elementor-widget-wrap elementor-element-populated">
@@ -75,7 +73,7 @@
 	<div class="sb_instagram_header  sbi_medium"   >
 	<a class="sbi_header_link" target="_blank"
 	   aria-label="CrimsonInk on Instagram"
-	   rel="nofollow noopener" href="https://www.instagram.com/" title="@CrimsonInk">
+	   rel="nofollow noopener" href="https://www.instagram.com/crimsonink.tattoo/" title="@CrimsonInk">
 		<div class="sbi_header_text">
 			<div class="sbi_header_img"  data-avatar-url="{{ asset('assets/images/ext-scontentcgk21-71484680728035_3062790643915948032_n.jpg') }}">
 									<div class="sbi_header_img_hover"  ><svg class="sbi_new_logo fa-instagram fa-w-14" aria-hidden="true" data-fa-processed="" aria-label="Instagram" data-prefix="fab" data-icon="instagram" role="img" viewBox="0 0 448 512">
@@ -97,7 +95,7 @@
 		<div class="sbi_item sbi_type_carousel sbi_new sbi_transition" role="listitem"
 	id="sbi_17946669789279609" data-date="1789011572">
 	<div class="sbi_photo_wrap">
-		<a class="sbi_photo" href="https://www.instagram.com/" target="_blank" rel="noopener nofollow"
+		<a class="sbi_photo" href="https://www.instagram.com/crimsonink.tattoo/" target="_blank" rel="noopener nofollow"
 			data-full-res="{{ asset('assets/images/ext-scontentcgk22-71932086114689_2992458166866653174_n.jpg') }}"
 			data-img-src-set="{&quot;d&quot;:&quot;{{ asset('assets/images/ext-scontentcgk22-71932086114689_2992458166866653174_n.jpg') }}&quot;,&quot;150&quot;:&quot;{{ asset('assets/images/ext-scontentcgk22-71932086114689_2992458166866653174_n.jpg') }}&quot;,&quot;320&quot;:&quot;{{ asset('assets/images/ext-scontentcgk22-71932086114689_2992458166866653174_n.jpg') }}&quot;,&quot;640&quot;:&quot;{{ asset('assets/images/ext-scontentcgk22-71932086114689_2992458166866653174_n.jpg') }}&quot;}">
 			<span class="sbi-screenreader">Small lines with big meaning, it’s easy to see why</span>
@@ -115,7 +113,7 @@ WhatsApp: +62 878-6156-6823
 </div><div class="sbi_item sbi_type_carousel sbi_new sbi_transition" role="listitem"
 	id="sbi_17990080269016885" data-date="1788836557">
 	<div class="sbi_photo_wrap">
-		<a class="sbi_photo" href="https://www.instagram.com/" target="_blank" rel="noopener nofollow"
+		<a class="sbi_photo" href="https://www.instagram.com/crimsonink.tattoo/" target="_blank" rel="noopener nofollow"
 			data-full-res="{{ asset('assets/images/ext-scontentcgk21-71560905114689_1190225360991079783_n.jpg') }}"
 			data-img-src-set="{&quot;d&quot;:&quot;{{ asset('assets/images/ext-scontentcgk21-71560905114689_1190225360991079783_n.jpg') }}&quot;,&quot;150&quot;:&quot;{{ asset('assets/images/ext-scontentcgk21-71560905114689_1190225360991079783_n.jpg') }}&quot;,&quot;320&quot;:&quot;{{ asset('assets/images/ext-scontentcgk21-71560905114689_1190225360991079783_n.jpg') }}&quot;,&quot;640&quot;:&quot;{{ asset('assets/images/ext-scontentcgk21-71560905114689_1190225360991079783_n.jpg') }}&quot;}">
 			<span class="sbi-screenreader">📍 Prefer to talk in person? You can also come dire</span>
@@ -135,7 +133,7 @@ WhatsApp: +62 878-6156-6823
 </div><div class="sbi_item sbi_type_carousel sbi_new sbi_transition" role="listitem"
 	id="sbi_18132570110495513" data-date="1788171240">
 	<div class="sbi_photo_wrap">
-		<a class="sbi_photo" href="https://www.instagram.com/" target="_blank" rel="noopener nofollow"
+		<a class="sbi_photo" href="https://www.instagram.com/crimsonink.tattoo/" target="_blank" rel="noopener nofollow"
 			data-full-res="{{ asset('assets/images/ext-scontentcgk22-70116282114689_7085329359733970096_n.jpg') }}"
 			data-img-src-set="{&quot;d&quot;:&quot;{{ asset('assets/images/ext-scontentcgk22-70116282114689_7085329359733970096_n.jpg') }}&quot;,&quot;150&quot;:&quot;{{ asset('assets/images/ext-scontentcgk22-70116282114689_7085329359733970096_n.jpg') }}&quot;,&quot;320&quot;:&quot;{{ asset('assets/images/ext-scontentcgk22-70116282114689_7085329359733970096_n.jpg') }}&quot;,&quot;640&quot;:&quot;{{ asset('assets/images/ext-scontentcgk22-70116282114689_7085329359733970096_n.jpg') }}&quot;}">
 			<span class="sbi-screenreader">The Kraken Curse 💀⚓️🐙  #krakentattoo #shiptattoo #</span>
@@ -188,7 +186,7 @@ WhatsApp: +62 878-6156-6823
 </div><div class="sbi_item sbi_type_video sbi_new sbi_transition" role="listitem"
 	id="sbi_18119005192920527" data-date="1787132132">
 	<div class="sbi_photo_wrap">
-		<a class="sbi_photo" href="https://www.instagram.com/reel/DcN3o9jBw9A/" target="_blank" rel="noopener nofollow"
+		<a class="sbi_photo" href="https://www.instagram.com/crimsonink.tattoo/" target="_blank" rel="noopener nofollow"
 			data-full-res="{{ asset('assets/images/ext-scontentcgk22-67813647114689_6693890198391297788_n.jpg') }}"
 			data-img-src-set="{&quot;d&quot;:&quot;{{ asset('assets/images/ext-scontentcgk22-67813647114689_6693890198391297788_n.jpg') }}&quot;,&quot;150&quot;:&quot;{{ asset('assets/images/ext-scontentcgk22-67813647114689_6693890198391297788_n.jpg') }}&quot;,&quot;320&quot;:&quot;{{ asset('assets/images/ext-scontentcgk22-67813647114689_6693890198391297788_n.jpg') }}&quot;,&quot;640&quot;:&quot;{{ asset('assets/images/ext-scontentcgk22-67813647114689_6693890198391297788_n.jpg') }}&quot;}">
 			<span class="sbi-screenreader">Cover-up Tattoo! Before and After Result 🔥🐲 What d</span>
@@ -203,7 +201,7 @@ What do you think of the transformation ?🙏
 </div><div class="sbi_item sbi_type_video sbi_new sbi_transition" role="listitem"
 	id="sbi_17870378802651256" data-date="1786814915">
 	<div class="sbi_photo_wrap">
-		<a class="sbi_photo" href="https://www.instagram.com/reel/DcEavfkBD9T/" target="_blank" rel="noopener nofollow"
+		<a class="sbi_photo" href="https://www.instagram.com/crimsonink.tattoo/" target="_blank" rel="noopener nofollow"
 			data-full-res="{{ asset('assets/images/ext-scontentcgk11-67010559114689_3585207281467755615_n.jpg') }}"
 			data-img-src-set="{&quot;d&quot;:&quot;{{ asset('assets/images/ext-scontentcgk11-67010559114689_3585207281467755615_n.jpg') }}&quot;,&quot;150&quot;:&quot;{{ asset('assets/images/ext-scontentcgk11-67010559114689_3585207281467755615_n.jpg') }}&quot;,&quot;320&quot;:&quot;{{ asset('assets/images/ext-scontentcgk11-67010559114689_3585207281467755615_n.jpg') }}&quot;,&quot;640&quot;:&quot;{{ asset('assets/images/ext-scontentcgk11-67010559114689_3585207281467755615_n.jpg') }}&quot;}">
 			<span class="sbi-screenreader">Dark Lace Femme Gothic Tattoo. 🖤🔥 Thank you again</span>
@@ -218,7 +216,7 @@ Thank you again and again brother Barry 🙏
 </div><div class="sbi_item sbi_type_video sbi_new sbi_transition" role="listitem"
 	id="sbi_18120906845491880" data-date="1786768506">
 	<div class="sbi_photo_wrap">
-		<a class="sbi_photo" href="https://www.instagram.com/reel/DcDCVyWhp3d/" target="_blank" rel="noopener nofollow"
+		<a class="sbi_photo" href="https://www.instagram.com/crimsonink.tattoo/" target="_blank" rel="noopener nofollow"
 			data-full-res="{{ asset('assets/images/ext-scontentcgk21-66871764114689_5521703402726660541_n.jpg') }}"
 			data-img-src-set="{&quot;d&quot;:&quot;{{ asset('assets/images/ext-scontentcgk21-66871764114689_5521703402726660541_n.jpg') }}&quot;,&quot;150&quot;:&quot;{{ asset('assets/images/ext-scontentcgk21-66871764114689_5521703402726660541_n.jpg') }}&quot;,&quot;320&quot;:&quot;{{ asset('assets/images/ext-scontentcgk21-66871764114689_5521703402726660541_n.jpg') }}&quot;,&quot;640&quot;:&quot;{{ asset('assets/images/ext-scontentcgk21-66871764114689_5521703402726660541_n.jpg') }}&quot;}">
 			<span class="sbi-screenreader">Hand rose and love heart tattoo 🌹🖤  http://www.mrd</span>
@@ -232,7 +230,7 @@ Thank you again and again brother Barry 🙏
 </div><div class="sbi_item sbi_type_video sbi_new sbi_transition" role="listitem"
 	id="sbi_18096318317058943" data-date="1786763873">
 	<div class="sbi_photo_wrap">
-		<a class="sbi_photo" href="https://www.instagram.com/reel/DcC5rhehUy0/" target="_blank" rel="noopener nofollow"
+		<a class="sbi_photo" href="https://www.instagram.com/crimsonink.tattoo/" target="_blank" rel="noopener nofollow"
 			data-full-res="{{ asset('assets/images/ext-scontentcgk22-66857250114689_6187879796236403058_n.jpg') }}"
 			data-img-src-set="{&quot;d&quot;:&quot;{{ asset('assets/images/ext-scontentcgk22-66857250114689_6187879796236403058_n.jpg') }}&quot;,&quot;150&quot;:&quot;{{ asset('assets/images/ext-scontentcgk22-66857250114689_6187879796236403058_n.jpg') }}&quot;,&quot;320&quot;:&quot;{{ asset('assets/images/ext-scontentcgk22-66857250114689_6187879796236403058_n.jpg') }}&quot;,&quot;640&quot;:&quot;{{ asset('assets/images/ext-scontentcgk22-66857250114689_6187879796236403058_n.jpg') }}&quot;}">
 			<span class="sbi-screenreader">Hand mask tattoo 👹💥  http://www.mrdolphintattoo.co</span>
@@ -246,7 +244,7 @@ Thank you again and again brother Barry 🙏
 </div><div class="sbi_item sbi_type_video sbi_new sbi_transition" role="listitem"
 	id="sbi_17942863353275038" data-date="1786193736">
 	<div class="sbi_photo_wrap">
-		<a class="sbi_photo" href="https://www.instagram.com/reel/Dbx5-sjhMzo/" target="_blank" rel="noopener nofollow"
+		<a class="sbi_photo" href="https://www.instagram.com/crimsonink.tattoo/" target="_blank" rel="noopener nofollow"
 			data-full-res="{{ asset('assets/images/ext-scontentcgk12-65571918114689_5303473502543576605_n.jpg') }}"
 			data-img-src-set="{&quot;d&quot;:&quot;{{ asset('assets/images/ext-scontentcgk12-65571918114689_5303473502543576605_n.jpg') }}&quot;,&quot;150&quot;:&quot;{{ asset('assets/images/ext-scontentcgk12-65571918114689_5303473502543576605_n.jpg') }}&quot;,&quot;320&quot;:&quot;{{ asset('assets/images/ext-scontentcgk12-65571918114689_5303473502543576605_n.jpg') }}&quot;,&quot;640&quot;:&quot;{{ asset('assets/images/ext-scontentcgk12-65571918114689_5303473502543576605_n.jpg') }}&quot;}">
 			<span class="sbi-screenreader">Yesterday’s Owl and geometrical tattoo. Thank you</span>
@@ -260,7 +258,7 @@ www.mrdolphintattoo.com
 </div><div class="sbi_item sbi_type_video sbi_new sbi_transition" role="listitem"
 	id="sbi_17998938104794858" data-date="1785901316">
 	<div class="sbi_photo_wrap">
-		<a class="sbi_photo" href="https://www.instagram.com/reel/DbpMLokhmdi/" target="_blank" rel="noopener nofollow"
+		<a class="sbi_photo" href="https://www.instagram.com/crimsonink.tattoo/" target="_blank" rel="noopener nofollow"
 			data-full-res="{{ asset('assets/images/ext-scontentcgk12-64959408114689_6863282894952290924_n.jpg') }}"
 			data-img-src-set="{&quot;d&quot;:&quot;{{ asset('assets/images/ext-scontentcgk12-64959408114689_6863282894952290924_n.jpg') }}&quot;,&quot;150&quot;:&quot;{{ asset('assets/images/ext-scontentcgk12-64959408114689_6863282894952290924_n.jpg') }}&quot;,&quot;320&quot;:&quot;{{ asset('assets/images/ext-scontentcgk12-64959408114689_6863282894952290924_n.jpg') }}&quot;,&quot;640&quot;:&quot;{{ asset('assets/images/ext-scontentcgk12-64959408114689_6863282894952290924_n.jpg') }}&quot;}">
 			<span class="sbi-screenreader">American traditional/neo traditional Cartoon Bomb</span>
@@ -274,7 +272,7 @@ www.mrdolphintattoo.com
 </div><div class="sbi_item sbi_type_video sbi_new sbi_transition" role="listitem"
 	id="sbi_18187751854386433" data-date="1785558636">
 	<div class="sbi_photo_wrap">
-		<a class="sbi_photo" href="https://www.instagram.com/reel/Dbe9-D_hiXu/" target="_blank" rel="noopener nofollow"
+		<a class="sbi_photo" href="https://www.instagram.com/crimsonink.tattoo/" target="_blank" rel="noopener nofollow"
 			data-full-res="{{ asset('assets/images/ext-scontentcgk21-64227957114689_1478979128825284376_n.jpg') }}"
 			data-img-src-set="{&quot;d&quot;:&quot;{{ asset('assets/images/ext-scontentcgk21-64227957114689_1478979128825284376_n.jpg') }}&quot;,&quot;150&quot;:&quot;{{ asset('assets/images/ext-scontentcgk21-64227957114689_1478979128825284376_n.jpg') }}&quot;,&quot;320&quot;:&quot;{{ asset('assets/images/ext-scontentcgk21-64227957114689_1478979128825284376_n.jpg') }}&quot;,&quot;640&quot;:&quot;{{ asset('assets/images/ext-scontentcgk21-64227957114689_1478979128825284376_n.jpg') }}&quot;}">
 			<span class="sbi-screenreader">A custom of black and grey bear,ibex and bee tatto</span>
@@ -288,7 +286,7 @@ www.mrdolphintattoo.com
 </div><div class="sbi_item sbi_type_video sbi_new sbi_transition" role="listitem"
 	id="sbi_18348566251217741" data-date="1785375787">
 	<div class="sbi_photo_wrap">
-		<a class="sbi_photo" href="https://www.instagram.com/reel/DbZgZM5Bdq3/" target="_blank" rel="noopener nofollow"
+		<a class="sbi_photo" href="https://www.instagram.com/crimsonink.tattoo/" target="_blank" rel="noopener nofollow"
 			data-full-res="{{ asset('assets/images/ext-scontentcgk21-63829773114689_1571867816168016646_n.jpg') }}"
 			data-img-src-set="{&quot;d&quot;:&quot;{{ asset('assets/images/ext-scontentcgk21-63829773114689_1571867816168016646_n.jpg') }}&quot;,&quot;150&quot;:&quot;{{ asset('assets/images/ext-scontentcgk21-63829773114689_1571867816168016646_n.jpg') }}&quot;,&quot;320&quot;:&quot;{{ asset('assets/images/ext-scontentcgk21-63829773114689_1571867816168016646_n.jpg') }}&quot;,&quot;640&quot;:&quot;{{ asset('assets/images/ext-scontentcgk21-63829773114689_1571867816168016646_n.jpg') }}&quot;}">
 			<span class="sbi-screenreader">If you need some old tattoos to be covered up plea</span>
@@ -302,7 +300,7 @@ www.mrdolphintattoo.com
 </div><div class="sbi_item sbi_type_video sbi_new sbi_transition" role="listitem"
 	id="sbi_18142692130478725" data-date="1785123237">
 	<div class="sbi_photo_wrap">
-		<a class="sbi_photo" href="https://www.instagram.com/reel/DbR_2uThsYb/" target="_blank" rel="noopener nofollow"
+		<a class="sbi_photo" href="https://www.instagram.com/crimsonink.tattoo/" target="_blank" rel="noopener nofollow"
 			data-full-res="{{ asset('assets/images/ext-scontentcgk21-63320946114689_9008939654080199522_n.jpg') }}"
 			data-img-src-set="{&quot;d&quot;:&quot;{{ asset('assets/images/ext-scontentcgk21-63320946114689_9008939654080199522_n.jpg') }}&quot;,&quot;150&quot;:&quot;{{ asset('assets/images/ext-scontentcgk21-63320946114689_9008939654080199522_n.jpg') }}&quot;,&quot;320&quot;:&quot;{{ asset('assets/images/ext-scontentcgk21-63320946114689_9008939654080199522_n.jpg') }}&quot;,&quot;640&quot;:&quot;{{ asset('assets/images/ext-scontentcgk21-63320946114689_9008939654080199522_n.jpg') }}&quot;}">
 			<span class="sbi-screenreader">Dragon in balck and grey with roses 🐉🌹 ..thank you</span>
@@ -316,7 +314,7 @@ www.mrdolphintattoo.com
 </div><div class="sbi_item sbi_type_video sbi_new sbi_transition" role="listitem"
 	id="sbi_18005486513953646" data-date="1784890444">
 	<div class="sbi_photo_wrap">
-		<a class="sbi_photo" href="https://www.instagram.com/reel/DbLD9UZhW5E/" target="_blank" rel="noopener nofollow"
+		<a class="sbi_photo" href="https://www.instagram.com/crimsonink.tattoo/" target="_blank" rel="noopener nofollow"
 			data-full-res="{{ asset('assets/images/ext-scontentcgk12-462820819114689_185774594112390677_n.jpg') }}"
 			data-img-src-set="{&quot;d&quot;:&quot;{{ asset('assets/images/ext-scontentcgk12-462820819114689_185774594112390677_n.jpg') }}&quot;,&quot;150&quot;:&quot;{{ asset('assets/images/ext-scontentcgk12-462820819114689_185774594112390677_n.jpg') }}&quot;,&quot;320&quot;:&quot;{{ asset('assets/images/ext-scontentcgk12-462820819114689_185774594112390677_n.jpg') }}&quot;,&quot;640&quot;:&quot;{{ asset('assets/images/ext-scontentcgk12-462820819114689_185774594112390677_n.jpg') }}&quot;}">
 			<span class="sbi-screenreader">Black &amp; Grey Realism Balinese-themed half-sleeve w</span>
@@ -330,7 +328,7 @@ www.mrdolphintattoo.com
 </div><div class="sbi_item sbi_type_video sbi_new sbi_transition" role="listitem"
 	id="sbi_18060734762739729" data-date="1784864057">
 	<div class="sbi_photo_wrap">
-		<a class="sbi_photo" href="https://www.instagram.com/reel/DbKRTiVhy1x/" target="_blank" rel="noopener nofollow"
+		<a class="sbi_photo" href="https://www.instagram.com/crimsonink.tattoo/" target="_blank" rel="noopener nofollow"
 			data-full-res="{{ asset('assets/images/ext-scontentcgk11-62771358114689_6465686018843637992_n.jpg') }}"
 			data-img-src-set="{&quot;d&quot;:&quot;{{ asset('assets/images/ext-scontentcgk11-62771358114689_6465686018843637992_n.jpg') }}&quot;,&quot;150&quot;:&quot;{{ asset('assets/images/ext-scontentcgk11-62771358114689_6465686018843637992_n.jpg') }}&quot;,&quot;320&quot;:&quot;{{ asset('assets/images/ext-scontentcgk11-62771358114689_6465686018843637992_n.jpg') }}&quot;,&quot;640&quot;:&quot;{{ asset('assets/images/ext-scontentcgk11-62771358114689_6465686018843637992_n.jpg') }}&quot;}">
 			<span class="sbi-screenreader">Full back piece Hannya mask done! Hopefully to see</span>
@@ -344,7 +342,7 @@ www.mrdolphintattoo.com
 </div><div class="sbi_item sbi_type_video sbi_new sbi_transition" role="listitem"
 	id="sbi_18124459990776783" data-date="1784775358">
 	<div class="sbi_photo_wrap">
-		<a class="sbi_photo" href="https://www.instagram.com/reel/DbHonk-hb4x/" target="_blank" rel="noopener nofollow"
+		<a class="sbi_photo" href="https://www.instagram.com/crimsonink.tattoo/" target="_blank" rel="noopener nofollow"
 			data-full-res="{{ asset('assets/images/ext-scontentcgk21-62595753114689_3225290629889647103_n.jpg') }}"
 			data-img-src-set="{&quot;d&quot;:&quot;{{ asset('assets/images/ext-scontentcgk21-62595753114689_3225290629889647103_n.jpg') }}&quot;,&quot;150&quot;:&quot;{{ asset('assets/images/ext-scontentcgk21-62595753114689_3225290629889647103_n.jpg') }}&quot;,&quot;320&quot;:&quot;{{ asset('assets/images/ext-scontentcgk21-62595753114689_3225290629889647103_n.jpg') }}&quot;,&quot;640&quot;:&quot;{{ asset('assets/images/ext-scontentcgk21-62595753114689_3225290629889647103_n.jpg') }}&quot;}">
 			<span class="sbi-screenreader">Cover-up Japanese Samurai! 🙏  www.mrdolphintattoo.</span>
@@ -358,7 +356,7 @@ www.mrdolphintattoo.com
 </div><div class="sbi_item sbi_type_video sbi_new sbi_transition" role="listitem"
 	id="sbi_18037303229810530" data-date="1784530601">
 	<div class="sbi_photo_wrap">
-		<a class="sbi_photo" href="https://www.instagram.com/reel/DbAVs7Mh7Yc/" target="_blank" rel="noopener nofollow"
+		<a class="sbi_photo" href="https://www.instagram.com/crimsonink.tattoo/" target="_blank" rel="noopener nofollow"
 			data-full-res="{{ asset('assets/images/ext-scontentcgk11-62094141114689_1380918085777632707_n.jpg') }}"
 			data-img-src-set="{&quot;d&quot;:&quot;{{ asset('assets/images/ext-scontentcgk11-62094141114689_1380918085777632707_n.jpg') }}&quot;,&quot;150&quot;:&quot;{{ asset('assets/images/ext-scontentcgk11-62094141114689_1380918085777632707_n.jpg') }}&quot;,&quot;320&quot;:&quot;{{ asset('assets/images/ext-scontentcgk11-62094141114689_1380918085777632707_n.jpg') }}&quot;,&quot;640&quot;:&quot;{{ asset('assets/images/ext-scontentcgk11-62094141114689_1380918085777632707_n.jpg') }}&quot;}">
 			<span class="sbi-screenreader">Full sleeve nature tattoo in black and grey. Thank</span>
@@ -372,7 +370,7 @@ www.mrdolphintattoo.com
 </div><div class="sbi_item sbi_type_video sbi_new sbi_transition" role="listitem"
 	id="sbi_18107933371820700" data-date="1784168477">
 	<div class="sbi_photo_wrap">
-		<a class="sbi_photo" href="https://www.instagram.com/reel/Da1jNkqBMVa/" target="_blank" rel="noopener nofollow"
+		<a class="sbi_photo" href="https://www.instagram.com/crimsonink.tattoo/" target="_blank" rel="noopener nofollow"
 			data-full-res="{{ asset('assets/images/ext-scontentcgk22-61296801114689_7642999274555102154_n.jpg') }}"
 			data-img-src-set="{&quot;d&quot;:&quot;{{ asset('assets/images/ext-scontentcgk22-61296801114689_7642999274555102154_n.jpg') }}&quot;,&quot;150&quot;:&quot;{{ asset('assets/images/ext-scontentcgk22-61296801114689_7642999274555102154_n.jpg') }}&quot;,&quot;320&quot;:&quot;{{ asset('assets/images/ext-scontentcgk22-61296801114689_7642999274555102154_n.jpg') }}&quot;,&quot;640&quot;:&quot;{{ asset('assets/images/ext-scontentcgk22-61296801114689_7642999274555102154_n.jpg') }}&quot;}">
 			<span class="sbi-screenreader">Still cute in horor Kewpie doll tattoo..thank you</span>
@@ -386,7 +384,7 @@ www.mrdolphintattoo.com
 </div><div class="sbi_item sbi_type_video sbi_new sbi_transition" role="listitem"
 	id="sbi_17916370752410310" data-date="1783307487">
 	<div class="sbi_photo_wrap">
-		<a class="sbi_photo" href="https://www.instagram.com/reel/Dab5CBdB5As/" target="_blank" rel="noopener nofollow"
+		<a class="sbi_photo" href="https://www.instagram.com/crimsonink.tattoo/" target="_blank" rel="noopener nofollow"
 			data-full-res="{{ asset('assets/images/ext-scontentcgk21-59471586114689_1439567129567876270_n.jpg') }}"
 			data-img-src-set="{&quot;d&quot;:&quot;{{ asset('assets/images/ext-scontentcgk21-59471586114689_1439567129567876270_n.jpg') }}&quot;,&quot;150&quot;:&quot;{{ asset('assets/images/ext-scontentcgk21-59471586114689_1439567129567876270_n.jpg') }}&quot;,&quot;320&quot;:&quot;{{ asset('assets/images/ext-scontentcgk21-59471586114689_1439567129567876270_n.jpg') }}&quot;,&quot;640&quot;:&quot;{{ asset('assets/images/ext-scontentcgk21-59471586114689_1439567129567876270_n.jpg') }}&quot;}">
 			<span class="sbi-screenreader">Done lastnight ,1 hour work ..custom design 🌙💫  #m</span>
@@ -409,7 +407,7 @@ www.mrdolphintattoo.com
 	
 			<span class="sbi_follow_btn sbi_custom" >
 			<a target="_blank"
-				rel="nofollow noopener"  href="https://www.instagram.com/dolphintattoostudio/" style="background: rgb(233,43,43);">
+				rel="nofollow noopener"  href="https://www.instagram.com/crimsonink.tattoo/" style="background: rgb(233,43,43);">
 				<svg class="svg-inline--fa fa-instagram fa-w-14" aria-hidden="true" data-fa-processed="" aria-label="Instagram" data-prefix="fab" data-icon="instagram" role="img" viewBox="0 0 448 512">
                     <path fill="currentColor" d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"></path>
                 </svg>				<span>Follow on Instagram</span>

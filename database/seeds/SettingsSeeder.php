@@ -54,11 +54,10 @@ class SettingsSeeder extends Seeder
 
             // ----- social: thay cho config/social.php -----
             // footer = hiện dưới footer, dock = thanh neo góc dưới phải
-            // TODO: thay 2 link Instagram và Facebook bằng trang thật của Crimson Ink
             ['social', 'links', 'json', json_encode([
                 ['platform' => 'whatsapp',  'label' => 'WhatsApp',  'url' => 'https://wa.me/84346955898',
                  'icon' => 'fab fa-whatsapp',   'footer' => true, 'dock' => true,  'header' => false, 'sort' => 1],
-                ['platform' => 'instagram', 'label' => 'Instagram', 'url' => 'https://www.instagram.com/',
+                ['platform' => 'instagram', 'label' => 'Instagram', 'url' => 'https://www.instagram.com/crimsonink.tattoo/',
                  'icon' => 'fab fa-instagram',  'footer' => true, 'dock' => true,  'header' => false, 'sort' => 2],
                 ['platform' => 'facebook',  'label' => 'Facebook',  'url' => 'https://www.facebook.com/',
                  'icon' => 'fab fa-facebook-f', 'footer' => true, 'dock' => true,  'header' => false, 'sort' => 3],

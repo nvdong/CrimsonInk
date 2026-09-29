@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\DB;
  *   - "Artists" trước trỏ page.eyebrows-tattoo -> nay trỏ page.artists
  *
  * CÒN TỒN ĐỌNG (giữ nguyên, sửa khi bạn quyết):
- *   - "FAQs" đang trỏ page.exhibition, chưa có trang FAQ riêng
  *   - "Blog" đang để href="#", chưa có trang blog
  */
 class MenuItemsSeeder extends Seeder
@@ -32,7 +31,7 @@ class MenuItemsSeeder extends Seeder
             ['Tattoo Styles','Phong cách xăm',  'page.tattoo-styles', null],
             ['Gallery',      'Thư viện ảnh',    'page.gallery',       null],
             ['Artists',      'Đội ngũ artist',  'page.artists',       null],
-            ['FAQs',         'Câu hỏi thường gặp', 'page.exhibition', null],
+            ['FAQs',         'Câu hỏi thường gặp', 'page.faqs',       null],
             ['Blog',         'Blog',             null,                '#'],
             ['Contact Us',   'Liên hệ',         'page.contact-us',    null],
         ];

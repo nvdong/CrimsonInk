@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Artist;
+use App\Models\Faq;
 use App\Models\Page;
 use App\Models\Review;
 use App\Models\TattooStyle;
@@ -55,24 +56,12 @@ class PageController extends Controller
         return view('pages.about-us', ['page'=> $page]);
     }
 
-    public function bestTattooStudioBali(): View
+    public function faqs(): View
     {
-        return view('pages.best-tattoo-studio-bali');
-    }
+        $page = Page::where('slug','faqs')->first();
+        $faqs = Faq::active()->orderBy('group')->ordered()->get()->groupBy('group');
 
-    public function piercing(): View
-    {
-        return view('pages.piercing');
-    }
-
-    public function eyebrowsTattoo(): View
-    {
-        return view('pages.eyebrows-tattoo');
-    }
-
-    public function exhibition(): View
-    {
-        return view('pages.exhibition');
+        return view('pages.faqs', compact('faqs','page'));
     }
 
     public function gallery(): View

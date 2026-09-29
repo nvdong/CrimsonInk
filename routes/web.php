@@ -26,10 +26,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/',                        [PageController::class, 'home'])->name('page.home');
 Route::get('/about-us',                [PageController::class, 'aboutUs'])->name('page.about-us');
-Route::get('/best-tattoo-studio-bali', [PageController::class, 'bestTattooStudioBali'])->name('page.best-tattoo-studio-bali');
-Route::get('/piercing',                [PageController::class, 'piercing'])->name('page.piercing');
-Route::get('/eyebrows-tattoo',         [PageController::class, 'eyebrowsTattoo'])->name('page.eyebrows-tattoo');
-Route::get('/exhibition',              [PageController::class, 'exhibition'])->name('page.exhibition');
+Route::get('/faqs',                    [PageController::class, 'faqs'])->name('page.faqs');
 Route::get('/gallery',                 [PageController::class, 'gallery'])->name('page.gallery');
 Route::get('/contact-us',              [PageController::class, 'contactUs'])->name('page.contact-us');
 

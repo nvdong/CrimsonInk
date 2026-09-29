@@ -102,6 +102,9 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 {{-- ?v= theo thời điểm sửa file, để trình duyệt không dùng bản cache cũ --}}
 <link rel="stylesheet" id="site-css" href="{{ asset('assets/css/site.css').'?v='.@filemtime(public_path('assets/css/site.css')) }}" media="all" />
 @yield('head')
+
+{{-- Structured data dùng chung, sinh từ bảng settings --}}
+@include('partials.schema')
 </head>
 <body class="@yield('body_class')">
 

@@ -652,3 +652,160 @@ h1, h2, h3, h4, h5, h6 {
 body.ci-dark-page {
     background-color: var(--e-global-color-182e802, #101010);
 }
+
+/* ===== Accordion Câu hỏi thường gặp (/faqs) =====
+   Dữ liệu lấy từ bảng faqs. Mỗi câu hỏi là một <button> để bàn phím và trình
+   đọc màn hình dùng được; phần trả lời mở bằng max-height nên chuyển động mượt
+   mà không cần biết trước chiều cao. */
+.ci-faq {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 10px 0 40px;
+}
+
+.ci-faq__group {
+    margin: 40px 0 18px;
+    font-family: "Work Sans", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--e-global-color-accent, #a20000);
+}
+
+.ci-faq__group:first-child { margin-top: 0; }
+
+.ci-faq__item {
+    margin-bottom: 18px;
+    border: 1px solid rgba(255, 255, 255, .09);
+    border-radius: 28px;
+    background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.012));
+    overflow: hidden;
+    transition: border-color .25s ease, background .25s ease;
+}
+
+.ci-faq__item:hover { border-color: rgba(255, 255, 255, .18); }
+
+.ci-faq__item.is-open {
+    border-color: rgba(255, 255, 255, .16);
+    background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02));
+}
+
+/* nút câu hỏi: reset hoàn toàn kiểu button mặc định của trình duyệt */
+.ci-faq__q {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    width: 100%;
+    margin: 0;
+    padding: 26px 34px;
+    border: 0;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+    font-family: "Work Sans", sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.4;
+    color: #ffffff;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.ci-faq__q:focus-visible {
+    outline: 2px solid var(--e-global-color-accent, #a20000);
+    outline-offset: -4px;
+}
+
+.ci-faq__q-text {
+    flex: 1 1 auto;
+    min-width: 0;
+    /* theme dat white-space:nowrap cho chu trong button -> cau hoi dai khong xuong dong */
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
+.ci-faq__chevron {
+    flex: 0 0 auto;
+    display: flex;
+    color: #d8d8d8;
+    transition: transform .3s ease;
+}
+
+.ci-faq__item.is-open .ci-faq__chevron { transform: rotate(180deg); }
+
+.ci-faq__a {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .35s ease;
+}
+
+.ci-faq__a-inner {
+    padding: 0 34px 28px;
+    font-family: "Work Sans", sans-serif;
+    font-size: 17px;
+    line-height: 1.75;
+    color: #9a9a9a;
+}
+
+.ci-faq__a-inner > :first-child { margin-top: 0; }
+.ci-faq__a-inner > :last-child  { margin-bottom: 0; }
+.ci-faq__a-inner a { color: var(--e-global-color-accent, #a20000); }
+
+.ci-faq__empty {
+    padding: 40px 0;
+    text-align: center;
+    color: #777777;
+}
+
+@media (max-width: 767px) {
+    .ci-faq__q       { padding: 20px 24px; font-size: 17px; gap: 14px; }
+    .ci-faq__a-inner { padding: 0 24px 22px; font-size: 15.5px; }
+    .ci-faq__item    { border-radius: 22px; }
+}
+
+/* Người dùng bật "giảm chuyển động" thì mở/đóng ngay, không animate */
+@media (prefers-reduced-motion: reduce) {
+    .ci-faq__a,
+    .ci-faq__chevron { transition: none; }
+}
+
+/* Section chứa accordion FAQ: section này do mình thêm nên không có nền riêng
+   từ post-226.css — không sơn nền thì nền trắng của body lộ ra và chữ trắng
+   biến mất (đúng lỗi từng gặp ở trang /artists). */
+.ci-faq-section {
+    background-color: #000000;
+    padding: 70px 0 90px;
+}
+
+/* Đoạn mô tả dưới tiêu đề: post-226.css của trang eyebrow cũ ép chia 2 cột
+   và căn đều, đọc rất khó. Trả về một cột, căn giữa. */
+.ci-faq-intro {
+    column-count: 1 !important;
+    text-align: center !important;
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+/* Câu hỏi dài phải xuống dòng được.
+   Hai thứ chặn điều đó:
+   1) reset.css của theme đặt white-space:nowrap cho mọi <button>, chữ bên trong
+      thừa hưởng nên không bao giờ ngắt dòng;
+   2) flex item không co nhỏ hơn nội dung nếu thiếu min-width:0.
+   Thiếu một trong hai thì chữ tràn ra ngoài và đẩy mũi tên khỏi khung. */
+.ci-faq__q,
+.ci-faq__q-text {
+    white-space: normal;
+}
+
+.ci-faq__q-text {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+.elementor-aboutUs{
+    background-color: #000000 !important;
+    padding: 30px 0;
+}
