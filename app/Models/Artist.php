@@ -13,7 +13,7 @@ class Artist extends Model
 
     protected $guarded = [];
 
-    protected $translatable = ['name', 'role', 'bio', 'content', 'meta_title', 'meta_description'];
+    protected $translatable = ['name', 'role', 'slogan', 'bio', 'content', 'meta_title', 'meta_description'];
 
     protected $casts = [
         'tattoo_style_ids' => 'array',

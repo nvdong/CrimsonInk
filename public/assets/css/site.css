@@ -809,3 +809,279 @@ body.ci-dark-page {
     background-color: #000000 !important;
     padding: 30px 0;
 }
+/* ===== Lưới ảnh trang /gallery =====
+   Thay cho lưới của widget Smash Balloon (.sbi_col_4) đã bỏ.
+   Bấm vào ô nào thì Elementor lightbox mở ảnh đó, mũi tên chuyển qua ảnh khác. */
+.ci-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ci-gallery__item { margin: 0; }
+
+.ci-gallery__link {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+    background-color: #1a1a1a;
+    cursor: zoom-in;
+}
+
+/* Selector 2 lớp để thắng `.elementor img { height: auto }` của theme —
+   thiếu nó thì object-fit vô tác dụng và ảnh bị cắt lệch khỏi tâm. */
+.ci-gallery .ci-gallery__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .4s ease, opacity .3s ease;
+}
+
+.ci-gallery__link:hover .ci-gallery__img,
+.ci-gallery__link:focus-visible .ci-gallery__img {
+    transform: scale(1.06);
+    opacity: .82;
+}
+
+.ci-gallery__link:focus-visible {
+    outline: 2px solid var(--e-global-color-accent, #a20000);
+    outline-offset: 2px;
+}
+
+/* Nút play cho ô video/embed */
+.ci-gallery__link--video { cursor: pointer; }
+
+.ci-gallery__play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    pointer-events: none;
+}
+
+.ci-gallery__play svg {
+    width: 44px;
+    height: 44px;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .6));
+}
+
+.ci-gallery__empty {
+    grid-column: 1 / -1;
+    padding: 40px 0;
+    color: #bbb;
+    text-align: center;
+}
+
+.ci-gallery__cta { margin-top: 30px; }
+
+@media (max-width: 1024px) {
+    .ci-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 767px) {
+    .ci-gallery { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ===== Lightbox trang /gallery =====
+   Tự viết vì lightbox của Elementor nạp động assets/lib/dialog/dialog.min.js
+   và assets/css/conditionals/*.css — hai thư mục này không có trong bản clone. */
+.ci-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, .93);
+}
+
+.ci-lightbox[hidden] { display: none; }
+
+body.ci-lightbox-open { overflow: hidden; }
+
+.ci-lightbox__stage {
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ci-lightbox__img,
+.ci-lightbox__media {
+    max-width: 100%;
+    max-height: calc(100vh - 110px);
+    display: block;
+    border: 0;
+}
+
+.ci-lightbox__frame {
+    width: 100%;
+    max-width: 1100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ci-lightbox__frame iframe.ci-lightbox__media {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    height: auto;
+}
+
+.ci-lightbox__btn {
+    flex: 0 0 auto;
+    width: 46px;
+    height: 46px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: 1px solid rgba(255, 255, 255, .25);
+    border-radius: 0;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color .2s ease, border-color .2s ease, color .2s ease;
+}
+
+.ci-lightbox__btn:hover,
+.ci-lightbox__btn:focus-visible {
+    background-color: var(--e-global-color-accent, #a20000);
+    border-color: var(--e-global-color-accent, #a20000);
+    color: #fff;
+}
+
+.ci-lightbox__btn svg { width: 22px; height: 22px; }
+
+.ci-lightbox__close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.ci-lightbox--single .ci-lightbox__prev,
+.ci-lightbox--single .ci-lightbox__next,
+.ci-lightbox--single .ci-lightbox__counter { display: none; }
+
+.ci-lightbox__counter {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 22px;
+    text-align: center;
+    color: rgba(255, 255, 255, .7);
+    font-family: var(--e-global-typography-accent-font-family, "Work Sans"), Sans-serif;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+
+@media (max-width: 767px) {
+    .ci-lightbox { padding: 12px; gap: 6px; }
+    .ci-lightbox__btn { width: 38px; height: 38px; }
+    .ci-lightbox__close { top: 12px; right: 12px; }
+    .ci-lightbox__img,
+    .ci-lightbox__media { max-height: calc(100vh - 130px); }
+}
+
+/* ===== Tác phẩm của artist (/artists/{slug}) =====
+   Ảnh lấy từ bảng media, collection 'portfolio'. Dùng chung lightbox
+   với trang /gallery (partials/lightbox.blade.php). */
+.ci-works {
+    margin-top: 80px;
+}
+
+.ci-works__title {
+    margin-top: 0;
+}
+
+.ci-works__intro {
+    max-width: 900px;
+    margin: 20px auto 0;
+    text-align: center;
+    color: var(--e-global-color-text, #b9b9b9);
+    font-family: var(--e-global-typography-text-font-family, "Work Sans"), Sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+.ci-works__intro p { margin: 0 0 12px; }
+.ci-works__intro p:last-child { margin-bottom: 0; }
+.ci-works__intro a { color: var(--e-global-color-39cd785, #fff); }
+
+.ci-works__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+    margin: 40px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ci-works__item { margin: 0; }
+
+.ci-works__link {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+    border-radius: 14px;
+    background-color: #1a1a1a;
+    cursor: zoom-in;
+}
+
+/* Selector 2 lớp để thắng `.elementor img { height: auto }` của theme. */
+.ci-works__grid .ci-works__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .4s ease, opacity .3s ease;
+}
+
+.ci-works__link:hover .ci-works__img,
+.ci-works__link:focus-visible .ci-works__img {
+    transform: scale(1.05);
+    opacity: .85;
+}
+
+.ci-works__link:focus-visible {
+    outline: 2px solid var(--e-global-color-accent, #a20000);
+    outline-offset: 3px;
+}
+
+.ci-works__play {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    pointer-events: none;
+}
+
+.ci-works__play svg {
+    width: 40px;
+    height: 40px;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, .6));
+}
+
+@media (max-width: 1024px) {
+    .ci-works__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+}
+
+@media (max-width: 767px) {
+    .ci-works { margin-top: 50px; }
+    .ci-works__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .ci-works__intro { font-size: 15px; }
+}

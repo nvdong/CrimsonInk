@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Concerns\HandlesUploads;
+use App\Http\Controllers\Concerns\ManagesAttachedMedia;
 use App\Models\Page;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -21,6 +22,7 @@ use Illuminate\Validation\Rule;
 class PageContentController extends Controller
 {
     use HandlesUploads;
+    use ManagesAttachedMedia;
 
     public static $types = [
         'page'    => 'Trang nội dung',
@@ -133,6 +135,14 @@ class PageContentController extends Controller
         $page->update($data);
 
         $errors = $this->syncSections($request, $page);
+
+        $this->syncAttachedMedia($request, $this->galleryOf($page), [
+            'mediable_type' => Page::class,
+            'mediable_id'   => $page->id,
+            'collection'    => 'gallery',
+            'alt_en'        => 'CrimsonInk Tattoo Studio',
+            'alt_vi'        => 'CrimsonInk Tattoo Studio',
+        ], 'page/gallery');
 
         if ($errors) {
             return redirect()->route('admin.page.edit', $page->id)
@@ -351,11 +361,19 @@ class PageContentController extends Controller
 
     // ------------------------------------------------------------------ khác
 
+    /** Ảnh của trang (bảng media, collection 'gallery'). */
+    private function galleryOf(Page $page)
+    {
+        return $this->attachedMedia($page, 'gallery');
+    }
+
     private function formData(Page $page)
     {
         return [
             'uri'          => 'page',
             'page'         => $page,
+            'gallery'      => $page->exists ? $this->galleryOf($page) : collect(),
+            'mediaMaxKb'   => static::$mediaMaxKb,
             'types'        => static::$types,
             'templates'    => static::$templates,
             'sectionTypes' => static::$sectionTypes,

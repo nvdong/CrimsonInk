@@ -22,7 +22,7 @@
 @endpush
 
 @section('head')
-<meta name="description" content="Discover CrimsonInk Tattoo Studio Kuta, the first tattooist in Hanoi offering safe, clean, and artistic tattoos by expert artists." />
+<meta name="description" content="Discover CrimsonInk Tattoo Studio, the first tattooist in Hanoi offering safe, clean, and artistic tattoos by expert artists." />
 <link rel="canonical" href="{{ route('page.about-us') }}" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="{{ route('page.about-us') }}" />
@@ -36,19 +36,6 @@
 @endsection
 
 @section('content')
-
-@php
-	$arrImgs = [
-		'/imgs/about-us-1.jpg',
-		'/imgs/about-us-2.jpg',
-		'/imgs/about-us-3.jpg',
-		'/imgs/about-us-4.jpg',
-		'/imgs/about-us-5.jpg',
-		'/imgs/about-us-6.jpg',
-		'/imgs/about-us-7.jpg',
-		'/imgs/about-us-8.jpg'
-	];
-@endphp
 
 <div data-elementor-type="wp-page" data-elementor-id="606" class="elementor elementor-606">
 	<section class="elementor-section elementor-top-section elementor-element elementor-element-e7c603d elementor-section-height-min-height elementor-section-boxed elementor-section-height-default elementor-section-items-middle" data-id="e7c603d" data-element_type="section" data-e-type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
@@ -97,14 +84,24 @@
 				<div class="elementor-widget-container">
 					<div class="elementor-image-gallery">
 						<div id='gallery-1' class='gallery galleryid-606 gallery-columns-4 gallery-size-full'>
-							@foreach ($arrImgs as $img)
-							<figure class='gallery-item'>
-								<div class='gallery-icon portrait'>
-									<a data-elementor-open-lightbox="yes" data-elementor-lightbox-slideshow="fa41fb4" data-e-action-hash="" href='{{ $img }}'>
-										<img decoding="async" width="600" height="900" src="{{ $img }}" class="attachment-full size-full" alt="best gallery tattoo in bali" srcset="{{ $img }} 600w, {{ $img }} 200w" sizes="(max-width: 600px) 100vw, 600px" />
-									</a>
-								</div>
-							</figure>
+							@foreach ($gallery as $item)
+								@php $src = $item->path ? asset($item->path) : null; @endphp
+								@continue (! $src)
+
+								<figure class='gallery-item'>
+									<div class='gallery-icon portrait'>
+										<a href='{{ $src }}'
+											data-ci-lightbox
+											data-ci-type="{{ $item->type }}"
+											data-elementor-open-lightbox="no"
+											aria-label="{{ $item->alt ?: 'CrimsonInk Tattoo Studio' }}">
+											<img decoding="async" width="600" height="900" src="{{ $src }}"
+												class="attachment-full size-full"
+												alt="{{ $item->alt ?: 'CrimsonInk Tattoo Studio' }}"
+												loading="lazy" />
+										</a>
+									</div>
+								</figure>
 							@endforeach
 						</div>
 					</div>
@@ -113,6 +110,8 @@
 		</div>
 	</div>
 </div>
+
+@include('partials.lightbox')
 @endsection
 
 @push('scripts')

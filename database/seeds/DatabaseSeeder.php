@@ -5,6 +5,7 @@ use Illuminate\Database\Seeder;
 /**
  * Thứ tự chạy có ràng buộc:
  *   PagesSeeder        trước GalleryMediaSeeder  (ảnh gắn vào page 'gallery')
+ *   PagesSeeder        trước AboutUsMediaSeeder  (ảnh gắn vào page 'about-us')
  *   TattooStylesSeeder trước ArtistsSeeder       (artist tra id style theo slug)
  *
  * Chạy: php artisan db:seed
@@ -21,6 +22,7 @@ class DatabaseSeeder extends Seeder
             ArtistsSeeder::class,
             ReviewsSeeder::class,
             GalleryMediaSeeder::class,
+            AboutUsMediaSeeder::class,
         ]);
     }
 }

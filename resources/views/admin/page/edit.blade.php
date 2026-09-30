@@ -14,6 +14,13 @@
                 @include('admin.page._form', ['submitLabel' => null])
                 @include('admin.page._sections')
 
+                @include('admin._media_panel', [
+                    'mediaItems' => $gallery,
+                    'mediaMaxKb' => $mediaMaxKb,
+                    'mediaTitle' => 'Ảnh của trang',
+                    'mediaNote'  => 'Lưới ảnh hiện ở cuối trang, bấm vào ảnh sẽ mở lightbox. Hiện chỉ trang <strong>about-us</strong> render lưới này; trang khác vẫn lưu được ảnh nhưng chưa hiển thị.',
+                ])
+
                 <div class="col-lg-12" style="padding:0 20px 40px">
                     <button type="submit" class="btn btn-primary">Cập nhật trang và block</button>
                     <a href="{{ route('admin.page') }}" class="btn btn-danger">Hủy</a>

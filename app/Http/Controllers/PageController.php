@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Artist;
 use App\Models\Faq;
+use App\Models\Media;
 use App\Models\Page;
 use App\Models\Review;
 use App\Models\TattooStyle;
@@ -52,8 +53,22 @@ class PageController extends Controller
 
     public function aboutUs(): View
     {
-        $page = Page::where('slug','about-us')->first();
-        return view('pages.about-us', ['page'=> $page]);
+        $page = Page::where('slug', 'about-us')->first();
+
+        // Lưới ảnh cuối trang: bảng media, collection 'gallery', gắn vào chính
+        // dòng page này. Sửa ảnh ở admin: Quản lý Trang > about-us > "Ảnh của trang".
+        $gallery = collect();
+
+        if ($page) {
+            $gallery = Media::active()
+                ->collection('gallery')
+                ->where('mediable_type', Page::class)
+                ->where('mediable_id', $page->id)
+                ->ordered()
+                ->get();
+        }
+
+        return view('pages.about-us', compact('page', 'gallery'));
     }
 
     public function faqs(): View
@@ -66,7 +81,22 @@ class PageController extends Controller
 
     public function gallery(): View
     {
-        return view('pages.gallery');
+        $page = Page::where('slug', 'gallery')->first();
+
+        // Ảnh của trang gallery nằm trong bảng media, gắn vào chính dòng page này
+        // (quan hệ đa hình mediable_type/mediable_id, không có FK constraint).
+        $media = collect();
+
+        if ($page) {
+            $media = Media::active()
+                ->collection('gallery')
+                ->where('mediable_type', Page::class)
+                ->where('mediable_id', $page->id)
+                ->ordered()
+                ->get();
+        }
+
+        return view('pages.gallery', compact('page', 'media'));
     }
 
     public function contactUs(): View
@@ -116,7 +146,23 @@ class PageController extends Controller
             throw new NotFoundHttpException();
         }
 
-        return view('pages.artists.show', ['artist' => $artist]);
+        // Tác phẩm của artist: bảng media, collection 'portfolio'.
+        // Nhận cả 2 cách gắn — artist_id, hoặc mediable_type/mediable_id trỏ vào
+        // Artist (cách mà màn Thư viện ảnh dùng). Một dòng chỉ khớp một lần nên
+        // orWhere không sinh bản ghi trùng.
+        $works = Media::active()
+            ->collection('portfolio')
+            ->where(function ($q) use ($artist) {
+                $q->where('artist_id', $artist->id)
+                  ->orWhere(function ($q2) use ($artist) {
+                      $q2->where('mediable_type', Artist::class)
+                         ->where('mediable_id', $artist->id);
+                  });
+            })
+            ->ordered()
+            ->get();
+
+        return view('pages.artists.show', compact('artist', 'works'));
     }
 
 }

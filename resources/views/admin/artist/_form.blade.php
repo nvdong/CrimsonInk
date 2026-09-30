@@ -27,6 +27,20 @@
         </div>
 
         <div class="form-group">
+            <label for="slogan_vi">Slogan (VI)</label>
+            <input id="slogan_vi" name="slogan_vi" class="form-control" maxlength="190"
+                   placeholder="Ý tưởng của bạn, thành hình tại CrimsonInk"
+                   value="{{ old('slogan_vi', $artist->slogan_vi) }}" type="text">
+            <small class="text-muted">Câu dẫn làm tiêu đề khối tác phẩm ở trang chi tiết artist. Để trống thì dùng câu mặc định.</small>
+        </div>
+        <div class="form-group">
+            <label for="slogan_en">Slogan (EN)</label>
+            <input id="slogan_en" name="slogan_en" class="form-control" maxlength="190"
+                   placeholder="Your Vision, Forged at CrimsonInk"
+                   value="{{ old('slogan_en', $artist->slogan_en) }}" type="text">
+        </div>
+
+        <div class="form-group">
             <label for="bio_vi">Giới thiệu ngắn (VI)</label>
             <textarea id="bio_vi" name="bio_vi" class="form-control" rows="3">{{ old('bio_vi', $artist->bio_vi) }}</textarea>
             <small class="text-muted">Đoạn hiện ở trang chủ và trang /artists. Khoảng 2-3 dòng là vừa bố cục.</small>

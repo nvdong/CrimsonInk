@@ -29,4 +29,37 @@ trait HandlesUploads
 
         return $dir.'/'.$name;
     }
+
+    /**
+     * Bản nhiều file của storeUpload — dùng cho ô <input type="file" multiple>.
+     *
+     * Trả về mảng đường dẫn tương đối, theo đúng thứ tự người dùng chọn.
+     * Tên file gắn uniqid() chứ không phải time() như bản một file: upload
+     * nhiều ảnh cùng lúc thì time() giống nhau và các file ghi đè lên nhau.
+     */
+    protected function storeUploads(Request $request, $field, $folder)
+    {
+        $paths = [];
+
+        if (! $request->hasFile($field)) {
+            return $paths;
+        }
+
+        $dir = 'upload/'.trim($folder, '/').'/'.date('Y/m');
+
+        foreach ((array) $request->file($field) as $file) {
+            if (! $file || ! $file->isValid()) {
+                continue;
+            }
+
+            $name = Str::slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME));
+            $name = ($name ?: 'file').'-'.uniqid().'.'.strtolower($file->getClientOriginalExtension());
+
+            $file->move(public_path($dir), $name);
+
+            $paths[] = $dir.'/'.$name;
+        }
+
+        return $paths;
+    }
 }

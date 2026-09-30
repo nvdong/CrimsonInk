@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Concerns\HandlesUploads;
+use App\Http\Controllers\Concerns\ManagesAttachedMedia;
 use App\Models\Artist;
+use App\Models\Media;
 use App\Models\TattooStyle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -18,10 +20,15 @@ use Illuminate\Validation\Rule;
  *
  * is_featured = hiện ở block artist trang chủ. Hết featured thì nút
  * "View all artists" ngoài trang chủ tự ẩn.
+ *
+ * TÁC PHẨM (panel ở màn sửa): lưu vào bảng media, collection 'portfolio',
+ * mediable_type/mediable_id trỏ vào Artist và artist_id điền luôn cho dễ query.
+ * Panel chỉ có ở màn sửa vì lúc thêm mới chưa có id để gắn ảnh vào.
  */
 class ArtistController extends Controller
 {
     use HandlesUploads;
+    use ManagesAttachedMedia;
 
     private $artist;
 
@@ -101,6 +108,8 @@ class ArtistController extends Controller
         $data['cover_path']  = $this->storeUpload($request, 'cover_file', 'artist', $data['cover_path'] ?? null);
 
         if ($artist->update($data)) {
+            $this->syncWorks($request, $artist);
+
             return redirect()->route('admin.artist')->with('success', 'Cập nhật thành công');
         }
 
@@ -132,55 +141,36 @@ class ArtistController extends Controller
             'uri'    => 'artist',
             'artist' => $artist,
             'styles' => TattooStyle::orderBy('sort_order')->orderBy('id')->get(),
+            'works'  => $artist->exists ? $this->worksOf($artist) : collect(),
+            'mediaMaxKb' => static::$mediaMaxKb,
         ];
     }
 
-    private function validated(Request $request, $ignoreId = null)
+    /** Ảnh tác phẩm đang gắn với artist này. */
+    private function worksOf(Artist $artist)
     {
-        $data = $request->validate([
-            'slug'                => ['required', 'string', 'max:120', 'regex:/^[a-z0-9\-]+$/', Rule::unique('artists')->ignore($ignoreId)],
-            'name_en'             => ['required', 'string', 'max:120'],
-            'name_vi'             => ['required', 'string', 'max:120'],
-            'role_en'             => ['nullable', 'string', 'max:160'],
-            'role_vi'             => ['nullable', 'string', 'max:160'],
-            'bio_en'              => ['nullable', 'string'],
-            'bio_vi'              => ['nullable', 'string'],
-            'content_en'          => ['nullable', 'string'],
-            'content_vi'          => ['nullable', 'string'],
-            'avatar_path'         => ['nullable', 'string', 'max:255'],
-            'cover_path'          => ['nullable', 'string', 'max:255'],
-            'experience_years'    => ['nullable', 'integer', 'min:0', 'max:80'],
-            'tattoo_style_ids'    => ['nullable', 'array'],
-            'tattoo_style_ids.*'  => ['integer'],
-            'instagram'           => ['nullable', 'url', 'max:255'],
-            'facebook'            => ['nullable', 'url', 'max:255'],
-            'meta_title_en'       => ['nullable', 'string', 'max:190'],
-            'meta_title_vi'       => ['nullable', 'string', 'max:190'],
-            'meta_description_en' => ['nullable', 'string', 'max:300'],
-            'meta_description_vi' => ['nullable', 'string', 'max:300'],
-            'sort_order'          => ['nullable', 'integer'],
-        ], [
-            'slug.regex' => 'Slug chỉ được dùng chữ thường không dấu, số và dấu gạch ngang.',
-        ], [
-            'slug'    => 'slug',
-            'name_en' => 'tên (EN)',
-            'name_vi' => 'tên (VI)',
-        ]);
+        return Media::where('collection', 'portfolio')
+            ->where(function ($q) use ($artist) {
+                $q->where('artist_id', $artist->id)
+                  ->orWhere(function ($q2) use ($artist) {
+                      $q2->where('mediable_type', Artist::class)
+                         ->where('mediable_id', $artist->id);
+                  });
+            })
+            ->orderBy('sort_order')->orderBy('id')
+            ->get();
+    }
 
-        // socials gộp 2 ô nhập thành 1 cột json
-        $socials = array_filter([
-            'instagram' => $data['instagram'] ?? null,
-            'facebook'  => $data['facebook'] ?? null,
-        ]);
-        unset($data['instagram'], $data['facebook']);
-
-        $data['socials']          = $socials ?: null;
-        $data['tattoo_style_ids'] = array_map('intval', $data['tattoo_style_ids'] ?? []);
-        $data['slug']             = Str::lower($data['slug']);
-        $data['is_featured']      = $request->boolean('is_featured');
-        $data['is_active']        = $request->boolean('is_active');
-        $data['sort_order']       = $data['sort_order'] ?? 0;
-
-        return $data;
+    /** Panel "Tác phẩm" — phần việc chung nằm ở trait ManagesAttachedMedia. */
+    private function syncWorks(Request $request, Artist $artist)
+    {
+        $this->syncAttachedMedia($request, $this->worksOf($artist), [
+            'mediable_type' => Artist::class,
+            'mediable_id'   => $artist->id,
+            'artist_id'     => $artist->id,
+            'collection'    => 'portfolio',
+            'alt_en'        => $artist->name_en,
+            'alt_vi'        => $artist->name_vi,
+        ], 'artist/works');
     }
 }

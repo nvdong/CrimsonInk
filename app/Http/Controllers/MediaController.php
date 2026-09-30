@@ -252,8 +252,10 @@ class MediaController extends Controller
 
         $data['mediable_type']   = $type;
         $data['mediable_id']     = (int) $id;
-        $data['artist_id']       = $data['artist_id'] ?: null;
-        $data['tattoo_style_id'] = $data['tattoo_style_id'] ?: null;
+        // ?? chứ không phải ?: — hai ô này là nullable, không gửi lên thì validate
+        // không đưa key vào $data và $data['artist_id'] bắn "Undefined index".
+        $data['artist_id']       = ($data['artist_id'] ?? null) ?: null;
+        $data['tattoo_style_id'] = ($data['tattoo_style_id'] ?? null) ?: null;
         $data['is_active']       = $request->boolean('is_active');
         $data['sort_order']      = $data['sort_order'] ?? 0;
 
