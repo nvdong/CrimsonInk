@@ -82,7 +82,7 @@
 								<div class="elementor-element elementor-element-52e30a7 elementor-widget elementor-widget-button" data-id="52e30a7" data-element_type="widget" data-e-type="widget" data-widget_type="button.default">
 									<div class="elementor-widget-container">
 										<div class="elementor-button-wrapper">
-											<a class="elementor-button elementor-button-link elementor-size-sm" href="{{ $tattooStyle->route_name }}">
+											<a class="elementor-button elementor-button-link elementor-size-sm" href="{{ route($tattooStyle->route_name) }}">
 												<span class="elementor-button-content-wrapper">
 													<span class="elementor-button-text">Discover more</span>
 												</span>
