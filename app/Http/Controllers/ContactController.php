@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Artist;
 use App\Models\Booking;
+use App\Support\Text;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -24,13 +25,11 @@ class ContactController extends Controller
             'preferred_date' => ['nullable', 'date', 'after_or_equal:today'],
             'artist'         => ['nullable', 'string'],
             'message'        => ['required', 'string', 'max:5000'],
-        ], [], [
-            'full_name'      => 'full name',
-            'phone'          => 'phone number',
-            'preferred_date' => 'preferred date',
-            'artist'         => 'tattoo artist',
-            'message'        => 'tattoo idea',
-        ]);
+        ], Text::group('booking.form.messages'), Text::group('booking.form.attributes'));
+        // Tên trường lấy từ config/constants.php nên đổi theo ngôn ngữ đang xem.
+        // Phần khung câu ("The :attribute field is required.") vẫn là tiếng Anh
+        // vì project chưa có resources/lang/vi — muốn Việt hóa nốt thì thêm
+        // resources/lang/vi/validation.php.
 
         // đổi slug artist sang tên cho dễ đọc trong log / email
         $artistName = $data['artist']
@@ -68,6 +67,6 @@ class ContactController extends Controller
 
         return redirect()
             ->to(route('page.contact-us').'#booking')
-            ->with('contact_success', 'Thank you! We have received your booking request and will get back to you shortly.');
+            ->with('contact_success', Text::get('booking.form.success'));
     }
 }

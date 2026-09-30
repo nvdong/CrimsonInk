@@ -25,6 +25,14 @@
 @endsection
 
 @section('content')
+
+{{-- Chữ trên form lấy từ config/constants.php (mảng booking.form), chọn bản dịch
+     theo ngôn ngữ đang xem. Sửa chữ thì sửa trong config, không sửa ở đây. --}}
+@php
+    $t            = \App\Support\Text::class;
+    $labels       = $t::group('booking.form.labels');
+    $placeholders = $t::group('booking.form.placeholders');
+@endphp
 <div data-elementor-type="wp-page" data-elementor-id="85" class="elementor elementor-85">
 	<section class="elementor-section elementor-top-section elementor-element elementor-element-6be3ef8 elementor-section-height-min-height elementor-section-boxed elementor-section-height-default elementor-section-items-middle" data-id="6be3ef8" data-element_type="section" data-e-type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
 		<div class="elementor-background-overlay"></div>
@@ -44,7 +52,7 @@
 							<div class="elementor-divider">
 			<span class="elementor-divider-separator">
 							<span class="elementor-divider__text elementor-divider__element">
-				Booking				</span>
+				{{ $t::get('booking.form.eyebrow') }}				</span>
 						</span>
 		</div>
 						</div>
@@ -53,8 +61,8 @@
 				<div class="elementor-widget-container">
 					<div class="ekit-wid-con" >
 						<div class="ekit-heading elementskit-section-title-wraper text_center   ekit_heading_tablet-   ekit_heading_mobile-">
-							<h2 class="ekit-heading--title elementskit-section-title ">Book Your <span>Appointment</span></h2>
-							<p class="ci-booking__lead">Planning a trip to Hanoi? Send us your idea before you land and we will match you with the right artist and confirm pricing ahead of time.</p>
+							<h2 class="ekit-heading--title elementskit-section-title ">{{ $t::get('booking.form.heading') }} <span>{{ $t::get('booking.form.heading_accent') }}</span></h2>
+							<p class="ci-booking__lead">{{ $t::get('booking.form.lead') }}</p>
 						</div>
 					</div>
 				</div>
@@ -85,33 +93,33 @@
 
 								<div class="ci-booking__grid">
 									<div class="ci-field">
-										<label class="ci-field__label" for="bk-name">Full name</label>
-										<input class="ci-field__control" type="text" id="bk-name" name="full_name" value="{{ old('full_name') }}" placeholder="Enter your full name" maxlength="120" required>
+										<label class="ci-field__label" for="bk-name">{{ $labels['full_name'] }}</label>
+										<input class="ci-field__control" type="text" id="bk-name" name="full_name" value="{{ old('full_name') }}" placeholder="{{ $placeholders['full_name'] }}" maxlength="120" required>
 									</div>
 
 									<div class="ci-field">
-										<label class="ci-field__label" for="bk-phone">Phone number</label>
+										<label class="ci-field__label" for="bk-phone">{{ $labels['phone'] }}</label>
 										<input class="ci-field__control" type="tel" id="bk-phone" name="phone"
-											   value="{{ old('phone') }}" placeholder="Enter your phone number" maxlength="40" required>
+											   value="{{ old('phone') }}" placeholder="{{ $placeholders['phone'] }}" maxlength="40" required>
 									</div>
 
 									<div class="ci-field">
-										<label class="ci-field__label" for="bk-email">Email address</label>
+										<label class="ci-field__label" for="bk-email">{{ $labels['email'] }}</label>
 										<input class="ci-field__control" type="email" id="bk-email" name="email"
-											   value="{{ old('email') }}" placeholder="Enter your email address" maxlength="190" required>
+											   value="{{ old('email') }}" placeholder="{{ $placeholders['email'] }}" maxlength="190" required>
 									</div>
 
 									<div class="ci-field">
-										<label class="ci-field__label" for="bk-date">Preferred date</label>
-										<input class="ci-field__control" type="date" id="bk-date" name="preferred_date" placeholder="dd/mm/yyy"
+										<label class="ci-field__label" for="bk-date">{{ $labels['preferred_date'] }}</label>
+										<input class="ci-field__control" type="date" id="bk-date" name="preferred_date"
 											   value="{{ old('preferred_date') }}" min="{{ now()->toDateString() }}">
 									</div>
 								</div>
 
 								<div class="ci-field">
-									<label class="ci-field__label" for="bk-artist">Tattoo artists</label>
+									<label class="ci-field__label" for="bk-artist">{{ $labels['artist'] }}</label>
 									<select class="ci-field__control ci-field__control--select" id="bk-artist" name="artist">
-										<option value="">Select artists</option>
+										<option value="">{{ $placeholders['artist'] }}</option>
 										@foreach ($artists as $artist)
 											<option value="{{ $artist['id'] }}" @if (old('artist') === $artist['id']) selected @endif>
 												{{ $artist['name'] }}@if (!empty($artist['role'])) — {{ $artist['role'] }}@endif
@@ -121,12 +129,12 @@
 								</div>
 
 								<div class="ci-field">
-									<label class="ci-field__label" for="bk-message">Describe your tattoo idea</label>
+									<label class="ci-field__label" for="bk-message">{{ $labels['message'] }}</label>
 									<textarea class="ci-field__control ci-field__control--area" id="bk-message" name="message" rows="5"
-											  placeholder="Describe your tattoo idea in detail. Include themes, elements, colors, mood, etc." required>{{ old('message') }}</textarea>
+											  placeholder="{{ $placeholders['message'] }}" required>{{ old('message') }}</textarea>
 								</div>
 
-								<button class="ci-booking__submit" type="submit">Send message</button>
+								<button class="ci-booking__submit" type="submit">{{ $t::get('booking.form.submit') }}</button>
 							</form>
 						</div>
 					</div>
