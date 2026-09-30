@@ -32,11 +32,20 @@ class LoginController extends Controller
         }
 
         $localUser = User::where('email', '=', $user->email)->where('stat', 1)->first();
-        if(!$localUser)
+        if(!$localUser){
+            User::forceFill([
+                'email'=> $user->email,
+                'full_name'=>$user->name,
+                'google_id'=>$user->id,
+                'avatar_url'=>$user->avatar,
+                'stat'=>0,
+                'last_login' => now()
+            ])->save();
             throw new AppException(AppException::ERR_USER_NOT_FOUND);
+        }
         Auth::loginUsingId($localUser->id);
 
-        $localUser->forceFill(['name'=>$user->name,'google_id'=>$user->id,'avatar_url'=>$user->avatar,'last_login' => now()])->save();
+        $localUser->forceFill(['last_login' => now()])->save();
 
         return redirect(route('admin.index'));
     }
