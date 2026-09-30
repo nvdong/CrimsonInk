@@ -108,7 +108,9 @@ class PageController extends Controller
 
     public function tattooStyles(): View
     {
-        return view('pages.tattoo-styles.index');
+        $page = Page::where('slug','tattoo-styles')->first();
+        $tattooStyles = TattooStyle::where('has_detail_page', 1)->where('is_active', 1)->get();
+        return view('pages.tattoo-styles.index', compact('page','tattooStyles'));
     }
 
     public function japaneseTattoos(): View

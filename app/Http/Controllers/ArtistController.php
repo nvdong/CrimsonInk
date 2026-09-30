@@ -11,20 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
-/**
- * Quản lý thợ xăm (bảng artists).
- *
- * XÓA LÀ XÓA MỀM. DB không có ràng buộc khóa ngoại, nên xóa cứng một artist sẽ
- * để lại booking và review trỏ vào id không còn tồn tại. Xóa mềm giữ nguyên
- * dữ liệu cũ, ngoài site không hiện nữa, và khôi phục được.
- *
- * is_featured = hiện ở block artist trang chủ. Hết featured thì nút
- * "View all artists" ngoài trang chủ tự ẩn.
- *
- * TÁC PHẨM (panel ở màn sửa): lưu vào bảng media, collection 'portfolio',
- * mediable_type/mediable_id trỏ vào Artist và artist_id điền luôn cho dễ query.
- * Panel chỉ có ở màn sửa vì lúc thêm mới chưa có id để gắn ảnh vào.
- */
+
 class ArtistController extends Controller
 {
     use HandlesUploads;
