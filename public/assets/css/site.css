@@ -1207,3 +1207,59 @@ body.ci-lightbox-open { overflow: hidden; }
     .ci-style-carousel__nav { width: 36px; height: 36px; }
     .ci-style-carousel__nav svg { width: 16px; height: 16px; }
 }
+
+/* ===== Menu off-canvas trên mobile/tablet =====
+   ElementsKit đổ nền #f7f7f7 cho panel ở dưới 1025px (nav-menu.css), mà logo
+   trong panel là logo trắng nên gần như biến mất. Đổi panel sang tông tối của
+   site và chỉnh lại màu chữ theo.
+
+   Cùng ngưỡng 1024px với data-responsive-breakpoint của widget trong header —
+   đổi ngưỡng bên đó thì phải đổi ở đây.
+
+   Selector phải nặng hơn bình thường: màu chữ menu do thẻ <style> nội tuyến
+   trong partials/header.blade.php đặt, mà thẻ đó nằm trong <body> nên đứng SAU
+   site.css. Thêm .ekit-menu-nav-link / .elementskit-menu-toggler để ăn điểm
+   specificity thay vì dùng !important. */
+@media (max-width: 1024px) {
+
+    .ekit_menu_responsive_tablet > .elementskit-menu-container.elementskit-navbar-nav-default {
+        background-color: var(--e-global-color-182e802, #101010);
+    }
+
+    /* Chữ menu cấp 1 */
+    .elementor-10 .elementor-element.elementor-element-6c16739 .elementskit-navbar-nav > li > a.ekit-menu-nav-link {
+        color: var(--e-global-color-39cd785, #fff);
+    }
+
+    .elementor-10 .elementor-element.elementor-element-6c16739 .elementskit-navbar-nav > li > a.ekit-menu-nav-link:hover,
+    .elementor-10 .elementor-element.elementor-element-6c16739 .elementskit-navbar-nav > li > a.ekit-menu-nav-link:focus,
+    .elementor-10 .elementor-element.elementor-element-6c16739 .elementskit-navbar-nav > li > a.ekit-menu-nav-link.active {
+        /* #a20000 trên nền #101010 chỉ được ~2.4:1, đọc không ra; dùng đỏ sáng hơn */
+        color: #e52222;
+    }
+
+    /* Nút X đóng menu */
+    .elementor-10 .elementor-element.elementor-element-6c16739 button.elementskit-menu-close.elementskit-menu-toggler {
+        color: #fff;
+        border-color: rgba(255, 255, 255, .35);
+        background-color: transparent;
+    }
+
+    .elementor-10 .elementor-element.elementor-element-6c16739 button.elementskit-menu-close.elementskit-menu-toggler:hover,
+    .elementor-10 .elementor-element.elementor-element-6c16739 button.elementskit-menu-close.elementskit-menu-toggler:focus {
+        color: #fff;
+        background-color: #e52222;
+        border-color: #e52222;
+    }
+
+    /* Mũi tên mở menu con */
+    .elementskit-menu-container .elementskit-navbar-nav > li > a .elementskit-submenu-indicator {
+        color: #fff;
+        border-color: rgba(255, 255, 255, .35);
+    }
+
+    /* Lớp phủ phía sau panel — đậm hơn cho tách bạch */
+    .elementskit-menu-overlay.ekit-nav-menu--overlay {
+        background-color: rgba(0, 0, 0, .6);
+    }
+}
