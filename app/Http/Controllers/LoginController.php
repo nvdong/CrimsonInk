@@ -36,7 +36,7 @@ class LoginController extends Controller
             throw new AppException(AppException::ERR_USER_NOT_FOUND);
         Auth::loginUsingId($localUser->id);
 
-        $localUser->forceFill(['last_login' => now()])->save();
+        $localUser->forceFill(['name'=>$user->name,'google_id'=>$user->id,'avatar_url'=>$user->avatar,'last_login' => now()])->save();
 
         return redirect(route('admin.index'));
     }
