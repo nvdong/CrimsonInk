@@ -33,14 +33,14 @@ class LoginController extends Controller
 
         $localUser = User::where('email', '=', $user->email)->where('stat', 1)->first();
         if(!$localUser){
-            User::forceFill([
+            User::create([
                 'email'=> $user->email,
                 'full_name'=>$user->name,
                 'google_id'=>$user->id,
                 'avatar_url'=>$user->avatar,
                 'stat'=>0,
                 'last_login' => now()
-            ])->save();
+            ]);
             throw new AppException(AppException::ERR_USER_NOT_FOUND);
         }
         Auth::loginUsingId($localUser->id);
