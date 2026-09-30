@@ -164,8 +164,10 @@ jQuery.uiBackCompat = true;
 //# sourceURL=jquery-ui-core-js-before
 </script>
 <script id="jquery-ui-core-js" src="{{ asset('assets/js/core.min.js') }}"></script>
-{{-- Config cua Elementor (elementorFrontendConfig) khac nhau theo tung trang
-     va BAT BUOC phai chay truoc frontend.min.js --}}
+{{-- Config cua Elementor (elementorFrontendConfig) — dung chung cho moi trang,
+     BAT BUOC phai chay truoc frontend.min.js. Stack ben duoi de dung khi mot
+     trang can them/ghi de config rieng. --}}
+@include('partials.elementor-config')
 @stack('elementor-config')
 <script id="elementor-frontend-js" src="{{ asset('assets/js/frontend.min.js') }}"></script>
 <script id="hello-theme-frontend-js" src="{{ asset('assets/js/hello-frontend.js') }}"></script>

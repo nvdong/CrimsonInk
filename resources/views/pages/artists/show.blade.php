@@ -1,4 +1,3 @@
-{{-- Trang chi tiết một artist: /artists/{slug} --}}
 @extends('layouts.app')
 
 @section('title', $artist['name'].' | Crimson Ink Tattoo Studio Hanoi')

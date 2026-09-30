@@ -1,4 +1,3 @@
-{{-- Trang /artists — danh sách đầy đủ artist, dùng chung partial với trang chủ --}}
 @extends('layouts.app')
 
 @section('title', 'Our Tattoo Artists | Crimson Ink Tattoo Studio Hanoi')
