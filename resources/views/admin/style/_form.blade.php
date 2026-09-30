@@ -78,14 +78,15 @@
             </label>
         </div>
         <div class="form-group">
-            <label for="route_name">Tên route trang chi tiết</label>
-            <input id="route_name" name="route_name" class="form-control" maxlength="120"
-                   placeholder="page.tattoo-styles.realism-tattoos"
-                   value="{{ old('route_name', $style->route_name) }}" type="text">
+            <label>Địa chỉ trang chi tiết</label>
+            <p class="form-control-static">
+                <code>/tattoo-styles/{{ $style->slug ?: '{slug}' }}</code>
+            </p>
             <small class="text-muted">
-                Phải khớp với route khai trong routes/web.php. Bật "Có trang chi tiết riêng" mà bỏ trống ô này
-                thì hệ thống tự tắt lại, thẻ sẽ trỏ về /tattoo-styles.
+                Sinh tự động từ slug, không cần khai route. Bỏ tick "Có trang chi tiết riêng"
+                thì địa chỉ này trả về 404 và thẻ ngoài trang sẽ trỏ về /tattoo-styles.
             </small>
+            <input type="hidden" name="route_name" value="{{ old('route_name', $style->route_name) }}">
         </div>
 
         <div class="form-group">

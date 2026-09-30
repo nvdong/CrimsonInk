@@ -113,24 +113,32 @@ class PageController extends Controller
         return view('pages.tattoo-styles.index', compact('page','tattooStyles'));
     }
 
-    public function japaneseTattoos(): View
+    /**
+     * Trang chi tiết một phong cách xăm — /tattoo-styles/{slug}.
+     *
+     * Trước đây mỗi phong cách một method + một view riêng; giờ dùng chung
+     * pages.tattoo-styles.show.
+     *
+     * Chỉ style có has_detail_page = 1 mới vào được; style khác trả 404 để
+     * không có hai URL cùng hiện một nội dung rỗng.
+     */
+    public function tattooStyle(string $slug): View
     {
-        return view('pages.tattoo-styles.japanese-tattoos');
-    }
+        $style = TattooStyle::active()
+            ->where('slug', $slug)
+            ->where('has_detail_page', 1)
+            ->first();
 
-    public function realismTattoos(): View
-    {
-        return view('pages.tattoo-styles.realism-tattoos');
-    }
+        if (! $style) {
+            throw new NotFoundHttpException();
+        }
 
-    public function tribalTattoos(): View
-    {
-        return view('pages.tattoo-styles.tribal-tattoos');
-    }
+        $medias = Media::active()
+            ->where('tattoo_style_id', $style->id)
+            ->ordered()
+            ->get();
 
-    public function cartoonTattoos(): View
-    {
-        return view('pages.tattoo-styles.cartoon-tattoos');
+        return view('pages.tattoo-styles.show', compact('style', 'medias'));
     }
 
     public function artists(): View

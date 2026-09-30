@@ -29,8 +29,8 @@ class TattooStyle extends Model
     /** URL của thẻ style: có trang riêng thì vào trang đó, không thì về trang tổng. */
     public function getUrlAttribute()
     {
-        if ($this->has_detail_page && $this->route_name) {
-            return route($this->route_name);
+        if ($this->has_detail_page) {
+            return route('page.tattoo-styles.show', $this->slug);
         }
 
         return route('page.tattoo-styles');

@@ -65,10 +65,13 @@ class MenuItemsSeeder extends Seeder
         }
 
         $children = [
-            ['Japanese Tattoos', 'Xăm Nhật Bản',   'page.tattoo-styles.japanese-tattoos'],
-            ['Realism Tattoos',  'Xăm tả thực',    'page.tattoo-styles.realism-tattoos'],
-            ['Tribal Tattoos',   'Xăm thổ dân',    'page.tattoo-styles.tribal-tattoos'],
-            ['Cartoon Tattoos',  'Xăm hoạt hình',  'page.tattoo-styles.cartoon-tattoos'],
+            // Trang phong cách dùng chung route 'page.tattoo-styles.show' có tham số
+            // slug, mà menu_items chỉ lưu được tên route không tham số — nên trỏ
+            // thẳng bằng url.
+            ['Japanese Tattoos', 'Xăm Nhật Bản',   '/tattoo-styles/japanese-tattoos'],
+            ['Realism Tattoos',  'Xăm tả thực',    '/tattoo-styles/realism-tattoos'],
+            ['Tribal Tattoos',   'Xăm thổ dân',    '/tattoo-styles/tribal-tattoos'],
+            ['Cartoon Tattoos',  'Xăm hoạt hình',  '/tattoo-styles/cartoon-tattoos'],
         ];
 
         foreach ($children as $i => $r) {
@@ -77,8 +80,8 @@ class MenuItemsSeeder extends Seeder
                 'parent_id'    => $parentId,
                 'label_en'     => $r[0],
                 'label_vi'     => $r[1],
-                'route_name'   => $r[2],
-                'url'          => null,
+                'route_name'   => null,
+                'url'          => $r[2],
                 'target_blank' => false,
                 'is_active'    => true,
                 'sort_order'   => ($i + 1) * 10,

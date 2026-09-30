@@ -28,9 +28,6 @@
 <main id="content" class="site-main post-806 page type-page status-publish has-post-thumbnail hentry">
 	<div class="page-content">
 		<div data-elementor-type="wp-page" data-elementor-id="806" class="elementor elementor-806">
-			{{-- Dải ảnh đầu trang: rỗng là đúng, ảnh nền + min-height 60vh nằm trong
-			     post-806.css. margin-top -175px kéo nó lên nằm dưới header trong suốt.
-			     Thiếu khối này thì header đè lên nền trắng của body -> dải trắng ở đầu trang. --}}
 			<div class="elementor-element elementor-element-0ee3e20 e-con-full e-flex e-con e-parent" data-id="0ee3e20" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}"></div>
 			<div class="elementor-element elementor-element-bf4c6eb e-flex e-con-boxed e-con e-parent" data-id="bf4c6eb" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
 				<div class="e-con-inner">
@@ -63,17 +60,11 @@
 			</div>
 			<div class="elementor-element elementor-element-973e1cd e-flex e-con-boxed e-con e-parent" data-id="973e1cd" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
 				<div class="e-con-inner">
-					{{-- Bố cục so le. Bản tĩnh làm bằng cách đảo thứ tự DOM ở từng dòng
-					     (dòng 1 ảnh trước, dòng 2 chữ trước...). Vòng lặp chỉ sinh được
-					     một thứ tự, nên đảo bằng --flex-direction ở các dòng chẵn.
-					     Container của Elementor đọc flex-direction từ biến này. --}}
 					@foreach($tattooStyles as $tattooStyle)
 					<div class="elementor-element elementor-element-93a0a64 e-con-full e-flex e-con e-child{{ $loop->even ? ' ci-style-row--reverse' : '' }}" data-id="93a0a64" data-element_type="container" data-e-type="container">
 						<div class="elementor-element elementor-element-1cb9dcf e-con-full e-flex e-con e-child" data-id="1cb9dcf" data-element_type="container" data-e-type="container">
 							<div class="elementor-element elementor-element-caf642d elementor-widget elementor-widget-image" data-id="caf642d" data-element_type="widget" data-e-type="widget" data-widget_type="image.default">
 								<div class="elementor-widget-container">
-									{{-- srcset cũ khai cùng một file ở 5 kích thước khác nhau, trình duyệt
-									     tin vào đó và chọn sai -> đã bỏ. --}}
 									<img decoding="async" src="{{ asset($tattooStyle->cover_path) }}" class="attachment-full size-full" alt="{{ $tattooStyle->name }}" loading="lazy" />
 								</div>
 							</div>
@@ -92,7 +83,7 @@
 								<div class="elementor-element elementor-element-52e30a7 elementor-widget elementor-widget-button" data-id="52e30a7" data-element_type="widget" data-e-type="widget" data-widget_type="button.default">
 									<div class="elementor-widget-container">
 										<div class="elementor-button-wrapper">
-											<a class="elementor-button elementor-button-link elementor-size-sm" href="{{ route($tattooStyle->route_name) }}">
+											<a class="elementor-button elementor-button-link elementor-size-sm" href="{{ $tattooStyle->url }}">
 												<span class="elementor-button-content-wrapper">
 													<span class="elementor-button-text">Discover more</span>
 												</span>

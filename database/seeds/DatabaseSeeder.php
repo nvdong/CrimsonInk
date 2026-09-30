@@ -7,6 +7,7 @@ use Illuminate\Database\Seeder;
  *   PagesSeeder        trước GalleryMediaSeeder  (ảnh gắn vào page 'gallery')
  *   PagesSeeder        trước AboutUsMediaSeeder  (ảnh gắn vào page 'about-us')
  *   TattooStylesSeeder trước ArtistsSeeder       (artist tra id style theo slug)
+ *   TattooStylesSeeder trước TattooStyleMediaSeeder (ảnh tra id style theo slug)
  *
  * Chạy: php artisan db:seed
  * Chạy lại từ đầu: php artisan migrate:fresh --seed
@@ -23,6 +24,7 @@ class DatabaseSeeder extends Seeder
             ReviewsSeeder::class,
             GalleryMediaSeeder::class,
             AboutUsMediaSeeder::class,
+            TattooStyleMediaSeeder::class,
         ]);
     }
 }

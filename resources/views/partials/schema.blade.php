@@ -34,8 +34,9 @@
         $p = \App\Models\Page::where('route_name', $routeName)->first();
         $tenTrang = $p ? $p->title : null;
 
-        if (! $tenTrang) {
-            $s = \App\Models\TattooStyle::where('route_name', $routeName)->first();
+        /* Trang phong cách giờ dùng chung một route có tham số slug */
+        if (! $tenTrang && $routeName === 'page.tattoo-styles.show') {
+            $s = \App\Models\TattooStyle::where('slug', request()->route('slug'))->first();
             $tenTrang = $s ? $s->name : null;
         }
 

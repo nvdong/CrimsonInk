@@ -34,10 +34,9 @@ Route::get('/artists',         [PageController::class, 'artists'])->name('page.a
 Route::get('/artists/{slug}',  [PageController::class, 'artist'])->name('page.artists.show');
 
 Route::get('/tattoo-styles',                   [PageController::class, 'tattooStyles'])->name('page.tattoo-styles');
-Route::get('/tattoo-styles/japanese-tattoos',  [PageController::class, 'japaneseTattoos'])->name('page.tattoo-styles.japanese-tattoos');
-Route::get('/tattoo-styles/realism-tattoos',   [PageController::class, 'realismTattoos'])->name('page.tattoo-styles.realism-tattoos');
-Route::get('/tattoo-styles/tribal-tattoos',    [PageController::class, 'tribalTattoos'])->name('page.tattoo-styles.tribal-tattoos');
-Route::get('/tattoo-styles/cartoon-tattoos',   [PageController::class, 'cartoonTattoos'])->name('page.tattoo-styles.cartoon-tattoos');
+// Một route cho mọi phong cách. Slug trùng URL cũ (realism-tattoos,
+// japanese-tattoos, tribal-tattoos, cartoon-tattoos) nên link cũ vẫn chạy.
+Route::get('/tattoo-styles/{slug}',            [PageController::class, 'tattooStyle'])->name('page.tattoo-styles.show');
 
 Route::post('/contact-us', [ContactController::class, 'store'])->name('contact.store');
 

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Concerns\HandlesUploads;
+use App\Http\Controllers\Concerns\ManagesAttachedMedia;
+use App\Models\Media;
 use App\Models\TattooStyle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -11,15 +13,14 @@ use Illuminate\Validation\Rule;
 /**
  * Quản lý phong cách xăm (bảng tattoo_styles).
  *
- * has_detail_page + route_name đi cùng nhau: bật has_detail_page thì phải điền
- * route_name khớp với route khai trong routes/web.php, không thì thẻ ngoài trang
- * chủ sẽ trỏ về /tattoo-styles.
- *
- * Xóa là xóa mềm, cùng lý do như bảng artists.
+ * has_detail_page = 1 thì style có trang riêng tại /tattoo-styles/{slug},
+ * dùng chung view pages.tattoo-styles.show. Không cần khai route riêng nữa —
+ * cột route_name chỉ còn là ghi chú, không tham gia dựng URL.
  */
 class TattooStyleController extends Controller
 {
     use HandlesUploads;
+    use ManagesAttachedMedia;
 
     private $style;
 
@@ -85,7 +86,12 @@ class TattooStyleController extends Controller
     {
         $style = $this->style->withTrashed()->findOrFail($request->id);
 
-        return view('admin.style.edit', ['uri' => 'style', 'style' => $style]);
+        return view('admin.style.edit', [
+            'uri'        => 'style',
+            'style'      => $style,
+            'images'     => $this->imagesOf($style),
+            'mediaMaxKb' => static::$mediaMaxKb,
+        ]);
     }
 
     public function update(Request $request)
@@ -96,6 +102,8 @@ class TattooStyleController extends Controller
         $data['cover_path'] = $this->storeUpload($request, 'cover_file', 'style', $data['cover_path'] ?? null);
 
         if ($style->update($data)) {
+            $this->syncImages($request, $style);
+
             return redirect()->route('admin.style')->with('success', 'Cập nhật thành công');
         }
 
@@ -146,19 +154,33 @@ class TattooStyleController extends Controller
             'name_vi' => 'tên (VI)',
         ]);
 
-        $hasDetail = $request->boolean('has_detail_page');
-
-        // bật trang chi tiết mà không có route thì tắt lại, tránh route() ném lỗi
-        if ($hasDetail && ! $request->input('route_name')) {
-            $hasDetail = false;
-        }
-
         $data['slug']            = Str::lower($data['slug']);
-        $data['has_detail_page'] = $hasDetail;
+        $data['has_detail_page'] = $request->boolean('has_detail_page');
         $data['is_featured']     = $request->boolean('is_featured');
         $data['is_active']       = $request->boolean('is_active');
         $data['sort_order']      = $data['sort_order'] ?? 0;
 
         return $data;
+    }
+
+    /** Ảnh minh họa của style — hiện ở /tattoo-styles/{slug}. */
+    private function imagesOf(TattooStyle $style)
+    {
+        return Media::where('tattoo_style_id', $style->id)
+            ->orderBy('sort_order')->orderBy('id')
+            ->get();
+    }
+
+    /** Panel "Ảnh minh họa" — phần việc chung nằm ở trait ManagesAttachedMedia. */
+    private function syncImages(Request $request, TattooStyle $style)
+    {
+        $this->syncAttachedMedia($request, $this->imagesOf($style), [
+            'mediable_type'   => TattooStyle::class,
+            'mediable_id'     => $style->id,
+            'tattoo_style_id' => $style->id,
+            'collection'      => 'gallery',
+            'alt_en'          => $style->name_en.' tattoo at CrimsonInk Tattoo Studio',
+            'alt_vi'          => 'Xăm '.$style->name_vi.' tại CrimsonInk Tattoo Studio',
+        ], 'style/gallery');
     }
 }
