@@ -84,6 +84,17 @@
                         </a>
                     </li>
 
+                    {{-- Chỉ admin thấy mục này; route cũng chặn bằng middleware 'admin'
+                         nên ẩn ở đây chỉ để đỡ bấm vào rồi ăn 403. --}}
+                    @if (optional(auth()->user())->isAdmin())
+                        <li class="{{$uri == 'user'?'active':''}}">
+                            <a title="User" href="{{route('admin.user')}}" aria-expanded="false">
+                                <i class="fa fa-user-secret" aria-hidden="true"></i>
+                                <span class="mini-click-non">Quản lý User</span>
+                            </a>
+                        </li>
+                    @endif
+
                     <li>
                         <a class="has-arrow" href="javascript:void(0);" aria-expanded="true">
                             <i class="fa fa-bullseye" aria-hidden="true"></i>

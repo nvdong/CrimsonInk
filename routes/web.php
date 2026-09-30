@@ -11,6 +11,7 @@ use App\Http\Controllers\PageContentController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ArtistController;
 use App\Http\Controllers\TattooStyleController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\MenuItemController;
 use App\Http\Controllers\MediaController;
 use App\Models\Booking;
@@ -128,5 +129,15 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         Route::post('/update', [MediaController::class, 'update'])->name('admin.media.update');
         Route::get('/{id}/delete', [MediaController::class, 'delete'])->name('admin.media.delete');
     });
+    // Quản lý tài khoản quản trị — chỉ role = admin, xem EnsureUserIsAdmin.
+    Route::prefix('user')->middleware(['auth', 'admin'])->group(function () {
+        Route::get('/', [UserController::class, 'index'])->name('admin.user');
+        Route::get('/create', [UserController::class, 'create'])->name('admin.user.create');
+        Route::post('/store', [UserController::class, 'store'])->name('admin.user.store');
+        Route::get('/{id}/edit', [UserController::class, 'edit'])->name('admin.user.edit');
+        Route::post('/update', [UserController::class, 'update'])->name('admin.user.update');
+        Route::get('/{id}/delete', [UserController::class, 'delete'])->name('admin.user.delete');
+    });
+
     Route::get('/', [DashboardController::class, 'index'])->middleware('auth')->name('admin.index');
 });

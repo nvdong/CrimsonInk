@@ -11,13 +11,7 @@ use App\Models\TattooStyle;
 use Illuminate\Contracts\View\View;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-/**
- * Các trang nội dung tĩnh.
- *
- * Mỗi method trả về đúng một view trong resources/views/pages.
- * Cần thêm dữ liệu động cho một trang nào đó thì sửa ngay method của trang đó,
- * không ảnh hưởng các trang còn lại.
- */
+
 class PageController extends Controller
 {
     public function home(): View
@@ -113,15 +107,7 @@ class PageController extends Controller
         return view('pages.tattoo-styles.index', compact('page','tattooStyles'));
     }
 
-    /**
-     * Trang chi tiết một phong cách xăm — /tattoo-styles/{slug}.
-     *
-     * Trước đây mỗi phong cách một method + một view riêng; giờ dùng chung
-     * pages.tattoo-styles.show.
-     *
-     * Chỉ style có has_detail_page = 1 mới vào được; style khác trả 404 để
-     * không có hai URL cùng hiện một nội dung rỗng.
-     */
+
     public function tattooStyle(string $slug): View
     {
         $style = TattooStyle::active()
