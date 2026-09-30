@@ -1085,3 +1085,18 @@ body.ci-lightbox-open { overflow: hidden; }
     .ci-works__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
     .ci-works__intro { font-size: 15px; }
 }
+
+/* ===== Danh sách phong cách xăm (/tattoo-styles) — bố cục so le =====
+   Bản tĩnh tạo so le bằng cách đảo thứ tự DOM ở từng dòng. Giờ dữ liệu lấy từ
+   DB nên vòng lặp chỉ sinh được một thứ tự (ảnh trước, chữ sau); dòng chẵn đảo
+   chiều bằng biến --flex-direction của container Elementor.
+
+   Selector phải đủ nặng để thắng `.elementor-806 .elementor-element.elementor-element-93a0a64`
+   (0-3-0) mà post-806.css đặt --flex-direction:row; site.css nạp sau nên bằng
+   điểm là thắng. */
+.elementor-806 .elementor-element.ci-style-row--reverse {
+    --flex-direction: row-reverse;
+}
+
+/* Không có media query cho mobile: theme giữ nguyên 2 cột 40/60 ở mọi bề rộng,
+   nên row-reverse cho ra đúng thứ tự chữ-trái/ảnh-phải như bản tĩnh trước đây. */
