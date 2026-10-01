@@ -26,12 +26,7 @@ class ContactController extends Controller
             'artist'         => ['nullable', 'string'],
             'message'        => ['required', 'string', 'max:5000'],
         ], Text::group('booking.form.messages'), Text::group('booking.form.attributes'));
-        // Tên trường lấy từ config/constants.php nên đổi theo ngôn ngữ đang xem.
-        // Phần khung câu ("The :attribute field is required.") vẫn là tiếng Anh
-        // vì project chưa có resources/lang/vi — muốn Việt hóa nốt thì thêm
-        // resources/lang/vi/validation.php.
 
-        // đổi slug artist sang tên cho dễ đọc trong log / email
         $artistName = $data['artist']
             ? (optional($artists->firstWhere('id', $data['artist']))->name ?: $data['artist'])
             : null;
