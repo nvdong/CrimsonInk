@@ -53,11 +53,15 @@ class ContactController extends Controller
                 $data['message'],
             ], static fn ($line) => $line !== null));
 
-            Mail::raw($body, function ($mail) use ($to, $data) {
-                $mail->to($to)
-                    ->replyTo($data['email'])
-                    ->subject('New booking request — '.$data['full_name']);
-            });
+            try {
+                Mail::raw($body, function ($mail) use ($to, $data) {
+                    $mail->to($to)
+                        ->replyTo($data['email'])
+                        ->subject('New booking request — '.$data['full_name']);
+                });
+            } catch (\Throwable $e) {
+                Log::error('Không gửi được email báo đơn đặt lịch '.$booking->code.': '.$e->getMessage());
+            }
         }
 
         return redirect()

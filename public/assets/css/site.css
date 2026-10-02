@@ -789,12 +789,6 @@ body.ci-dark-page {
     margin: 0 auto;
 }
 
-/* Câu hỏi dài phải xuống dòng được.
-   Hai thứ chặn điều đó:
-   1) reset.css của theme đặt white-space:nowrap cho mọi <button>, chữ bên trong
-      thừa hưởng nên không bao giờ ngắt dòng;
-   2) flex item không co nhỏ hơn nội dung nếu thiếu min-width:0.
-   Thiếu một trong hai thì chữ tràn ra ngoài và đẩy mũi tên khỏi khung. */
 .ci-faq__q,
 .ci-faq__q-text {
     white-space: normal;
@@ -809,9 +803,7 @@ body.ci-dark-page {
     background-color: #000000 !important;
     padding: 30px 0;
 }
-/* ===== Lưới ảnh trang /gallery =====
-   Thay cho lưới của widget Smash Balloon (.sbi_col_4) đã bỏ.
-   Bấm vào ô nào thì Elementor lightbox mở ảnh đó, mũi tên chuyển qua ảnh khác. */
+
 .ci-gallery {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1261,5 +1253,11 @@ body.ci-lightbox-open { overflow: hidden; }
     /* Lớp phủ phía sau panel — đậm hơn cho tách bạch */
     .elementskit-menu-overlay.ekit-nav-menu--overlay {
         background-color: rgba(0, 0, 0, .6);
+    }
+}
+
+@media (max-width: 1024px) {
+    .elementor-10 .elementor-element.elementor-element-a32d64e.she-header-yes {
+        background-color: rgba(0, 0, 0, .85);
     }
 }
