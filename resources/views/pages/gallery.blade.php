@@ -65,46 +65,29 @@
 						<div class="elementor-element elementor-element-1d9abf4 elementor-widget elementor-widget-image-gallery" data-id="1d9abf4" data-element_type="widget" data-e-type="widget">
 				<div class="elementor-widget-container">
 
-<ul class="ci-gallery">
-@forelse ($media as $item)
-	@php
-		$isEmbed = $item->type === 'embed';
-		$isVideo = $item->type === 'video';
+{{-- Lưới phong cách: mỗi ô một style, ảnh đại diện là ảnh đầu tiên đã gắn
+     tattoo_style_id cho style đó (xem PageController::gallery).
+     Cả ô là một thẻ <a>, nên nút MORE chỉ là <span> — lồng <a> trong <a> là HTML sai. --}}
+<ul class="ci-styles-grid">
+@forelse ($styles as $style)
+	@php $cover = $covers->get($style->id); @endphp
+	@continue (! $cover || ! $cover->path)
 
-		// Ảnh/video mở trong lightbox
-		$fullUrl = $isEmbed
-			? $item->embed_url
-			: ($item->path ? asset($item->path) : null);
-
-		// Ảnh hiển thị trong ô lưới
-		$thumbPath = $item->poster_path ?: ($isEmbed ? null : $item->path);
-		$thumbUrl  = $thumbPath ? asset($thumbPath) : null;
-	@endphp
-
-	@continue (! $fullUrl || ! $thumbUrl)
-
-	<li class="ci-gallery__item">
-		<a class="ci-gallery__link{{ $isEmbed || $isVideo ? ' ci-gallery__link--video' : '' }}"
-			href="{{ $fullUrl }}"
-			data-ci-lightbox
-			data-ci-type="{{ $item->type }}"
-			data-elementor-open-lightbox="no"
-			aria-label="CrimsonInk Tattoo Studio">
-			<img class="ci-gallery__img"
-				src="{{ $thumbUrl }}"
-				alt="CrimsonInk Tattoo Studio"
-				@if ($item->width) width="{{ $item->width }}" @endif
-				@if ($item->height) height="{{ $item->height }}" @endif
+	<li class="ci-styles-grid__item">
+		<a class="ci-styles-grid__link" href="{{ $style->url }}">
+			<img class="ci-styles-grid__img"
+				src="{{ asset($cover->path) }}"
+				alt="{{ $style->name }}"
 				loading="lazy" decoding="async" />
-			@if ($isEmbed || $isVideo)
-				<span class="ci-gallery__play" aria-hidden="true">
-					<svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464c0 37.5 40.7 60.1 72.4 41.3l352-208c31.4-18.5 31.5-64.1 0-82.6z"></path></svg>
-				</span>
-			@endif
+
+			<span class="ci-styles-grid__body">
+				<span class="ci-styles-grid__name">{{ $style->name }}</span>
+				<span class="ci-styles-grid__more">More</span>
+			</span>
 		</a>
 	</li>
 @empty
-	<li class="ci-gallery__empty">Chưa có ảnh nào trong thư viện.</li>
+	<li class="ci-styles-grid__empty">Chưa có phong cách nào được gắn ảnh.</li>
 @endforelse
 </ul>
 
@@ -131,5 +114,4 @@
 		</section>
 				</div>
 
-@include('partials.lightbox')
 @endsection

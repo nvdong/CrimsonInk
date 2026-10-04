@@ -77,20 +77,20 @@ class PageController extends Controller
     {
         $page = Page::where('slug', 'gallery')->first();
 
-        // Ảnh của trang gallery nằm trong bảng media, gắn vào chính dòng page này
-        // (quan hệ đa hình mediable_type/mediable_id, không có FK constraint).
-        $media = collect();
+        $covers = Media::active()
+            ->whereNotNull('tattoo_style_id')
+            ->where('type', 'image')
+            ->whereNotNull('path')
+            ->orderBy('sort_order')->orderBy('id')
+            ->get()
+            ->unique('tattoo_style_id')
+            ->keyBy('tattoo_style_id');
 
-        if ($page) {
-            $media = Media::active()
-                ->collection('gallery')
-                ->where('mediable_type', Page::class)
-                ->where('mediable_id', $page->id)
-                ->ordered()
-                ->get();
-        }
+        $styles = $covers->isEmpty()
+            ? collect()
+            : TattooStyle::active()->ordered()->whereIn('id', $covers->keys())->get();
 
-        return view('pages.gallery', compact('page', 'media'));
+        return view('pages.gallery', compact('page', 'styles', 'covers'));
     }
 
     public function contactUs(): View
@@ -107,23 +107,14 @@ class PageController extends Controller
         return view('pages.tattoo-styles.index', compact('page','tattooStyles'));
     }
 
-
     public function tattooStyle(string $slug): View
     {
-        $style = TattooStyle::active()
-            ->where('slug', $slug)
-            ->where('has_detail_page', 1)
-            ->first();
+        $style = TattooStyle::active()->where('slug', $slug)->first();
 
         if (! $style) {
             throw new NotFoundHttpException();
         }
-
-        $medias = Media::active()
-            ->where('tattoo_style_id', $style->id)
-            ->ordered()
-            ->get();
-
+        $medias = Media::active()->where('tattoo_style_id', $style->id)->ordered()->get();
         return view('pages.tattoo-styles.show', compact('style', 'medias'));
     }
 
@@ -142,10 +133,6 @@ class PageController extends Controller
             throw new NotFoundHttpException();
         }
 
-        // Tác phẩm của artist: bảng media, collection 'portfolio'.
-        // Nhận cả 2 cách gắn — artist_id, hoặc mediable_type/mediable_id trỏ vào
-        // Artist (cách mà màn Thư viện ảnh dùng). Một dòng chỉ khớp một lần nên
-        // orWhere không sinh bản ghi trùng.
         $works = Media::active()
             ->collection('portfolio')
             ->where(function ($q) use ($artist) {

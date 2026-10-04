@@ -41,12 +41,6 @@ Route::get('/tattoo-styles/{slug}',            [PageController::class, 'tattooSt
 
 Route::post('/contact-us', [ContactController::class, 'store'])->name('contact.store');
 
-/* URL cũ bên WordPress -> URL chuẩn (301) */
-Route::redirect('/japanese-tattoos-2', '/tattoo-styles/japanese-tattoos', 301);
-Route::redirect('/realism-tattoos',    '/tattoo-styles/realism-tattoos', 301);
-Route::redirect('/tribal-tattoos',     '/tattoo-styles/tribal-tattoos', 301);
-Route::redirect('/cartoon-tattoos',    '/tattoo-styles/cartoon-tattoos', 301);
-
 /* Đổi ngôn ngữ (2 lá cờ trên menu) */
 Route::get('/lang/{locale}', [LocaleController::class, 'switch'])->name('locale.switch');
 
