@@ -20,7 +20,7 @@
 <link rel="canonical" href="{{ route('page.home') }}" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="{{ route('page.home') }}" />
-<meta property="article:modified_time" content="2026-04-23T14:19:17+00:00" />
+<meta property="article:modified_time" content="2026-10-04T14:19:17+00:00" />
 <meta property="og:image" content="{{ asset('assets/imgs/logo.png') }}" />
 <meta property="og:image:width" content="1920" />
 <meta property="og:image:height" content="1280" />

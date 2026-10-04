@@ -1262,9 +1262,14 @@ body.ci-lightbox-open { overflow: hidden; }
         border-color: rgba(255, 255, 255, .35);
     }
 
-    /* Lớp phủ phía sau panel — đậm hơn cho tách bạch */
+    /* Lớp phủ phía sau panel: ẩn hẳn.
+       ElementsKit cho lớp này width:100% và trượt left:-100% -> 0 cùng lúc với
+       panel (nav-menu.css), nên khi mở menu thấy HAI lớp cùng đẩy từ trái sang.
+       Panel đã chiếm gần trọn chiều ngang màn hình nên lớp phủ gần như không
+       nhìn thấy, chỉ còn lại hiệu ứng thừa -> bỏ đi, giữ mỗi panel trượt.
+       Hệ quả: bấm ra ngoài không đóng được menu nữa, đóng bằng nút X. */
     .elementskit-menu-overlay.ekit-nav-menu--overlay {
-        background-color: rgba(0, 0, 0, .6);
+        display: none;
     }
 }
 
