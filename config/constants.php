@@ -108,4 +108,22 @@ return [
             ],
         ],
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Khối đánh giá khách hàng ở trang chủ
+    |--------------------------------------------------------------------------
+    | Nội dung review do Google trả về nên không dịch được; chỉ vài nhãn
+    | xung quanh là của mình. Đọc bằng App\Support\Text::get('reviews.*').
+    */
+    'reviews' => [
+        'rating_meta' => [
+            'vi' => 'lượt đánh giá',
+            'en' => 'reviews',
+        ],
+        'read_source' => [
+            'vi' => 'Xem đánh giá gốc',
+            'en' => 'View original review',
+        ],
+    ],
 ];

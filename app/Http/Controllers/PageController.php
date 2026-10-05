@@ -19,6 +19,8 @@ class PageController extends Controller
         $page = Page::where('slug','home')->first();
         $tattooStyles = TattooStyle::active()->featured()->ordered()->get();
 
+        // Nhập trong admin > Đánh giá khách hàng. Chỉ review đang bật và có
+        // tick "Hiện trang chủ" (is_featured) mới lên carousel.
         $clientReviews = Review::active()->featured()->ordered()->get();
 
         $homeArtists    = Artist::active()->featured()->ordered()->get();
@@ -41,7 +43,10 @@ class PageController extends Controller
             'sectionWhychoose'=>$sectionWhychoose,
             'sectionArtists'=>$sectionArtists,
             'sectionStyles'=>$sectionStyles,
-            'sectionReview'=>$sectionReview
+            'sectionReview'=>$sectionReview,
+            'studioRating'=>\App\Support\Settings::get('studio.rating'),
+            'studioRatingCount'=>\App\Support\Settings::get('studio.rating_count'),
+            'reviewsUrl'=>\App\Support\Settings::get('studio.reviews_url', 'https://maps.app.goo.gl/zjJVxSN8SqzV4162A'),
         ]);
     }
 

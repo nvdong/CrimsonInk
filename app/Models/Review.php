@@ -22,6 +22,16 @@ class Review extends Model
         'is_active'   => 'boolean',
     ];
 
+    /**
+     * Nguồn ảnh đại diện để nhét thẳng vào src. Cột lưu đường dẫn tương đối
+     * trong public/ nên phải bọc asset(); rỗng thì trả null để view rơi về ô
+     * chữ cái đầu.
+     */
+    public function getAvatarSrcAttribute()
+    {
+        return empty($this->author_avatar_path) ? null : asset($this->author_avatar_path);
+    }
+
     /** Ngày hiển thị dạng "2 tuần trước". Rỗng reviewed_at thì trả chuỗi rỗng. */
     public function getDisplayDateAttribute()
     {
@@ -42,6 +52,7 @@ class Review extends Model
     {
         return $q->where('is_featured', true);
     }
+
 
     public function scopeOrdered(Builder $q)
     {

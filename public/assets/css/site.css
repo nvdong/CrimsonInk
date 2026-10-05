@@ -155,12 +155,67 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--e-global-color-1090670, #cfcfcf);
 }
 
-.ci-reviews { width: 100%; margin-top: 34px; }
+/* min-width/max-width: Swiper do be ngang cua container de dat width cho
+   slide. Khi container la flex item (min-width mac dinh la auto) no khong bi
+   chan, Swiper do duoc mot gia tri khong gioi han roi tu nong container len —
+   da dinh dung loi nay o carousel tattoo-styles. */
+.ci-reviews {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    margin-top: 34px;
+}
 
-.ci-reviews__grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 24px;
+/* Diem trung binh + so luot danh gia, lay tu settings sau moi lan dong bo */
+.ci-reviews__score {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 28px;
+    color: var(--e-global-color-1090670, #cfcfcf);
+}
+
+.ci-reviews__score-value {
+    color: var(--e-global-color-39cd785, #fff);
+    font-family: var(--e-global-typography-accent-font-family, "Work Sans"), Sans-serif;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.ci-reviews__score-meta { font-size: 15px; opacity: .8; }
+
+.ci-reviews__score .ci-review__stars { margin: 0; }
+
+.ci-reviews__swiper {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    padding-bottom: 4px;
+}
+
+/* height:auto + flex de moi the cao bang nhau trong cung mot man hinh */
+.ci-reviews__swiper .swiper-slide {
+    height: auto;
+    display: flex;
+}
+
+.ci-reviews__swiper .swiper-slide > .ci-review { flex: 1 1 auto; }
+
+.ci-reviews__pagination.swiper-pagination {
+    position: static;
+    margin-top: 22px;
+}
+
+.ci-reviews__pagination .swiper-pagination-bullet {
+    background-color: rgba(255, 255, 255, .35);
+    opacity: 1;
+}
+
+.ci-reviews__pagination .swiper-pagination-bullet-active {
+    background-color: var(--e-global-color-accent, #e52222);
 }
 
 .ci-review {
@@ -232,14 +287,25 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 1.7;
 }
 
-.ci-reviews__cta { margin-top: 34px; }
-
-@media (max-width: 1024px) {
-    .ci-reviews__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+/* Link "Xem tren Google" cua tung review — day xuong day the de cac the
+   khong bi lech nhau khi do dai review chenh lech */
+.ci-review__link {
+    margin-top: auto;
+    padding-top: 16px;
+    color: var(--e-global-color-accent, #e52222);
+    font-size: 14px;
+    letter-spacing: .04em;
+    text-transform: uppercase;
 }
 
+.ci-review__link:hover,
+.ci-review__link:focus { color: var(--e-global-color-39cd785, #fff); }
+
+.ci-reviews__cta { margin-top: 34px; }
+
 @media (max-width: 767px) {
-    .ci-reviews__grid { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+    .ci-reviews__score { margin-bottom: 22px; }
+    .ci-reviews__score-value { font-size: 26px; }
 }
 
 /* ===== Artist — bố cục xen kẽ ảnh / giới thiệu (trang chủ + /artists) ===== */

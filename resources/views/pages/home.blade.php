@@ -119,9 +119,6 @@
 		</div>
 	</section>
 
-@php
-    $reviewsUrl = 'https://www.google.com/maps/search/?api=1&query=Hanoiink+Tattoo';
-@endphp
 
 	<section class="elementor-section elementor-top-section elementor-element elementor-element-b39e206 elementor-section-boxed elementor-section-height-default elementor-section-height-default" data-id="b39e206" data-element_type="section" data-e-type="section" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
 		<div class="elementor-container elementor-column-gap-no">
@@ -237,38 +234,57 @@
 				</div>
 
 				<div class="elementor-element ci-reviews">
-					<div class="ci-reviews__grid">
-						@foreach ($clientReviews as $review)
-							<article class="ci-review">
-								<div class="ci-review__head">
-									@if (!empty($review['author_avatar_path']))
-										<img class="ci-review__avatar" src="{{ asset($review['author_avatar_path']) }}" alt="{{ $review['author_name'] }}" loading="lazy" width="56" height="56">
-									@else
-										<span class="ci-review__avatar ci-review__avatar--initial" aria-hidden="true">{{ mb_substr($review['author_name'], 0, 1) }}</span>
-									@endif
-									<div class="ci-review__who">
-										<p class="ci-review__name">{{ $review['author_name'] }}</p>
-										<p class="ci-review__date">{{ $review['display_date'] }}</p>
-									</div>
-									@if (($review['source'] ?? null) === 'google')
-										<img class="ci-review__source" src="{{ asset('assets/images/ext-cdn-icon.svg') }}" alt="Google" width="22" height="22" loading="lazy">
-									@endif
-								</div>
+					@if ($studioRating)
+						<div class="ci-reviews__score">
+							<span class="ci-reviews__score-value">{{ $studioRating }}</span>
+							<span class="ci-review__stars" role="img" aria-label="{{ $studioRating }} / 5">
+								@for ($i = 1; $i <= 5; $i++)
+									<svg class="ci-review__star @if ($i > round($studioRating)) ci-review__star--empty @endif" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4 6.2 20.4l1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg>
+								@endfor
+							</span>
+							@if ($studioRatingCount)
+								<span class="ci-reviews__score-meta">{{ $studioRatingCount }} {{ \App\Support\Text::get('reviews.rating_meta') }}</span>
+							@endif
+						</div>
+					@endif
 
-								<div class="ci-review__stars" role="img" aria-label="{{ $review['rating'] }} / 5">
-									@for ($i = 1; $i <= 5; $i++)
-										@if ($i <= $review['rating'])
-											<svg class="ci-review__star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4 6.2 20.4l1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg>
-										@else
-											<svg class="ci-review__star ci-review__star--empty" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4 6.2 20.4l1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg>
+					<div class="swiper ci-reviews__swiper">
+						<div class="swiper-wrapper">
+							@foreach ($clientReviews as $review)
+								<div class="swiper-slide">
+									<article class="ci-review">
+										<div class="ci-review__head">
+											@if ($review->avatar_src)
+												<img class="ci-review__avatar" src="{{ $review->avatar_src }}" alt="{{ $review->author_name }}" loading="lazy" width="56" height="56" referrerpolicy="no-referrer">
+											@else
+												<span class="ci-review__avatar ci-review__avatar--initial" aria-hidden="true">{{ mb_substr($review->author_name, 0, 1) }}</span>
+											@endif
+											<div class="ci-review__who">
+												<p class="ci-review__name">{{ $review->author_name }}</p>
+												<p class="ci-review__date">{{ $review->display_date }}</p>
+											</div>
+											@if ($review->source === 'google')
+												<img class="ci-review__source" src="{{ asset('assets/images/ext-cdn-icon.svg') }}" alt="Google" width="22" height="22" loading="lazy">
+											@endif
+										</div>
+
+										<div class="ci-review__stars" role="img" aria-label="{{ $review->rating }} / 5">
+											@for ($i = 1; $i <= 5; $i++)
+												<svg class="ci-review__star @if ($i > $review->rating) ci-review__star--empty @endif" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4L12 17.4 6.2 20.4l1.1-6.4L2.6 9.4l6.5-.9L12 2.6z"/></svg>
+											@endfor
+										</div>
+
+										<p class="ci-review__text">{{ $review->content }}</p>
+
+										@if ($review->source_url)
+											<a class="ci-review__link" href="{{ $review->source_url }}" target="_blank" rel="noopener nofollow">{{ \App\Support\Text::get('reviews.read_source') }}</a>
 										@endif
-									@endfor
+									</article>
 								</div>
-
-								<p class="ci-review__text">{{ $review['content'] }}</p>
-							</article>
-						@endforeach
+							@endforeach
+						</div>
 					</div>
+					<div class="ci-reviews__pagination swiper-pagination"></div>
 				</div>
 
 				<div class="elementor-element ci-btn ci-reviews__cta elementor-align-center elementor-widget elementor-widget-button" data-element_type="widget" data-e-type="widget" data-widget_type="button.default">
@@ -339,6 +355,46 @@
 		document.addEventListener('DOMContentLoaded', initCiStylesSwiper);
 	} else {
 		initCiStylesSwiper();
+	}
+})();
+</script>
+
+{{-- Carousel "My Happy Clients". So review admin nhap thuong it; loop chi
+     bat khi du slide, khong thi Swiper nhan ban slide va hien ra cac o
+     trung lap. --}}
+<script id="ci-reviews-swiper-js">
+(function () {
+	function initCiReviewsSwiper() {
+		var el = document.querySelector('.ci-reviews__swiper');
+		if (!el || typeof Swiper === 'undefined' || el.dataset.ciInit) { return; }
+		el.dataset.ciInit = '1';
+
+		var slides = el.querySelectorAll('.swiper-slide').length;
+
+		window.ciReviewsSwiper = new Swiper(el, {
+			slidesPerView: 1.08,
+			spaceBetween: 16,
+			watchOverflow: true,
+			grabCursor: true,
+			autoHeight: false,
+			keyboard: { enabled: true },
+			loop: slides > 3,
+			pagination: {
+				el: '.ci-reviews__pagination',
+				clickable: true,
+				dynamicBullets: true,
+				dynamicMainBullets: 3
+			},
+			breakpoints: {
+				768:  { slidesPerView: 2, spaceBetween: 20 },
+				1025: { slidesPerView: 3, spaceBetween: 24 }
+			}
+		});
+	}
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', initCiReviewsSwiper);
+	} else {
+		initCiReviewsSwiper();
 	}
 })();
 </script>

@@ -49,6 +49,13 @@
                         </a>
                     </li>
 
+                    <li class="{{$uri == 'review'?'active':''}}">
+                        <a title="Review" href="{{route('admin.review')}}" aria-expanded="false">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <span class="mini-click-non">Đánh giá khách hàng</span>
+                        </a>
+                    </li>
+
                     <li class="{{$uri == 'setting'?'active':''}}">
                         <a title="Cấu hình" href="{{route('admin.setting')}}" aria-expanded="false">
                             <i class="fa fa-cogs" aria-hidden="true"></i>

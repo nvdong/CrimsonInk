@@ -68,9 +68,25 @@ class SettingsSeeder extends Seeder
             // ----- booking -----
             ['booking', 'notify_email', 'text', null, null, null, 1],
             ['booking', 'code_prefix',  'text', 'CI', null, null, 2],
+
+            // ----- khối "My Happy Clients" ở trang chủ -----
+            // Ba khóa này chỉ là con số hiển thị, nhập tay. Nội dung từng
+            // review quản lý ở màn hình riêng (admin > Đánh giá khách hàng).
+            ['studio', 'reviews_url',   'text', 'https://maps.app.goo.gl/zjJVxSN8SqzV4162A', null, null, 20],
+            ['studio', 'rating',        'text', null, null, null, 21],
+            ['studio', 'rating_count',  'text', null, null, null, 22],
         ];
 
+        // Các khóa admin tự nhập giá trị; chạy lại seeder thì giữ nguyên,
+        // không ghi đè về mặc định.
+        $keepExisting = ['studio.rating', 'studio.rating_count', 'studio.reviews_url'];
+
         foreach ($rows as $r) {
+            if (in_array($r[0].'.'.$r[1], $keepExisting, true)
+                && DB::table('settings')->where('group', $r[0])->where('key', $r[1])->exists()) {
+                continue;
+            }
+
             DB::table('settings')->updateOrInsert(
                 ['group' => $r[0], 'key' => $r[1]],
                 [
@@ -87,5 +103,9 @@ class SettingsSeeder extends Seeder
 
         // Khóa cũ đã bị tách thành open_days + open_hours
         DB::table('settings')->where('group', 'studio')->where('key', 'opening_hours')->delete();
+
+        // Nhóm google (API key Places, place_id...) đã bỏ: review giờ nhập tay
+        // ở admin > Đánh giá khách hàng, site không gọi Google nữa.
+        DB::table('settings')->where('group', 'google')->delete();
     }
 }

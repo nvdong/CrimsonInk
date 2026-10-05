@@ -36,6 +36,4 @@
             @endif
         </li>
     @endforeach
-
-    @include('partials.lang-switcher')
 </ul>

@@ -9,6 +9,7 @@ use App\Http\Controllers\BookingController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\PageContentController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\ArtistController;
 use App\Http\Controllers\TattooStyleController;
 use App\Http\Controllers\UserController;
@@ -62,6 +63,7 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
     Route::prefix('setting')->middleware('auth')->group(function () {
         Route::get('/', [SettingController::class, 'index'])->name('admin.setting');
         Route::post('/update', [SettingController::class, 'update'])->name('admin.setting.update');
+
         Route::get('/create', [SettingController::class, 'create'])->name('admin.setting.create');
         Route::post('/store', [SettingController::class, 'store'])->name('admin.setting.store');
         Route::get('/{id}/delete', [SettingController::class, 'delete'])->name('admin.setting.delete');
@@ -75,6 +77,15 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         Route::post('/update', [PageContentController::class, 'update'])->name('admin.page.update');
         Route::get('/{id}/delete', [PageContentController::class, 'delete'])->name('admin.page.delete');
         Route::get('/{id}/sections/scaffold', [PageContentController::class, 'scaffoldSections'])->name('admin.page.sections.scaffold');
+    });
+
+    Route::prefix('review')->middleware('auth')->group(function () {
+        Route::get('/', [ReviewController::class, 'index'])->name('admin.review');
+        Route::get('/create', [ReviewController::class, 'create'])->name('admin.review.create');
+        Route::post('/store', [ReviewController::class, 'store'])->name('admin.review.store');
+        Route::get('/{id}/edit', [ReviewController::class, 'edit'])->name('admin.review.edit');
+        Route::post('/update', [ReviewController::class, 'update'])->name('admin.review.update');
+        Route::get('/{id}/delete', [ReviewController::class, 'delete'])->name('admin.review.delete');
     });
 
     Route::prefix('faq')->middleware('auth')->group(function () {
