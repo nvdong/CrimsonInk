@@ -957,6 +957,10 @@ body.ci-dark-page {
 
 @media (max-width: 767px) {
     .ci-gallery { grid-template-columns: minmax(0, 1fr); }
+
+    /* Trang /about-us chỉ có 8 ảnh nên 1 cột là vừa. Trang phong cách có thể
+       vài chục ảnh — 1 cột thành cuộn dài vô tận, giữ 2 cột trên mobile. */
+    .ci-gallery.ci-gallery--style { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 /* ===== Lightbox trang /gallery =====
@@ -1170,113 +1174,6 @@ body.ci-lightbox-open { overflow: hidden; }
 
 /* Không có media query cho mobile: theme giữ nguyên 2 cột 40/60 ở mọi bề rộng,
    nên row-reverse cho ra đúng thứ tự chữ-trái/ảnh-phải như bản tĩnh trước đây. */
-
-/* ===== Carousel ảnh trang phong cách (/tattoo-styles/{slug}) =====
-   Dựng lại widget image-carousel của trang Japanese cũ bằng swiper.min.js có
-   sẵn — widget của Elementor nạp động assets/lib/swiper/v8/, thư mục không có
-   trong bản clone. Cùng cách làm với carousel "Tattoo Styles" ngoài trang chủ. */
-.ci-style-carousel {
-    position: relative;
-    padding: 0 0 50px;
-    /* Carousel là flex item của .e-con-inner. Flex item mặc định min-width:auto,
-       tức là không co nhỏ hơn nội dung — Swiper đo container lúc chưa bị chặn,
-       đặt bề rộng slide theo đó, slide lại nong container ra: vòng lặp kết thúc
-       ở 16.777.216px (2^24). min-width:0 cắt vòng lặp đó. */
-    width: 100%;
-    min-width: 0;
-    max-width: 100%;
-}
-
-.ci-style-carousel__swiper {
-    overflow: hidden;
-    width: 100%;
-    min-width: 0;
-    max-width: 100%;
-}
-
-.ci-style-carousel__slide {
-    height: auto;
-    overflow: hidden;
-    border-radius: 6px;
-    background-color: #1a1a1a;
-}
-
-/* height PHẢI là auto, không phải 100%: .swiper-slide lấy chiều cao từ nội dung,
-   nên height:100% ở đây là tham chiếu vòng — ở bề rộng mobile nó làm slide phình
-   ra hàng triệu pixel. width + aspect-ratio đã đủ cho một chiều cao xác định. */
-.ci-style-carousel .ci-style-carousel__slide img {
-    display: block;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 3 / 4;
-    object-fit: cover;
-    transition: transform .4s ease;
-}
-
-.ci-style-carousel__slide:hover img { transform: scale(1.04); }
-
-/* Mũi tên: nằm đè hai mép, ẩn khi Swiper báo hết đường */
-.ci-style-carousel__nav {
-    position: absolute;
-    top: calc(50% - 25px);
-    z-index: 5;
-    width: 44px;
-    height: 44px;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transform: translateY(-50%);
-    background-color: rgba(16, 16, 16, .65);
-    border: 1px solid rgba(255, 255, 255, .25);
-    border-radius: 0;
-    color: #fff;
-    cursor: pointer;
-    transition: background-color .2s ease, border-color .2s ease, opacity .2s ease;
-}
-
-.ci-style-carousel__nav:hover,
-.ci-style-carousel__nav:focus-visible {
-    background-color: var(--e-global-color-accent, #a20000);
-    border-color: var(--e-global-color-accent, #a20000);
-}
-
-.ci-style-carousel__nav svg { width: 20px; height: 20px; }
-.ci-style-carousel__nav--prev { left: 0; }
-.ci-style-carousel__nav--next { right: 0; }
-
-.ci-style-carousel__nav.swiper-button-disabled {
-    opacity: .35;
-    cursor: default;
-}
-
-/* Dot phân trang nằm NGOÀI .swiper nên phải tự lo vị trí.
-   Không dùng display:flex ở đây: chế độ dynamicBullets của Swiper canh dot
-   bằng left:50% + translateX, gặp flex thì bullet bị ép về width 0. */
-.ci-style-carousel__pagination {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 12px;
-    text-align: center;
-}
-
-.ci-style-carousel__pagination .swiper-pagination-bullet {
-    width: 9px;
-    height: 9px;
-    margin: 0 5px;
-    background-color: rgba(255, 255, 255, .4);
-    opacity: 1;
-}
-
-.ci-style-carousel__pagination .swiper-pagination-bullet-active {
-    background-color: var(--e-global-color-accent, #a20000);
-}
-
-@media (max-width: 767px) {
-    .ci-style-carousel__nav { width: 36px; height: 36px; }
-    .ci-style-carousel__nav svg { width: 16px; height: 16px; }
-}
 
 /* ===== Menu off-canvas trên mobile/tablet =====
    ElementsKit đổ nền #f7f7f7 cho panel ở dưới 1025px (nav-menu.css), mà logo

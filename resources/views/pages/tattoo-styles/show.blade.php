@@ -1,12 +1,3 @@
-{{-- Trang chi tiết một phong cách xăm — dùng chung cho mọi style.
-     Thay cho 4 view riêng (realism / japanese / tribal / cartoon) trước đây.
-
-     Nội dung: bảng tattoo_styles (name, content, meta_*).
-     Ảnh:      bảng media, lọc theo tattoo_style_id.
-     Chỉ style có has_detail_page = 1 mới vào được — chặn ở PageController.
-
-     Khung và class lấy nguyên từ trang realism cũ (post-681) để dùng lại
-     style có sẵn; đổi nghĩa là mọi trang style đổi theo. --}}
 @extends('layouts.app')
 
 @section('title', $style->meta_title ?: $style->name.' Tattoos | Crimson Ink Tattoo Studio')
@@ -14,8 +5,6 @@
 
 @push('styles')
 <link rel='stylesheet' id='widget-divider-css' href='{{ asset('assets/css/widget-divider.min.css') }}' media='all' />
-<link rel='stylesheet' id='swiper-css' href='{{ asset('assets/css/swiper.min.css') }}' media='all' />
-<link rel='stylesheet' id='e-swiper-css' href='{{ asset('assets/css/e-swiper.min.css') }}' media='all' />
 <link rel='stylesheet' id='elementor-post-681-css' href='{{ asset('assets/css/post-681.css') }}' media='all' />
 @endpush
 
@@ -65,13 +54,11 @@
 						</div>
 
 						<div class="elementor-element elementor-element-ff26e30 elementor-widget elementor-widget-text-editor" data-id="ff26e30" data-element_type="widget" data-e-type="widget" data-widget_type="text-editor.default">
-							<div class="elementor-widget-container">
-								@if ($style->content)
-									{!! $style->content !!}
-								@elseif ($style->excerpt)
-									<p>{{ $style->excerpt }}</p>
-								@endif
-							</div>
+							@if ($style->content)
+								{!! $style->content !!}
+							@elseif ($style->excerpt)
+								<p>{{ $style->excerpt }}</p>
+							@endif
 						</div>
 
 					</div>
@@ -81,38 +68,34 @@
 			@if ($medias->isNotEmpty())
 			<div class="elementor-element elementor-element-973e1cd e-flex e-con-boxed e-con e-parent" data-id="973e1cd" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
 				<div class="e-con-inner">
-					{{-- Carousel trượt ngang, dựng lại theo widget image-carousel của trang
-					     Japanese cũ. Không dùng widget Elementor vì nó nạp động
-					     assets/lib/swiper/v8/swiper.min.js — thư mục lib không có trong
-					     bản clone. Thay vào đó dùng swiper.min.js có sẵn trong assets/js
-					     và tự khởi tạo ở cuối file, y như carousel ngoài trang chủ. --}}
-					<div class="ci-style-carousel">
-						<div class="swiper ci-style-carousel__swiper">
-							<div class="swiper-wrapper">
-								@foreach ($medias as $media)
-									@php
-										$src = $media->poster_path ?: $media->path;
-										$alt = $media->alt ?: $style->name.' tattoo at CrimsonInk Tattoo Studio';
-									@endphp
+					<ul class="ci-gallery ci-gallery--style">
+						@foreach ($medias as $media)
+							@php
+								$thumb = $media->poster_path ?: $media->path;
+								$full  = $media->path ?: $media->poster_path;
+								$alt   = $media->alt ?: $style->name.' tattoo at CrimsonInk Tattoo Studio';
+							@endphp
 
-									@continue (! $src)
+							@continue (! $thumb || ! $full)
 
-									<div class="swiper-slide ci-style-carousel__slide">
-										<img src="{{ asset($src) }}" alt="{{ $alt }}" loading="lazy" decoding="async" />
-									</div>
-								@endforeach
-							</div>
-						</div>
-
-						<button class="ci-style-carousel__nav ci-style-carousel__nav--prev" type="button" aria-label="Ảnh trước">
-							<svg viewBox="0 0 1000 1000" aria-hidden="true"><path fill="currentColor" d="M646 125C629 125 613 133 604 142L308 442C296 454 292 471 292 487 292 504 296 521 308 533L604 854C617 867 629 875 646 875 663 875 679 871 692 858 704 846 713 829 713 812 713 796 708 779 692 767L438 487 692 225C700 217 708 204 708 187 708 171 704 154 692 142 675 129 663 125 646 125Z"></path></svg>
-						</button>
-						<button class="ci-style-carousel__nav ci-style-carousel__nav--next" type="button" aria-label="Ảnh sau">
-							<svg viewBox="0 0 1000 1000" aria-hidden="true"><path fill="currentColor" d="M696 533C708 521 713 504 713 487 713 471 708 454 696 446L400 146C388 133 375 125 354 125 338 125 325 129 313 142 300 154 292 171 292 187 292 204 296 221 308 233L563 492 304 771C292 783 288 800 288 817 288 833 296 850 308 863 321 871 338 875 354 875 371 875 388 867 400 854L696 533Z"></path></svg>
-						</button>
-
-						<div class="ci-style-carousel__pagination swiper-pagination"></div>
-					</div>
+							<li class="ci-gallery__item">
+								<a class="ci-gallery__link @if ($media->type !== 'image') ci-gallery__link--video @endif"
+								   href="{{ asset($full) }}"
+								   data-ci-lightbox
+								   data-ci-type="{{ $media->type }}"
+								   data-elementor-open-lightbox="no"
+								   aria-label="{{ $alt }}">
+									<img class="ci-gallery__img" src="{{ asset($thumb) }}" alt="{{ $alt }}"
+									     loading="lazy" decoding="async" />
+									@if ($media->type !== 'image')
+										<span class="ci-gallery__play" aria-hidden="true">
+											<svg viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>
+										</span>
+									@endif
+								</a>
+							</li>
+						@endforeach
+					</ul>
 				</div>
 			</div>
 			@endif
@@ -121,73 +104,6 @@
 	</div>
 
 </main>
+
+@include('partials.lightbox')
 @endsection
-
-@push('scripts')
-<script id="swiper-js" src="{{ asset('assets/js/swiper.min.js') }}"></script>
-
-{{-- Khởi tạo carousel ảnh của trang phong cách. Swiper 8.4.5 nạp ở trên. --}}
-<script id="ci-style-carousel-js">
-(function () {
-	function init() {
-		var el = document.querySelector('.ci-style-carousel__swiper');
-
-		if (!el || typeof Swiper === 'undefined' || el.dataset.ciInit) {
-			return;
-		}
-
-		el.dataset.ciInit = '1';
-
-		/* Ảnh của slide nằm ngoài khung nhìn theo chiều ngang sẽ không tự tải khi
-		   để loading="lazy". Khi carousel lọt vào khung nhìn thì bật tất cả về
-		   eager để lướt không gặp ô trống. */
-		var eager = function () {
-			el.querySelectorAll('img[loading="lazy"]').forEach(function (img) { img.loading = 'eager'; });
-		};
-
-		if ('IntersectionObserver' in window) {
-			var io = new IntersectionObserver(function (entries) {
-				if (entries.some(function (e) { return e.isIntersecting; })) { eager(); io.disconnect(); }
-			}, { rootMargin: '300px 0px' });
-			io.observe(el);
-		} else {
-			eager();
-		}
-
-		var slides = el.querySelectorAll('.swiper-slide').length;
-
-		window.ciStyleCarousel = new Swiper(el, {
-			slidesPerView: 1.2,
-			spaceBetween: 10,
-			speed: 500,
-			grabCursor: true,
-			watchOverflow: true,
-			/* loop cần đủ slide để nhân bản, ít quá thì Swiper nhảy lung tung */
-			loop: slides > 4,
-			autoplay: slides > 4 ? { delay: 5000, pauseOnMouseEnter: true, disableOnInteraction: true } : false,
-			keyboard: { enabled: true },
-			navigation: {
-				prevEl: '.ci-style-carousel__nav--prev',
-				nextEl: '.ci-style-carousel__nav--next'
-			},
-			pagination: {
-				el: '.ci-style-carousel__pagination',
-				clickable: true,
-				dynamicBullets: true,
-				dynamicMainBullets: 3
-			},
-			breakpoints: {
-				768:  { slidesPerView: 2, spaceBetween: 10 },
-				1025: { slidesPerView: 4, spaceBetween: 10 }
-			}
-		});
-	}
-
-	if (document.readyState === 'loading') {
-		document.addEventListener('DOMContentLoaded', init);
-	} else {
-		init();
-	}
-})();
-</script>
-@endpush
