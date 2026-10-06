@@ -95,6 +95,20 @@ class BookingController extends Controller
         ));
     }
 
+    public function show(Request $request)
+    {
+        $uri     = 'booking';
+        $booking = $this->booking->with(['artist', 'tattooStyle', 'handler'])->findOrFail($request->id);
+
+        return view('admin.booking.show', [
+            'uri'      => $uri,
+            'booking'  => $booking,
+            'statuses' => static::$statuses,
+            'artists'  => Artist::withTrashed()->orderBy('sort_order')->get(),
+            'styles'   => TattooStyle::withTrashed()->orderBy('sort_order')->get(),
+        ]);
+    }
+
     public function edit(Request $request)
     {
         $uri     = 'booking';

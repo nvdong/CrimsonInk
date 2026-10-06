@@ -2,17 +2,6 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-campaign">
     <div class="col-md-8 col-sm-12">
         <div class="form-group">
-            <label for="question_vi" class="required-flag">Câu hỏi (VI)</label>
-            <input id="question_vi" name="question_vi" class="form-control" maxlength="255" required
-                   value="{{ old('question_vi', $faq->question_vi) }}" type="text">
-            @error('question_vi') <span class="help-block has-error">{{ $message }}</span> @enderror
-        </div>
-        <div class="form-group">
-            <label for="answer_vi">Trả lời (VI)</label>
-            <textarea id="answer_vi" name="answer_vi" class="summernote form-control" rows="8">{{ old('answer_vi', $faq->answer_vi) }}</textarea>
-        </div>
-
-        <div class="form-group">
             <label for="question_en" class="required-flag">Câu hỏi (EN)</label>
             <input id="question_en" name="question_en" class="form-control" maxlength="255" required
                    value="{{ old('question_en', $faq->question_en) }}" type="text">

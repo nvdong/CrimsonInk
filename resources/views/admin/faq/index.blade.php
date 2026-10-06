@@ -18,7 +18,6 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Nhóm</th>
-                                        <th>Câu hỏi (VI)</th>
                                         <th>Câu hỏi (EN)</th>
                                         <th>Thứ tự</th>
                                         <th>Trạng thái</th>
@@ -34,7 +33,6 @@
                                             {!! Form::text('question',Request::input('question'),array('class'=>'form-control','placeholder'=>'Từ khóa')) !!}
                                         </td>
                                         <td class="hasinput"></td>
-                                        <td class="hasinput"></td>
                                         <td class="hasinput">
                                             {!! Form::select('is_active',array(''=>'Tất cả','1'=>'Đang bật','0'=>'Đang tắt'),Request::input('is_active'),array('class'=>'form-control')) !!}
                                         </td>
@@ -49,7 +47,6 @@
                                         <tr>
                                             <td>{{ $row->id }}</td>
                                             <td><span class="label label-default">{{ $groups[$row->group] ?? $row->group }}</span></td>
-                                            <td>{{ $row->question_vi }}</td>
                                             <td>{{ $row->question_en }}</td>
                                             <td>{{ $row->sort_order }}</td>
                                             <td>

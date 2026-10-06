@@ -39,7 +39,6 @@
                                         <th>Ghi chú</th>
                                         <th>Thời gian đặt</th>
                                         <th>Trạng thái</th>
-                                        <th></th>
                                     </tr>
                                     <tr>
                                         {{ Form::open(array('route'=>'admin.booking','method'=>'get')) }}
@@ -60,7 +59,6 @@
                                         <td class="hasinput"></td>
                                         <td class="hasinput"></td>
                                         <td class="hasinput"></td>
-                                        <td class="hasinput"></td>
                                         <td class="hasinput">
                                             {!! Form::select('status',array(''=>'Tất cả')+$statuses,Request::input('status'),array('class'=>'form-control')) !!}
                                         </td>
@@ -74,7 +72,11 @@
                                     @forelse ($booking as $row)
                                         <tr>
                                             <td>{{ $row->id }}</td>
-                                            <td><code>{{ $row->code }}</code></td>
+                                            <td>
+                                                <a href="{{ route('admin.booking.show', ['id'=>$row->id]) }}">
+                                                    <code>{{ $row->code }}</code>
+                                                </a>
+                                            </td>
                                             <td>{{ $row->full_name }}</td>
                                             <td>{{ $row->email }}</td>
                                             <td>{{ $row->phone }}</td>
@@ -104,15 +106,6 @@
                                                 <label class="label {{ $statusLabel[$row->status] ?? 'label-default' }}">
                                                     {{ $statuses[$row->status] ?? $row->status }}
                                                 </label>
-                                            </td>
-                                            <td>
-                                                <ul class="action-control">
-                                                    <li>
-                                                        <a href="{{ route('admin.booking.edit', $row) }}" class="btn btn-sm btn-clean btn-icon btn-icon-md">
-                                                            <i class="fa fa-pencil-square-o fa-2x" aria-hidden="true"></i>
-                                                        </a>
-                                                    </li>
-                                                </ul>
                                             </td>
                                         </tr>
                                     @empty
