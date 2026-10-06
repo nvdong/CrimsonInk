@@ -74,7 +74,7 @@
 	@continue (! $cover || ! $cover->path)
 
 	<li class="ci-styles-grid__item">
-		<a class="ci-styles-grid__link" href="{{ $style->url }}">
+		<a class="ci-styles-grid__link" href="{{ route('page.tattoo-styles.show',['slug'=>$style->slug]) }}">
 			<img class="ci-styles-grid__img"
 				src="{{ asset($cover->path) }}"
 				alt="{{ $style->name }}"

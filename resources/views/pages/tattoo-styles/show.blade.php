@@ -100,6 +100,19 @@
 			</div>
 			@endif
 
+		<div class="elementor-element elementor-element-973e1cd ci-btn ci-tattoo-style__cta elementor-align-center elementor-widget elementor-widget-button" data-id="ci-btn-instagram" data-element_type="widget" data-e-type="widget" data-widget_type="button.default">
+			<div class="elementor-widget-container">
+				<div class="elementor-button-wrapper">
+					<a class="elementor-button elementor-button-link elementor-size-sm" href="{{ route('page.contact-us',['style_id'=>$style->id]) }}" target="_blank" rel="nofollow noopener">
+						<span class="elementor-button-content-wrapper">
+							<span class="elementor-button-text">Make a Booking</span>
+						</span>
+					</a>
+				</div>
+			</div>
+		</div>
+				
+
 		</div>
 	</div>
 

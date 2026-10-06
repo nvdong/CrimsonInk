@@ -1345,6 +1345,10 @@ body.ci-lightbox-open { overflow: hidden; }
     text-align: center;
 }
 
+.ci-tattoo-style__cta{
+    padding: 40px 0;
+}
+
 @media (max-width: 1024px) {
     .ci-styles-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .ci-styles-grid__name { font-size: 18px; }

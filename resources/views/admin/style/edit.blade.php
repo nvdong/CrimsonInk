@@ -16,19 +16,17 @@
                 <input type="hidden" name="id" value="{{ $style->id }}">
                 @include('admin.style._form', ['submitLabel' => 'Cập nhật'])
 
-                @if ($style->has_detail_page)
-                    @include('admin._media_panel', [
-                        'mediaItems' => $images,
-                        'mediaMaxKb' => $mediaMaxKb,
-                        'mediaTitle' => 'Ảnh minh họa',
-                        'mediaNote'  => 'Lưới ảnh hiện ở trang <a href="'.url('/tattoo-styles/'.$style->slug).'" target="_blank" rel="noopener">/tattoo-styles/'.$style->slug.'</a>, bấm vào ảnh sẽ mở lightbox. Mọi thay đổi ở đây lưu chung với form phong cách.',
-                    ])
+                @include('admin._media_panel', [
+                    'mediaItems' => $images,
+                    'mediaMaxKb' => $mediaMaxKb,
+                    'mediaTitle' => 'Ảnh minh họa',
+                    'mediaNote'  => 'Lưới ảnh hiện ở trang <a href="'.url('/tattoo-styles/'.$style->slug).'" target="_blank" rel="noopener">/tattoo-styles/'.$style->slug.'</a>, bấm vào ảnh sẽ mở lightbox. Mọi thay đổi ở đây lưu chung với form phong cách.',
+                ])
 
-                    <div class="col-lg-12" style="padding:0 20px 40px">
-                        <button type="submit" class="btn btn-primary">Cập nhật</button>
-                        <a href="{{ route('admin.style') }}" class="btn btn-danger">Hủy</a>
-                    </div>
-                @endif
+                <div class="col-lg-12" style="padding:0 20px 40px">
+                    <button type="submit" class="btn btn-primary">Cập nhật</button>
+                    <a href="{{ route('admin.style') }}" class="btn btn-danger">Hủy</a>
+                </div>
                 {!! Form::close() !!}
             </div>
         </div>

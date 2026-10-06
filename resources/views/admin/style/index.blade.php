@@ -18,10 +18,8 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Ảnh</th>
-                                        <th>Tên (VI)</th>
                                         <th>Tên (EN)</th>
                                         <th>Slug</th>
-                                        <th>Trang riêng</th>
                                         <th>Thứ tự</th>
                                         <th>Carousel</th>
                                         <th>Trạng thái</th>
@@ -37,7 +35,6 @@
                                         <td class="hasinput">
                                             {!! Form::select('trashed',array(''=>'Đang dùng','1'=>'Đã xóa'),Request::input('trashed'),array('class'=>'form-control')) !!}
                                         </td>
-                                        <td class="hasinput"></td>
                                         <td class="hasinput"></td>
                                         <td class="hasinput">
                                             {!! Form::select('is_featured',array(''=>'Tất cả','1'=>'Có','0'=>'Không'),Request::input('is_featured'),array('class'=>'form-control')) !!}
@@ -60,16 +57,8 @@
                                                     <img src="{{ asset($row->cover_path) }}" alt="" style="height:40px;width:40px;object-fit:cover;background:#222">
                                                 @endif
                                             </td>
-                                            <td>{{ $row->name_vi }}</td>
                                             <td>{{ $row->name_en }}</td>
                                             <td><code>{{ $row->slug }}</code></td>
-                                            <td>
-                                                @if ($row->has_detail_page)
-                                                    <small class="text-muted">{{ $row->route_name }}</small>
-                                                @else
-                                                    <span class="text-muted">—</span>
-                                                @endif
-                                            </td>
                                             <td>{{ $row->sort_order }}</td>
                                             <td>
                                                 <label class="label {{ $row->is_featured ? 'label-info' : 'label-default' }}">

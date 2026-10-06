@@ -35,10 +35,10 @@
                         </a>
                     </li>
 
-                    <li class="{{$uri == 'page'?'active':''}}">
-                        <a title="Trang" href="{{route('admin.page')}}" aria-expanded="false">
-                            <i class="fa fa-file-text-o" aria-hidden="true"></i>
-                            <span class="mini-click-non">Quản lý Trang</span>
+                    <li class="{{$uri == 'style'?'active':''}}">
+                        <a title="Style" href="{{route('admin.style')}}" aria-expanded="false">
+                            <i class="fa fa-magic" aria-hidden="true"></i>
+                            <span class="mini-click-non">Tattoo Styles</span>
                         </a>
                     </li>
 
@@ -49,20 +49,6 @@
                         </a>
                     </li>
 
-                    <li class="{{$uri == 'review'?'active':''}}">
-                        <a title="Review" href="{{route('admin.review')}}" aria-expanded="false">
-                            <i class="fa fa-star" aria-hidden="true"></i>
-                            <span class="mini-click-non">Đánh giá khách hàng</span>
-                        </a>
-                    </li>
-
-                    <li class="{{$uri == 'setting'?'active':''}}">
-                        <a title="Cấu hình" href="{{route('admin.setting')}}" aria-expanded="false">
-                            <i class="fa fa-cogs" aria-hidden="true"></i>
-                            <span class="mini-click-non">Cấu hình website</span>
-                        </a>
-                    </li>
-
                     <li class="{{$uri == 'artist'?'active':''}}">
                         <a title="Artist" href="{{route('admin.artist')}}" aria-expanded="false">
                             <i class="fa fa-users" aria-hidden="true"></i>
@@ -70,10 +56,17 @@
                         </a>
                     </li>
 
-                    <li class="{{$uri == 'style'?'active':''}}">
-                        <a title="Style" href="{{route('admin.style')}}" aria-expanded="false">
-                            <i class="fa fa-magic" aria-hidden="true"></i>
-                            <span class="mini-click-non">DS Style</span>
+                    <li class="{{$uri == 'page'?'active':''}}">
+                        <a title="Trang" href="{{route('admin.page')}}" aria-expanded="false">
+                            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                            <span class="mini-click-non">Quản lý Trang</span>
+                        </a>
+                    </li>
+
+                    <li class="{{$uri == 'review'?'active':''}}">
+                        <a title="Review" href="{{route('admin.review')}}" aria-expanded="false">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <span class="mini-click-non">Đánh giá khách hàng</span>
                         </a>
                     </li>
 
@@ -88,6 +81,13 @@
                         <a title="Menu" href="{{route('admin.menu')}}" aria-expanded="false">
                             <i class="fa fa-bars" aria-hidden="true"></i>
                             <span class="mini-click-non">Quản lý Menu</span>
+                        </a>
+                    </li>
+
+                    <li class="{{$uri == 'setting'?'active':''}}">
+                        <a title="Cấu hình" href="{{route('admin.setting')}}" aria-expanded="false">
+                            <i class="fa fa-cogs" aria-hidden="true"></i>
+                            <span class="mini-click-non">Cấu hình website</span>
                         </a>
                     </li>
 
