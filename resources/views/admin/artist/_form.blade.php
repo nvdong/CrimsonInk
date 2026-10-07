@@ -4,34 +4,15 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-campaign">
     <div class="col-md-8 col-sm-12">
         <div class="form-group">
-            <label for="name_vi" class="required-flag">Tên (VI)</label>
-            <input id="name_vi" name="name_vi" class="form-control" maxlength="120" required
-                   value="{{ old('name_vi', $artist->name_vi) }}" type="text">
-            @error('name_vi') <span class="help-block has-error">{{ $message }}</span> @enderror
-        </div>
-        <div class="form-group">
             <label for="name_en" class="required-flag">Tên (EN)</label>
             <input id="name_en" name="name_en" class="form-control" maxlength="120" required
                    value="{{ old('name_en', $artist->name_en) }}" type="text">
             @error('name_en') <span class="help-block has-error">{{ $message }}</span> @enderror
         </div>
         <div class="form-group">
-            <label for="role_vi">Vai trò / sở trường (VI)</label>
-            <input id="role_vi" name="role_vi" class="form-control" maxlength="160"
-                   placeholder="Tả thực &amp; Chân dung" value="{{ old('role_vi', $artist->role_vi) }}" type="text">
-        </div>
-        <div class="form-group">
             <label for="role_en">Vai trò / sở trường (EN)</label>
             <input id="role_en" name="role_en" class="form-control" maxlength="160"
                    placeholder="Realism &amp; Portrait" value="{{ old('role_en', $artist->role_en) }}" type="text">
-        </div>
-
-        <div class="form-group">
-            <label for="slogan_vi">Slogan (VI)</label>
-            <input id="slogan_vi" name="slogan_vi" class="form-control" maxlength="190"
-                   placeholder="Ý tưởng của bạn, thành hình tại CrimsonInk"
-                   value="{{ old('slogan_vi', $artist->slogan_vi) }}" type="text">
-            <small class="text-muted">Câu dẫn làm tiêu đề khối tác phẩm ở trang chi tiết artist. Để trống thì dùng câu mặc định.</small>
         </div>
         <div class="form-group">
             <label for="slogan_en">Slogan (EN)</label>
@@ -39,20 +20,9 @@
                    placeholder="Your Vision, Forged at CrimsonInk"
                    value="{{ old('slogan_en', $artist->slogan_en) }}" type="text">
         </div>
-
-        <div class="form-group">
-            <label for="bio_vi">Giới thiệu ngắn (VI)</label>
-            <textarea id="bio_vi" name="bio_vi" class="form-control" rows="3">{{ old('bio_vi', $artist->bio_vi) }}</textarea>
-            <small class="text-muted">Đoạn hiện ở trang chủ và trang /artists. Khoảng 2-3 dòng là vừa bố cục.</small>
-        </div>
         <div class="form-group">
             <label for="bio_en">Giới thiệu ngắn (EN)</label>
             <textarea id="bio_en" name="bio_en" class="form-control" rows="3">{{ old('bio_en', $artist->bio_en) }}</textarea>
-        </div>
-
-        <div class="form-group">
-            <label for="content_vi">Nội dung trang chi tiết (VI)</label>
-            <textarea id="content_vi" name="content_vi" class="summernote form-control" rows="8">{{ old('content_vi', $artist->content_vi) }}</textarea>
         </div>
         <div class="form-group">
             <label for="content_en">Nội dung trang chi tiết (EN)</label>
@@ -61,18 +31,9 @@
 
         <h5 style="margin-top:30px">SEO</h5>
         <div class="form-group">
-            <label for="meta_title_vi">Meta title (VI)</label>
-            <input id="meta_title_vi" name="meta_title_vi" class="form-control" maxlength="190"
-                   value="{{ old('meta_title_vi', $artist->meta_title_vi) }}" type="text">
-        </div>
-        <div class="form-group">
             <label for="meta_title_en">Meta title (EN)</label>
             <input id="meta_title_en" name="meta_title_en" class="form-control" maxlength="190"
                    value="{{ old('meta_title_en', $artist->meta_title_en) }}" type="text">
-        </div>
-        <div class="form-group">
-            <label for="meta_description_vi">Meta description (VI)</label>
-            <textarea id="meta_description_vi" name="meta_description_vi" class="form-control" rows="2" maxlength="300">{{ old('meta_description_vi', $artist->meta_description_vi) }}</textarea>
         </div>
         <div class="form-group">
             <label for="meta_description_en">Meta description (EN)</label>

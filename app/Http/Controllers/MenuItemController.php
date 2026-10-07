@@ -151,7 +151,7 @@ class MenuItemController extends Controller
                 return $q->whereNull('parent_id')->where('location', $request->input('location'));
             })],
             'label_en'   => ['required', 'string', 'max:80'],
-            'label_vi'   => ['required', 'string', 'max:80'],
+            'label_vi'   => ['nullable', 'string', 'max:80'],
             'route_name' => ['nullable', 'string', 'max:120'],
             'url'        => ['nullable', 'string', 'max:255'],
             'sort_order' => ['nullable', 'integer'],

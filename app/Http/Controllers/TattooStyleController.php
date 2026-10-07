@@ -134,7 +134,7 @@ class TattooStyleController extends Controller
         $data = $request->validate([
             'slug'                => ['required', 'string', 'max:120', 'regex:/^[a-z0-9\-]+$/', Rule::unique('tattoo_styles')->ignore($ignoreId)],
             'name_en'             => ['required', 'string', 'max:120'],
-            'name_vi'             => ['required', 'string', 'max:120'],
+            'name_vi'             => ['nullable', 'string', 'max:120'],
             'excerpt_en'          => ['nullable', 'string', 'max:255'],
             'excerpt_vi'          => ['nullable', 'string', 'max:255'],
             'content_en'          => ['nullable', 'string'],

@@ -24,6 +24,31 @@ class ArtistController extends Controller
         $this->artist = $artist;
     }
 
+    private function validated(Request $request)
+    {
+        $data = $request->validate([
+            'name_en' => ['required', 'string', 'max:255'],
+            'slug' => ['required', 'string', 'max:255'],
+            'role_en'   => ['nullable', 'string'],
+            'slogan_en'   => ['nullable', 'string'],
+            'sort_order'  => ['nullable', 'integer'],
+            'bio_en'  => ['nullable', 'string'],
+            'content_en'  => ['nullable', 'string'],
+            'meta_title_en'  => ['nullable', 'string'],
+            'meta_description_en'  => ['nullable', 'string'],
+            'tattoo_style_ids'=>['nullable'],
+            'experience_years'  => ['nullable'],
+        ], [], [
+            'name_en' => 'Name (EN)',
+            'slug' => 'Slug (VI)',
+        ]);
+
+        $data['is_active']  = $request->boolean('is_active');
+        $data['sort_order'] = $data['sort_order'] ?? 0;
+
+        return $data;
+    }
+
     public function index(Request $request)
     {
         $uri = 'artist';
@@ -73,7 +98,9 @@ class ArtistController extends Controller
         $data['avatar_path'] = $this->storeUpload($request, 'avatar_file', 'artist', $data['avatar_path'] ?? null);
         $data['cover_path']  = $this->storeUpload($request, 'cover_file', 'artist', $data['cover_path'] ?? null);
 
-        $this->artist->create($data);
+        $artist = $this->artist->create($data);
+
+        $this->syncWorks($request, $artist);
 
         return redirect()->route('admin.artist')->with('success', 'Đã thêm artist mới');
     }

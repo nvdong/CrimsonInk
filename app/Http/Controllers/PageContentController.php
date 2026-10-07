@@ -407,7 +407,7 @@ class PageContentController extends Controller
             'template'            => ['required', 'string', 'max:60'],
             'route_name'          => ['nullable', 'string', 'max:120'],
             'title_en'            => ['required', 'string', 'max:190'],
-            'title_vi'            => ['required', 'string', 'max:190'],
+            'title_vi'            => ['nullable', 'string', 'max:190'],
             'heading_en'          => ['nullable', 'string', 'max:190'],
             'heading_vi'          => ['nullable', 'string', 'max:190'],
             'body_en'             => ['nullable', 'string'],

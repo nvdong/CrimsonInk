@@ -18,9 +18,9 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Ảnh</th>
-                                        <th>Tên (VI)</th>
+                                        <th>Tên (EN)</th>
                                         <th>Slug</th>
-                                        <th>Vai trò (VI)</th>
+                                        <th>Vai trò (EN)</th>
                                         <th>Thứ tự</th>
                                         <th>Trang chủ</th>
                                         <th>Trạng thái</th>
@@ -33,9 +33,7 @@
                                         <td class="hasinput" colspan="2">
                                             {!! Form::text('name',Request::input('name'),array('class'=>'form-control','placeholder'=>'Tên hoặc slug')) !!}
                                         </td>
-                                        <td class="hasinput">
-                                            {!! Form::select('trashed',array(''=>'Đang dùng','1'=>'Đã xóa'),Request::input('trashed'),array('class'=>'form-control')) !!}
-                                        </td>
+                                        <td class="hasinput"></td>
                                         <td class="hasinput"></td>
                                         <td class="hasinput">
                                             {!! Form::select('is_featured',array(''=>'Tất cả','1'=>'Có','0'=>'Không'),Request::input('is_featured'),array('class'=>'form-control')) !!}
@@ -58,9 +56,9 @@
                                                     <img src="{{ asset($row->avatar_path) }}" alt="" style="height:40px;width:60px;object-fit:cover;background:#222">
                                                 @endif
                                             </td>
-                                            <td>{{ $row->name_vi }}</td>
+                                            <td>{{ $row->name_en }}</td>
                                             <td><code>{{ $row->slug }}</code></td>
-                                            <td>{{ $row->role_vi }}</td>
+                                            <td>{{ $row->role_en }}</td>
                                             <td>{{ $row->sort_order }}</td>
                                             <td>
                                                 <label class="label {{ $row->is_featured ? 'label-info' : 'label-default' }}">

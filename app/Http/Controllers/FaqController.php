@@ -107,7 +107,7 @@ class FaqController extends Controller
         $data = $request->validate([
             'group'       => ['required', Rule::in(array_keys(static::$groups))],
             'question_en' => ['required', 'string', 'max:255'],
-            'question_vi' => ['required', 'string', 'max:255'],
+            'question_vi' => ['nullable', 'string', 'max:255'],
             'answer_en'   => ['nullable', 'string'],
             'answer_vi'   => ['nullable', 'string'],
             'sort_order'  => ['nullable', 'integer'],
