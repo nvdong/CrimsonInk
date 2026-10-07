@@ -38,7 +38,7 @@
                     <div class="col-md-2 col-sm-3 col-xs-6" style="margin-bottom:20px">
                         <div style="border:1px solid #e5e5e5;padding:8px;background:#fff">
                             <a href="{{ asset($item->path) }}" target="_blank" rel="noopener">
-                                <img src="{{ asset($item->path) }}" alt=""
+                                <img src="{{ ($item->type=='video')?asset($item->poster_path):asset($item->path) }}" alt=""
                                      style="width:100%;height:150px;object-fit:cover;display:block;background:#f2f2f2">
                             </a>
 

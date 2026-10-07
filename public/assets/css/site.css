@@ -1362,3 +1362,681 @@ body.ci-lightbox-open { overflow: hidden; }
     /* Không hover trên cảm ứng: hiện luôn nút More cho biết bấm được */
     .ci-styles-grid__more { display: none; }
 }
+
+/* =====================================================================
+   Trang /blog
+   Bố cục theo mẫu khách gửi (hero + 2 cột + thẻ bài nằm ngang), đổi sang
+   tông đen của site. Biến màu dùng lại của Elementor kit nên đổi màu ở
+   kit là cả trang đổi theo.
+   ===================================================================== */
+
+/* ----- Hero có tiêu đề + breadcrumb ----- */
+.ci-page-hero {
+    /* Đổi ảnh hero: sửa đúng dòng này. */
+    --ci-hero-image: url('../images/header-eyebrows.jpg');
+
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 420px;
+
+    /* Header của site chiếm chỗ trong luồng (cao 127px) và nền trong suốt.
+       Các hero Elementor sẵn có đều kéo lên -175px để ảnh chạy lên sát đỉnh
+       trang; dùng đúng con số đó cho khớp. padding-top bù lại phần bị kéo
+       lên, không thì tiêu đề chui xuống dưới menu. */
+    margin-top: -175px;
+    padding: 230px 20px 90px;
+    overflow: hidden;
+    background-color: #000;
+}
+
+.ci-page-hero__media {
+    position: absolute;
+    inset: 0;
+    background-image: var(--ci-hero-image);
+    background-position: center;
+    background-size: cover;
+}
+
+/* Lớp phủ tối: ảnh hero sáng, chữ trắng đặt thẳng lên sẽ không đọc được */
+.ci-page-hero__media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, .55) 0%, rgba(0, 0, 0, .75) 100%);
+}
+
+.ci-page-hero__inner {
+    position: relative;
+    text-align: center;
+}
+
+.ci-page-hero__title {
+    margin: 0;
+    color: var(--e-global-color-39cd785, #fff);
+    font-family: var(--e-global-typography-primary-font-family, "Work Sans"), Sans-serif;
+    font-size: 72px;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.ci-page-hero__crumbs {
+    margin-top: 14px;
+    color: var(--e-global-color-1090670, #cfcfcf);
+    font-size: 16px;
+    letter-spacing: .06em;
+}
+
+.ci-page-hero__crumbs a { color: var(--e-global-color-1090670, #cfcfcf); }
+
+.ci-page-hero__crumbs a:hover,
+.ci-page-hero__crumbs a:focus { color: var(--e-global-color-accent, #a20000); }
+
+.ci-page-hero__crumbs span { margin: 0 8px; }
+
+.ci-page-hero__crumbs span[aria-current] { color: var(--e-global-color-39cd785, #fff); }
+
+/* ----- Khung 2 cột ----- */
+.ci-blog {
+    background-color: #000;
+    padding: 70px 20px 90px;
+}
+
+.ci-blog__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 60px;
+    max-width: 1240px;
+    margin: 0 auto;
+}
+
+.ci-blog__main { min-width: 0; }
+
+.ci-blog__empty {
+    padding: 40px 0;
+    color: var(--e-global-color-1090670, #cfcfcf);
+}
+
+/* ----- Một bài trong danh sách ----- */
+.ci-post {
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 34px;
+    padding: 36px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, .10);
+}
+
+.ci-post:first-child { padding-top: 0; }
+
+.ci-post__thumb {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    background-color: #141414;
+}
+
+/* Selector 2 lớp để thắng `.elementor img { height: auto }` của theme —
+   thiếu nó thì object-fit vô tác dụng và ảnh bị méo. */
+.ci-post .ci-post__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .4s ease, opacity .3s ease;
+}
+
+.ci-post__thumb:hover .ci-post__img {
+    transform: scale(1.05);
+    opacity: .85;
+}
+
+/* Ô ngày nổi góc trên trái, giống mẫu */
+.ci-post__date {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 58px;
+    background-color: var(--e-global-color-39cd785, #fff);
+    color: #000;
+    line-height: 1;
+}
+
+.ci-post__day {
+    font-family: var(--e-global-typography-primary-font-family, "Work Sans"), Sans-serif;
+    font-size: 21px;
+    font-weight: 600;
+}
+
+.ci-post__month {
+    margin-top: 3px;
+    font-size: 11px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+
+/* Nhãn chuyên mục dưới đáy ảnh. max-width để tên dài không tràn khỏi ảnh. */
+.ci-post__cats {
+    position: absolute;
+    left: 0;
+    bottom: 14px;
+    max-width: 92%;
+    padding: 7px 14px;
+    background-color: rgba(0, 0, 0, .78);
+    color: var(--e-global-color-39cd785, #fff);
+    font-size: 12px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ci-post__body { min-width: 0; }
+
+.ci-post__meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 12px;
+    color: var(--e-global-color-1090670, #cfcfcf);
+    font-size: 15px;
+    opacity: .8;
+}
+
+.ci-post__author { color: var(--e-global-color-39cd785, #fff); }
+
+.ci-post__share {
+    display: inline-flex;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.ci-post__share svg { width: 16px; height: 16px; }
+
+.ci-post__share:hover { color: var(--e-global-color-accent, #a20000); }
+
+.ci-post__title {
+    margin: 0 0 14px;
+    font-family: var(--e-global-typography-primary-font-family, "Work Sans"), Sans-serif;
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.ci-post__title a { color: var(--e-global-color-39cd785, #fff); }
+
+.ci-post__title a:hover,
+.ci-post__title a:focus { color: var(--e-global-color-accent, #a20000); }
+
+.ci-post__excerpt {
+    margin: 0;
+    color: var(--e-global-color-1090670, #cfcfcf);
+    line-height: 1.75;
+}
+
+.ci-post__btn {
+    display: inline-block;
+    padding: 15px 26px;
+    background-color: var(--e-global-color-accent, #a20000);
+    color: var(--e-global-color-39cd785, #fff);
+    font-size: 13px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition: background-color .25s ease;
+}
+
+.ci-post__btn:hover,
+.ci-post__btn:focus {
+    background-color: var(--e-global-color-39cd785, #fff);
+    color: #000;
+}
+
+/* ----- Phân trang ----- */
+.ci-pager {
+    display: flex;
+    gap: 10px;
+    margin-top: 44px;
+}
+
+.ci-pager__item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(255, 255, 255, .18);
+    color: var(--e-global-color-1090670, #cfcfcf);
+    font-size: 15px;
+    transition: background-color .25s ease, color .25s ease, border-color .25s ease;
+}
+
+.ci-pager__item svg { width: 18px; height: 18px; }
+
+.ci-pager__item:hover,
+.ci-pager__item:focus {
+    border-color: var(--e-global-color-accent, #a20000);
+    background-color: var(--e-global-color-accent, #a20000);
+    color: #fff;
+}
+
+.ci-pager__item--current {
+    border-color: var(--e-global-color-accent, #a20000);
+    background-color: var(--e-global-color-accent, #a20000);
+    color: #fff;
+}
+
+/* ----- Cột phải ----- */
+.ci-blog__side { min-width: 0; }
+
+.ci-side__title {
+    margin: 0 0 22px;
+    color: var(--e-global-color-39cd785, #fff);
+    font-family: var(--e-global-typography-primary-font-family, "Work Sans"), Sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+
+.ci-side__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ci-side__item {
+    padding: 0 0 18px;
+    margin: 0 0 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, .10);
+}
+
+.ci-side__item:last-child { border-bottom: 0; margin-bottom: 0; }
+
+.ci-side__link {
+    display: block;
+    color: var(--e-global-color-39cd785, #fff);
+    font-family: var(--e-global-typography-primary-font-family, "Work Sans"), Sans-serif;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.45;
+}
+
+.ci-side__link:hover,
+.ci-side__link:focus { color: var(--e-global-color-accent, #a20000); }
+
+.ci-side__date {
+    display: block;
+    margin-top: 7px;
+    color: var(--e-global-color-1090670, #cfcfcf);
+    font-size: 13px;
+    opacity: .7;
+}
+
+/* ----- Responsive ----- */
+@media (max-width: 1024px) {
+    .ci-blog__inner { grid-template-columns: minmax(0, 1fr); gap: 54px; }
+
+    /* Nút "Đọc tiếp" xuống dòng dưới phần chữ thay vì chen cột thứ 3 */
+    .ci-post {
+        grid-template-columns: 240px minmax(0, 1fr);
+        align-items: start;
+        gap: 26px;
+    }
+
+    .ci-post__cta { grid-column: 2; }
+}
+
+@media (max-width: 767px) {
+    .ci-page-hero { min-height: 300px; margin-top: -90px; padding: 140px 16px 60px; }
+    .ci-page-hero__title { font-size: 44px; }
+
+    .ci-blog { padding: 50px 16px 70px; }
+
+    .ci-post {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 18px;
+    }
+
+    .ci-post__cta { grid-column: 1; }
+    .ci-post__title { font-size: 22px; }
+}
+
+/* Trang không có hero: header của site trong suốt, nên nếu body vẫn trắng
+   thì phía sau menu lòi ra một dải trắng trên nền đen của bài viết. Đổi nền
+   body cho cả trang là xong, không phải kéo section lên bằng margin âm. */
+body.ci-dark-page { background-color: #000; }
+
+/* =====================================================================
+   Trang chi tiết bài viết /blog/{slug}
+   Dùng lại .ci-side__title và .ci-post__date của trang danh sách.
+   ===================================================================== */
+.ci-article {
+    background-color: #000;
+    padding: 60px 20px 90px;
+}
+
+.ci-article__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 340px;
+    gap: 60px;
+    max-width: 1240px;
+    margin: 0 auto;
+}
+
+.ci-article__main { min-width: 0; }
+
+/* ----- Breadcrumb + tiêu đề ----- */
+.ci-crumbs {
+    margin-bottom: 14px;
+    color: var(--e-global-color-1090670, #cfcfcf);
+    font-size: 14px;
+    opacity: .8;
+}
+
+.ci-crumbs a { color: var(--e-global-color-1090670, #cfcfcf); }
+
+.ci-crumbs a:hover,
+.ci-crumbs a:focus { color: var(--e-global-color-accent, #a20000); }
+
+.ci-crumbs span { margin: 0 7px; }
+
+.ci-article__title {
+    margin: 0 0 10px;
+    color: var(--e-global-color-39cd785, #fff);
+    font-family: var(--e-global-typography-primary-font-family, "Work Sans"), Sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.ci-article__updated {
+    margin: 0 0 26px;
+    color: var(--e-global-color-1090670, #cfcfcf);
+    font-size: 14px;
+    opacity: .7;
+}
+
+.ci-article__cover {
+    margin: 0 0 32px;
+    overflow: hidden;
+    background-color: #141414;
+}
+
+/* Selector 2 lớp để thắng `.elementor img { height: auto }` của theme. */
+.ci-article .ci-article__cover img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/* ----- Mục lục ----- */
+.ci-toc {
+    margin: 0 0 32px;
+    border: 1px solid rgba(255, 255, 255, .14);
+    background-color: #0d0d0d;
+}
+
+/* Chưa có JS dựng xong thì không hiện hộp rỗng */
+.ci-toc--empty { display: none; }
+
+.ci-toc__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 15px 20px;
+    border: 0;
+    background: none;
+    color: var(--e-global-color-39cd785, #fff);
+    font-family: var(--e-global-typography-primary-font-family, "Work Sans"), Sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    text-align: left;
+    cursor: pointer;
+}
+
+.ci-toc__caret {
+    width: 20px;
+    height: 20px;
+    flex: 0 0 auto;
+    transition: transform .25s ease;
+}
+
+.ci-toc--closed .ci-toc__caret { transform: rotate(-90deg); }
+
+.ci-toc__list {
+    margin: 0;
+    padding: 0 20px 18px 38px;
+    color: var(--e-global-color-1090670, #cfcfcf);
+}
+
+.ci-toc--closed .ci-toc__list { display: none; }
+
+.ci-toc__list li { margin: 7px 0; }
+
+.ci-toc__list a { color: var(--e-global-color-1090670, #cfcfcf); }
+
+.ci-toc__list a:hover,
+.ci-toc__list a:focus { color: var(--e-global-color-accent, #a20000); }
+
+/* ----- Hộp "Điểm chính" ----- */
+.ci-takeaways {
+    margin: 0 0 34px;
+    padding: 24px 26px;
+    border: 1px solid rgba(255, 255, 255, .14);
+    background-color: #0d0d0d;
+}
+
+.ci-takeaways__title {
+    margin: 0 0 16px;
+    color: var(--e-global-color-39cd785, #fff);
+    font-family: var(--e-global-typography-primary-font-family, "Work Sans"), Sans-serif;
+    font-size: 19px;
+    font-weight: 600;
+}
+
+.ci-takeaways__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ci-takeaways__item {
+    display: flex;
+    gap: 12px;
+    margin: 0 0 14px;
+    color: var(--e-global-color-1090670, #cfcfcf);
+    line-height: 1.7;
+}
+
+.ci-takeaways__item:last-child { margin-bottom: 0; }
+
+.ci-takeaways__icon {
+    flex: 0 0 auto;
+    width: 17px;
+    height: 17px;
+    margin-top: 5px;
+    color: var(--e-global-color-accent, #a20000);
+}
+
+.ci-takeaways__item b { color: var(--e-global-color-39cd785, #fff); }
+
+/* ----- Thân bài ----- */
+.ci-article__body {
+    color: var(--e-global-color-1090670, #cfcfcf);
+    line-height: 1.85;
+}
+
+.ci-article__body h2 {
+    margin: 38px 0 14px;
+    color: var(--e-global-color-39cd785, #fff);
+    font-family: var(--e-global-typography-primary-font-family, "Work Sans"), Sans-serif;
+    font-size: 25px;
+    font-weight: 600;
+    line-height: 1.35;
+    /* Nhảy từ mục lục xuống mà tiêu đề không bị header dính chặn mất */
+    scroll-margin-top: 140px;
+}
+
+.ci-article__body h3 {
+    margin: 28px 0 12px;
+    color: var(--e-global-color-39cd785, #fff);
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.ci-article__body p { margin: 0 0 18px; }
+
+.ci-article__body b,
+.ci-article__body strong { color: var(--e-global-color-39cd785, #fff); }
+
+.ci-article__body a {
+    color: var(--e-global-color-accent, #a20000);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.ci-article__body a:hover,
+.ci-article__body a:focus { color: var(--e-global-color-39cd785, #fff); }
+
+.ci-article__body ul,
+.ci-article__body ol { margin: 0 0 20px; padding-left: 22px; }
+
+.ci-article__body li { margin: 8px 0; }
+
+.ci-article__body figure {
+    margin: 30px 0;
+    text-align: center;
+}
+
+.ci-article .ci-article__body figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.ci-article__body figcaption {
+    margin-top: 10px;
+    color: var(--e-global-color-1090670, #cfcfcf);
+    font-size: 14px;
+    font-style: italic;
+    opacity: .75;
+}
+
+.ci-article__back { margin: 40px 0 0; }
+
+.ci-article__back a {
+    color: var(--e-global-color-accent, #a20000);
+    font-size: 14px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.ci-article__back a:hover,
+.ci-article__back a:focus { color: var(--e-global-color-39cd785, #fff); }
+
+/* ----- Cột phải ----- */
+.ci-article__side { min-width: 0; }
+
+.ci-side__block { margin-bottom: 44px; }
+
+.ci-side__block:last-child { margin-bottom: 0; }
+
+.ci-guide__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ci-guide__item { margin: 0 0 12px; }
+
+/* Dấu ▸ dựng bằng ::before thay vì ký tự trong HTML, để screen reader không
+   đọc ra một ký hiệu vô nghĩa trước mỗi link. */
+.ci-guide__link {
+    position: relative;
+    display: block;
+    padding-left: 18px;
+    color: var(--e-global-color-1090670, #cfcfcf);
+    font-size: 15px;
+}
+
+.ci-guide__link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    border-style: solid;
+    border-width: 4px 0 4px 6px;
+    border-color: transparent transparent transparent var(--e-global-color-accent, #a20000);
+}
+
+.ci-guide__link:hover,
+.ci-guide__link:focus { color: var(--e-global-color-39cd785, #fff); }
+
+.ci-related__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ci-related__item { margin: 0 0 28px; }
+
+.ci-related__item:last-child { margin-bottom: 0; }
+
+.ci-related__thumb {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    background-color: #141414;
+}
+
+.ci-article .ci-related__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .4s ease, opacity .3s ease;
+}
+
+.ci-related__thumb:hover .ci-related__img {
+    transform: scale(1.05);
+    opacity: .85;
+}
+
+.ci-related__title {
+    margin: 12px 0 0;
+    font-family: var(--e-global-typography-primary-font-family, "Work Sans"), Sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.45;
+}
+
+.ci-related__title a { color: var(--e-global-color-39cd785, #fff); }
+
+.ci-related__title a:hover,
+.ci-related__title a:focus { color: var(--e-global-color-accent, #a20000); }
+
+@media (max-width: 1024px) {
+    .ci-article__inner { grid-template-columns: minmax(0, 1fr); gap: 54px; }
+}
+
+@media (max-width: 767px) {
+    .ci-article { padding: 40px 16px 70px; }
+    .ci-article__title { font-size: 27px; }
+    .ci-article__body h2 { font-size: 21px; }
+}

@@ -13,8 +13,7 @@ use Illuminate\Support\Facades\DB;
  * ĐÃ SỬA SO VỚI BẢN CŨ:
  *   - "Artists" trước trỏ page.eyebrows-tattoo -> nay trỏ page.artists
  *
- * CÒN TỒN ĐỌNG (giữ nguyên, sửa khi bạn quyết):
- *   - "Blog" đang để href="#", chưa có trang blog
+ *   - "Blog" trước để href="#" -> nay trỏ page.blog
  */
 class MenuItemsSeeder extends Seeder
 {
@@ -32,7 +31,7 @@ class MenuItemsSeeder extends Seeder
             ['Gallery',      'Thư viện ảnh',    'page.gallery',       null],
             ['Artists',      'Đội ngũ artist',  'page.artists',       null],
             ['FAQs',         'Câu hỏi thường gặp', 'page.faqs',       null],
-            ['Blog',         'Blog',             null,                '#'],
+            ['Blog',         'Blog',            'page.blog',          null],
             ['Contact Us',   'Liên hệ',         'page.contact-us',    null],
         ];
 

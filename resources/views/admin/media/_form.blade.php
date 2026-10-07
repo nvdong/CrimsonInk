@@ -35,9 +35,18 @@
                 <div><img src="{{ asset($item->path) }}" alt="" style="max-height:140px;background:#222;padding:4px;margin-bottom:6px"></div>
             @endif
             <input name="path" class="form-control" maxlength="255"
-                   placeholder="assets/images/... hoặc upload/..." value="{{ old('path', $item->path) }}" type="text">
+                   placeholder="Chọn file hoặc điền đường dẫn VD: assets/images/... hoặc upload/..." value="{{ old('path', $item->path) }}" type="text">
             <input name="file" type="file" style="margin-top:6px">
             <small class="text-muted">Chọn file mới sẽ ghi đè đường dẫn ở trên. File lưu vào public/upload/media.</small>
+        </div>
+        <div class="form-group">
+            <label>Ảnh bìa video (poster)</label>
+            @if ($item->poster_path)
+                <div><img src="{{ asset($item->poster_path) }}" alt="" style="max-height:90px;background:#222;padding:4px;margin-bottom:6px"></div>
+            @endif
+            <input name="poster_path" class="form-control" maxlength="255" placeholder="Ảnh bìa Video, bỏ qua nếu upload Ảnh"
+                   value="{{ old('poster_path', $item->poster_path) }}" type="text">
+            <input name="poster_file" type="file" accept="image/*" style="margin-top:6px">
         </div>
 
         <div class="form-group">
@@ -46,32 +55,10 @@
                    placeholder="https://www.youtube.com/embed/..." value="{{ old('embed_url', $item->embed_url) }}" type="text">
             @error('embed_url') <span class="help-block has-error">{{ $message }}</span> @enderror
         </div>
-
         <div class="form-group">
-            <label>Ảnh bìa video (poster)</label>
-            @if ($item->poster_path)
-                <div><img src="{{ asset($item->poster_path) }}" alt="" style="max-height:90px;background:#222;padding:4px;margin-bottom:6px"></div>
-            @endif
-            <input name="poster_path" class="form-control" maxlength="255"
-                   value="{{ old('poster_path', $item->poster_path) }}" type="text">
-            <input name="poster_file" type="file" accept="image/*" style="margin-top:6px">
-        </div>
-
-        <div class="form-group">
-            <label for="alt_vi">Mô tả ảnh - alt (VI)</label>
-            <input id="alt_vi" name="alt_vi" class="form-control" maxlength="190"
-                   value="{{ old('alt_vi', $item->alt_vi) }}" type="text">
-            <small class="text-muted">Quan trọng cho SEO ảnh. Mô tả đúng nội dung trong ảnh.</small>
-        </div>
-        <div class="form-group">
-            <label for="alt_en">Mô tả ảnh - alt (EN)</label>
+            <label for="alt_en">Mô tả - alt (EN)</label>
             <input id="alt_en" name="alt_en" class="form-control" maxlength="190"
                    value="{{ old('alt_en', $item->alt_en) }}" type="text">
-        </div>
-        <div class="form-group">
-            <label for="caption_vi">Chú thích (VI)</label>
-            <input id="caption_vi" name="caption_vi" class="form-control" maxlength="255"
-                   value="{{ old('caption_vi', $item->caption_vi) }}" type="text">
         </div>
         <div class="form-group">
             <label for="caption_en">Chú thích (EN)</label>
@@ -110,21 +97,6 @@
                 @endforeach
             </select>
             <small class="text-muted">Dùng để lọc thư viện theo phong cách.</small>
-        </div>
-
-        <div class="form-group">
-            <label for="width">Chiều rộng (px)</label>
-            <input id="width" name="width" class="form-control" value="{{ old('width', $item->width) }}" type="number" min="0">
-        </div>
-        <div class="form-group">
-            <label for="height">Chiều cao (px)</label>
-            <input id="height" name="height" class="form-control" value="{{ old('height', $item->height) }}" type="number" min="0">
-            <small class="text-muted">Điền sẵn kích thước giúp trang không bị giật khi ảnh tải xong.</small>
-        </div>
-        <div class="form-group">
-            <label for="duration_seconds">Thời lượng (giây)</label>
-            <input id="duration_seconds" name="duration_seconds" class="form-control"
-                   value="{{ old('duration_seconds', $item->duration_seconds) }}" type="number" min="0">
         </div>
 
         <div class="form-group">

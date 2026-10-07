@@ -31,6 +31,8 @@ Route::get('/about-us',                [PageController::class, 'aboutUs'])->name
 Route::get('/faqs',                    [PageController::class, 'faqs'])->name('page.faqs');
 Route::get('/gallery',                 [PageController::class, 'gallery'])->name('page.gallery');
 Route::get('/contact-us',              [PageController::class, 'contactUs'])->name('page.contact-us');
+Route::get('/blog',                    [PageController::class, 'blog'])->name('page.blog');
+Route::get('/blog/{slug}',             [PageController::class, 'blogPost'])->name('page.blog.show');
 
 Route::get('/artists',         [PageController::class, 'artists'])->name('page.artists');
 Route::get('/artists/{slug}',  [PageController::class, 'artist'])->name('page.artists.show');

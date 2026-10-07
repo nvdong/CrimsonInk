@@ -118,6 +118,7 @@ class MediaController extends Controller
         if ($error = $this->checkSource($data)) {
             return redirect()->back()->withInput()->with('error', $error);
         }
+        unset($data['file']);
 
         $this->media->create($data);
 
@@ -227,6 +228,7 @@ class MediaController extends Controller
             'owner'            => ['required', 'string'],
             'collection'       => ['required', Rule::in(array_keys(static::$collections))],
             'type'             => ['required', Rule::in(array_keys(static::$types))],
+            'file'             => ['nullable'],
             'path'             => ['nullable', 'string', 'max:255'],
             'poster_path'      => ['nullable', 'string', 'max:255'],
             'embed_url'        => ['nullable', 'url', 'max:255'],
