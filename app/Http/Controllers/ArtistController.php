@@ -116,7 +116,7 @@ class ArtistController extends Controller
     {
         $artist = $this->artist->withTrashed()->findOrFail($request->id);
 
-        $data = $this->validated($request, $artist->id);
+        $data = $this->validated($request);
 
         $data['avatar_path'] = $this->storeUpload($request, 'avatar_file', 'artist', $data['avatar_path'] ?? null);
         $data['cover_path']  = $this->storeUpload($request, 'cover_file', 'artist', $data['cover_path'] ?? null);
