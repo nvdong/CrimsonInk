@@ -15,7 +15,7 @@ trait HandlesUploads
 {
     protected function storeUpload(Request $request, $field, $folder, $current = null)
     {
-        if ($request->file == null) {
+        if (! $request->hasFile($field)) {
             return $current;
         }
 
