@@ -75,11 +75,23 @@ class SettingsSeeder extends Seeder
             ['studio', 'reviews_url',   'text', 'https://maps.app.goo.gl/zjJVxSN8SqzV4162A', null, null, 20],
             ['studio', 'rating',        'text', null, null, null, 21],
             ['studio', 'rating_count',  'text', null, null, null, 22],
+
+            // ----- blog -----
+            // Khối "Những điều cần biết trước khi xăm" ở cột phải trang chi
+            // tiết bài viết. Danh sách cố định, không thuộc bài nào nên để ở
+            // settings chứ không phải bảng posts.
+            ['blog', 'guide_links', 'json', json_encode([
+                ['label' => 'Giá xăm ở Hà Nội',           'url' => '#'],
+                ['label' => 'Gặp gỡ đội ngũ artist',      'url' => '/artists'],
+                ['label' => 'Các giai đoạn lành da',      'url' => '#'],
+                ['label' => 'Hướng dẫn chăm sóc sau xăm', 'url' => '#'],
+                ['label' => 'Vì sao hình xăm bị ngứa?',   'url' => '#'],
+            ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES), null, null, 1],
         ];
 
         // Các khóa admin tự nhập giá trị; chạy lại seeder thì giữ nguyên,
         // không ghi đè về mặc định.
-        $keepExisting = ['studio.rating', 'studio.rating_count', 'studio.reviews_url'];
+        $keepExisting = ['studio.rating', 'studio.rating_count', 'studio.reviews_url', 'blog.guide_links'];
 
         foreach ($rows as $r) {
             if (in_array($r[0].'.'.$r[1], $keepExisting, true)

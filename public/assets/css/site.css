@@ -1539,6 +1539,14 @@ body.ci-lightbox-open { overflow: hidden; }
     text-overflow: ellipsis;
 }
 
+/* Bài chưa có ảnh bìa: ô xám đặc thay cho thẻ <img> rỗng, để lưới không sụp */
+.ci-post__img--empty {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
+}
+
 .ci-post__body { min-width: 0; }
 
 .ci-post__meta {

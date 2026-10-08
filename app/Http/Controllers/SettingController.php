@@ -31,6 +31,7 @@ class SettingController extends Controller
         'social'  => 'Mạng xã hội',
         'seo'     => 'SEO',
         'booking' => 'Đặt lịch',
+        'blog'    => 'Blog',
         'auth'    => 'Đăng nhập',
     ];
 

@@ -10,6 +10,8 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\PageContentController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\PostCategoryController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\ArtistController;
 use App\Http\Controllers\TattooStyleController;
 use App\Http\Controllers\UserController;
@@ -80,6 +82,25 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         Route::post('/update', [PageContentController::class, 'update'])->name('admin.page.update');
         Route::get('/{id}/delete', [PageContentController::class, 'delete'])->name('admin.page.delete');
         Route::get('/{id}/sections/scaffold', [PageContentController::class, 'scaffoldSections'])->name('admin.page.sections.scaffold');
+    });
+
+    Route::prefix('post-category')->middleware('auth')->group(function () {
+        Route::get('/', [PostCategoryController::class, 'index'])->name('admin.post-category');
+        Route::get('/create', [PostCategoryController::class, 'create'])->name('admin.post-category.create');
+        Route::post('/store', [PostCategoryController::class, 'store'])->name('admin.post-category.store');
+        Route::get('/{id}/edit', [PostCategoryController::class, 'edit'])->name('admin.post-category.edit');
+        Route::post('/update', [PostCategoryController::class, 'update'])->name('admin.post-category.update');
+        Route::get('/{id}/delete', [PostCategoryController::class, 'delete'])->name('admin.post-category.delete');
+    });
+
+    Route::prefix('post')->middleware('auth')->group(function () {
+        Route::get('/', [PostController::class, 'index'])->name('admin.post');
+        Route::get('/create', [PostController::class, 'create'])->name('admin.post.create');
+        Route::post('/store', [PostController::class, 'store'])->name('admin.post.store');
+        Route::get('/{id}/edit', [PostController::class, 'edit'])->name('admin.post.edit');
+        Route::post('/update', [PostController::class, 'update'])->name('admin.post.update');
+        Route::get('/{id}/delete', [PostController::class, 'delete'])->name('admin.post.delete');
+        Route::get('/{id}/restore', [PostController::class, 'restore'])->name('admin.post.restore');
     });
 
     Route::prefix('review')->middleware('auth')->group(function () {

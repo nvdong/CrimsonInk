@@ -63,6 +63,20 @@
                         </a>
                     </li>
 
+                    <li class="{{$uri == 'post'?'active':''}}">
+                        <a title="Blog" href="{{route('admin.post')}}" aria-expanded="false">
+                            <i class="fa fa-newspaper-o" aria-hidden="true"></i>
+                            <span class="mini-click-non">Bài viết blog</span>
+                        </a>
+                    </li>
+
+                    <li class="{{$uri == 'post-category'?'active':''}}">
+                        <a title="Blog categories" href="{{route('admin.post-category')}}" aria-expanded="false">
+                            <i class="fa fa-tags" aria-hidden="true"></i>
+                            <span class="mini-click-non">Danh mục blog</span>
+                        </a>
+                    </li>
+
                     <li class="{{$uri == 'review'?'active':''}}">
                         <a title="Review" href="{{route('admin.review')}}" aria-expanded="false">
                             <i class="fa fa-star" aria-hidden="true"></i>
