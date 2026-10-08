@@ -157,6 +157,7 @@ class ArtistController extends Controller
             'styles' => TattooStyle::orderBy('sort_order')->orderBy('id')->get(),
             'works'  => $artist->exists ? $this->worksOf($artist) : collect(),
             'mediaMaxKb' => static::$mediaMaxKb,
+            'mediaTotalMaxKb' => static::$mediaTotalMaxKb,
         ];
     }
 

@@ -17,10 +17,13 @@
                 @include('admin.style._form', ['submitLabel' => 'Cập nhật'])
 
                 @include('admin._media_panel', [
-                    'mediaItems' => $images,
-                    'mediaMaxKb' => $mediaMaxKb,
-                    'mediaTitle' => 'Ảnh minh họa',
-                    'mediaNote'  => 'Lưới ảnh hiện ở trang <a href="'.url('/tattoo-styles/'.$style->slug).'" target="_blank" rel="noopener">/tattoo-styles/'.$style->slug.'</a>, bấm vào ảnh sẽ mở lightbox. Mọi thay đổi ở đây lưu chung với form phong cách.',
+                    'mediaItems'      => $images,
+                    'mediaMaxKb'      => $mediaMaxKb,
+                    'mediaVideoMaxKb' => $mediaVideoMaxKb,
+                    'mediaTotalMaxKb' => $mediaTotalMaxKb,
+                    'mediaAllowVideo' => true,
+                    'mediaTitle'      => 'Ảnh / video minh họa',
+                    'mediaNote'       => 'Lưới hiện ở trang <a href="'.url('/tattoo-styles/'.$style->slug).'" target="_blank" rel="noopener">/tattoo-styles/'.$style->slug.'</a>, bấm vào sẽ mở lightbox (video phát ngay trong lightbox). Mọi thay đổi ở đây lưu chung với form phong cách.',
                 ])
 
                 <div class="col-lg-12" style="padding:0 20px 40px">

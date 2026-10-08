@@ -71,7 +71,10 @@
 					<ul class="ci-gallery ci-gallery--style">
 						@foreach ($medias as $media)
 							@php
-								$thumb = $media->poster_path ?: $media->path;
+								// Video PHẢI lấy ảnh bìa làm thumbnail. Lùi về $media->path
+								// sẽ nhét đường dẫn .mp4 vào <img src> và khách thấy một ô
+								// ảnh vỡ — thà bỏ qua ô đó còn hơn.
+								$thumb = $media->type === 'video' ? $media->poster_path : $media->path;
 								$full  = $media->path ?: $media->poster_path;
 								$alt   = $media->alt ?: $style->name.' tattoo at CrimsonInk Tattoo Studio';
 							@endphp

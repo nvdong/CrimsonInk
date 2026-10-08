@@ -374,6 +374,7 @@ class PageContentController extends Controller
             'page'         => $page,
             'gallery'      => $page->exists ? $this->galleryOf($page) : collect(),
             'mediaMaxKb'   => static::$mediaMaxKb,
+            'mediaTotalMaxKb' => static::$mediaTotalMaxKb,
             'types'        => static::$types,
             'templates'    => static::$templates,
             'sectionTypes' => static::$sectionTypes,

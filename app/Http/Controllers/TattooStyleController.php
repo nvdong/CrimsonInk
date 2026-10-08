@@ -69,7 +69,14 @@ class TattooStyleController extends Controller
             'has_detail_page' => false,
         ]);
 
-        return view('admin.style.create', ['uri' => 'style', 'style' => $style]);
+        return view('admin.style.create', [
+            'uri'             => 'style',
+            'style'           => $style,
+            'images'          => collect(),
+            'mediaMaxKb'      => static::$mediaMaxKb,
+            'mediaVideoMaxKb' => static::$mediaVideoMaxKb,
+            'mediaTotalMaxKb' => static::$mediaTotalMaxKb,
+        ]);
     }
 
     public function store(Request $request)
@@ -77,9 +84,12 @@ class TattooStyleController extends Controller
         $data = $this->validated($request);
         $data['cover_path'] = $this->storeUpload($request, 'cover_file', 'style', $data['cover_path'] ?? null);
 
-        $this->style->create($data);
+        // create() rồi mới sync được: media gắn theo id nên lúc này mới có id.
+        $style = $this->style->create($data);
 
-        return redirect()->route('admin.style')->with('success', 'Đã thêm phong cách mới');
+        $mediaError = $this->syncImages($request, $style);
+
+        return $this->backToList('Đã thêm phong cách mới', $mediaError);
     }
 
     public function edit(Request $request)
@@ -89,8 +99,10 @@ class TattooStyleController extends Controller
         return view('admin.style.edit', [
             'uri'        => 'style',
             'style'      => $style,
-            'images'     => $this->imagesOf($style),
-            'mediaMaxKb' => static::$mediaMaxKb,
+            'images'          => $this->imagesOf($style),
+            'mediaMaxKb'      => static::$mediaMaxKb,
+            'mediaVideoMaxKb' => static::$mediaVideoMaxKb,
+            'mediaTotalMaxKb' => static::$mediaTotalMaxKb,
         ]);
     }
 
@@ -102,9 +114,9 @@ class TattooStyleController extends Controller
         $data['cover_path'] = $this->storeUpload($request, 'cover_file', 'style', $data['cover_path'] ?? null);
 
         if ($style->update($data)) {
-            $this->syncImages($request, $style);
+            $mediaError = $this->syncImages($request, $style);
 
-            return redirect()->route('admin.style')->with('success', 'Cập nhật thành công');
+            return $this->backToList('Cập nhật thành công', $mediaError);
         }
 
         return redirect()->back()->with('error', 'Cập nhật không thành công');
@@ -171,16 +183,37 @@ class TattooStyleController extends Controller
             ->get();
     }
 
-    /** Panel "Ảnh minh họa" — phần việc chung nằm ở trait ManagesAttachedMedia. */
+    /**
+     * Về danh sách kèm thông báo. Lỗi cắt ảnh bìa hiện CẠNH thông báo lưu
+     * thành công — file đã lưu rồi, báo đỏ một mình sẽ làm tưởng là mất dữ liệu.
+     */
+    private function backToList(string $success, string $mediaError = null)
+    {
+        $redirect = redirect()->route('admin.style')->with('success', $success);
+
+        if ($mediaError) {
+            $redirect->with('error', $mediaError);
+        }
+
+        return $redirect;
+    }
+
+    /**
+     * Panel "Ảnh minh họa" — phần việc chung nằm ở trait ManagesAttachedMedia.
+     *
+     * Tham số cuối bật nhận video: lưới ở /tattoo-styles/{slug} đã biết render
+     * video (nút play + lightbox đọc data-ci-type) nên bật được. Panel của
+     * Artist và của Trang vẫn chỉ nhận ảnh.
+     */
     private function syncImages(Request $request, TattooStyle $style)
     {
-        $this->syncAttachedMedia($request, $this->imagesOf($style), [
+        return $this->syncAttachedMedia($request, $this->imagesOf($style), [
             'mediable_type'   => TattooStyle::class,
             'mediable_id'     => $style->id,
             'tattoo_style_id' => $style->id,
             'collection'      => 'gallery',
             'alt_en'          => $style->name_en.' tattoo at CrimsonInk Tattoo Studio',
             'alt_vi'          => 'Xăm '.$style->name_vi.' tại CrimsonInk Tattoo Studio',
-        ], 'style/gallery');
+        ], 'style/gallery', true);
     }
 }

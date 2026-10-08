@@ -18,6 +18,7 @@
                 @include('admin._media_panel', [
                     'mediaItems' => $works,
                     'mediaMaxKb' => $mediaMaxKb,
+                    'mediaTotalMaxKb' => $mediaTotalMaxKb,
                     'mediaTitle' => 'Tác phẩm',
                     'mediaNote'  => 'Ảnh hiện ở cuối trang <a href="'.route('page.artists.show', $artist->slug).'" target="_blank" rel="noopener">/artists/'.$artist->slug.'</a>, bấm vào ảnh sẽ mở lightbox. Mọi thay đổi ở đây lưu chung với form artist.',
                 ])
