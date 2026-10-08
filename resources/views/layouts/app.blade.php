@@ -105,6 +105,15 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 
 {{-- Structured data dùng chung, sinh từ bảng settings --}}
 @include('partials.schema')
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XZ2EPNPQLV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XZ2EPNPQLV');
+</script>
 </head>
 <body class="@yield('body_class')">
 
