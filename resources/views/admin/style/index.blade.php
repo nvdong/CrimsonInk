@@ -35,7 +35,6 @@
                                         <td class="hasinput">
                                             {!! Form::select('trashed',array(''=>'Đang dùng','1'=>'Đã xóa'),Request::input('trashed'),array('class'=>'form-control')) !!}
                                         </td>
-                                        <td class="hasinput"></td>
                                         <td class="hasinput">
                                             {!! Form::select('is_featured',array(''=>'Tất cả','1'=>'Có','0'=>'Không'),Request::input('is_featured'),array('class'=>'form-control')) !!}
                                         </td>
