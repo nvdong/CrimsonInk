@@ -39,14 +39,26 @@
             <input name="file" type="file" style="margin-top:6px">
             <small class="text-muted">Chọn file mới sẽ ghi đè đường dẫn ở trên. File lưu vào public/upload/media.</small>
         </div>
+        {{-- Ảnh bìa video: chỉ xem, không nhập. Hệ thống tự cắt một khung hình
+             bằng ffmpeg khi lưu (App\Support\VideoPoster), nên không có ô
+             upload nào ở đây nữa. --}}
         <div class="form-group">
             <label>Ảnh bìa video (poster)</label>
             @if ($item->poster_path)
-                <div><img src="{{ asset($item->poster_path) }}" alt="" style="max-height:90px;background:#222;padding:4px;margin-bottom:6px"></div>
+                <div>
+                    <img src="{{ asset($item->poster_path) }}" alt=""
+                         style="max-height:90px;background:#222;padding:4px;margin-bottom:6px">
+                </div>
+                <p class="text-muted" style="margin:0">
+                    <code>{{ $item->poster_path }}</code><br>
+                    Hệ thống tự cắt từ video. Muốn đổi thì tải lên file video khác, ảnh bìa sẽ được cắt lại.
+                </p>
+            @else
+                <p class="text-muted" style="margin:0">
+                    Chưa có. Với loại <b>Video (file)</b>, ảnh bìa được cắt tự động từ giây thứ 1 của video ngay khi bấm lưu —
+                    không cần tải lên.
+                </p>
             @endif
-            <input name="poster_path" class="form-control" maxlength="255" placeholder="Ảnh bìa Video, bỏ qua nếu upload Ảnh"
-                   value="{{ old('poster_path', $item->poster_path) }}" type="text">
-            <input name="poster_file" type="file" accept="image/*" style="margin-top:6px">
         </div>
 
         <div class="form-group">

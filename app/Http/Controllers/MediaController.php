@@ -7,6 +7,7 @@ use App\Models\Artist;
 use App\Models\Media;
 use App\Models\Page;
 use App\Models\TattooStyle;
+use App\Support\VideoPoster;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -21,6 +22,10 @@ use Illuminate\Validation\Rule;
  * type quyết định trường bắt buộc:
  *   image / video -> phải có path (đường dẫn sẵn có hoặc file upload)
  *   embed         -> phải có embed_url (link YouTube/Vimeo)
+ *
+ * Ảnh bìa video (poster_path) KHÔNG cho nhập tay nữa — App\Support\VideoPoster
+ * cắt khung hình bằng ffmpeg ngay khi lưu. Vì vậy poster_path không nằm trong
+ * validated(): request gửi lên gì cũng bị bỏ qua.
  */
 class MediaController extends Controller
 {
@@ -112,17 +117,18 @@ class MediaController extends Controller
     {
         $data = $this->validated($request);
 
-        $data['path']        = $this->storeUpload($request, 'file', 'media', $data['path'] ?? null);
-        $data['poster_path'] = $this->storeUpload($request, 'poster_file', 'media', $data['poster_path'] ?? null);
+        $data['path'] = $this->storeUpload($request, 'file', 'media', $data['path'] ?? null);
 
         if ($error = $this->checkSource($data)) {
             return redirect()->back()->withInput()->with('error', $error);
         }
         unset($data['file']);
 
+        $posterError = $this->attachPoster($data);
+
         $this->media->create($data);
 
-        return redirect()->route('admin.media')->with('success', 'Đã thêm file mới');
+        return $this->backToList('Đã thêm file mới', $posterError);
     }
 
     public function edit(Request $request)
@@ -138,15 +144,19 @@ class MediaController extends Controller
 
         $data = $this->validated($request);
 
-        $data['path']        = $this->storeUpload($request, 'file', 'media', $data['path'] ?? null);
-        $data['poster_path'] = $this->storeUpload($request, 'poster_file', 'media', $data['poster_path'] ?? null);
+        $data['path'] = $this->storeUpload($request, 'file', 'media', $data['path'] ?? null);
 
         if ($error = $this->checkSource($data)) {
             return redirect()->back()->withInput()->with('error', $error);
         }
+        unset($data['file']);
+
+        // Cắt lại ảnh bìa khi đổi sang file video khác, hoặc khi bản ghi cũ
+        // chưa có ảnh bìa. Không đụng gì thì giữ nguyên poster đang có.
+        $posterError = $this->attachPoster($data, $item);
 
         if ($item->update($data)) {
-            return redirect()->route('admin.media')->with('success', 'Cập nhật thành công');
+            return $this->backToList('Cập nhật thành công', $posterError);
         }
 
         return redirect()->back()->with('error', 'Cập nhật không thành công');
@@ -208,6 +218,59 @@ class MediaController extends Controller
         return $labels;
     }
 
+    /**
+     * Về danh sách kèm thông báo. _message.blade.php hiện được cả hai khối nên
+     * lỗi cắt ảnh bìa hiện cạnh thông báo lưu thành công — bản ghi đã lưu rồi,
+     * báo đỏ một mình sẽ làm admin tưởng là mất dữ liệu.
+     */
+    private function backToList(string $success, string $posterError = null)
+    {
+        $redirect = redirect()->route('admin.media')->with('success', $success);
+
+        if ($posterError) {
+            $redirect->with('error', $posterError);
+        }
+
+        return $redirect;
+    }
+
+    /**
+     * Gắn poster_path (và duration_seconds) cho media loại video.
+     *
+     * Chỉ chạy ffmpeg khi thật sự cần: thêm mới, đổi file video, hoặc bản ghi
+     * cũ chưa có ảnh bìa. Mỗi lần gọi là một tiến trình ffmpeg nên đừng chạy
+     * lại mỗi lần admin bấm Cập nhật.
+     *
+     * Ghi thẳng vào $data (tham chiếu) và trả về thông báo lỗi nếu có, để
+     * caller đẩy ra flash message — bản ghi vẫn lưu bình thường dù cắt hỏng.
+     */
+    private function attachPoster(array &$data, Media $current = null)
+    {
+        if (($data['type'] ?? null) !== 'video' || empty($data['path'])) {
+            return null;
+        }
+
+        $pathChanged = ! $current || $current->path !== $data['path'];
+
+        if (! $pathChanged && ! empty($current->poster_path)) {
+            return null;
+        }
+
+        $result = VideoPoster::generate($data['path']);
+
+        if ($result['poster_path']) {
+            $data['poster_path'] = $result['poster_path'];
+        }
+
+        // Thời lượng chỉ ghi đè khi ô này đang trống, để không xóa mất con số
+        // admin tự nhập.
+        if ($result['duration_seconds'] && empty($data['duration_seconds'])) {
+            $data['duration_seconds'] = $result['duration_seconds'];
+        }
+
+        return $result['error'];
+    }
+
     /** image/video cần path, embed cần embed_url. */
     private function checkSource(array $data)
     {
@@ -230,7 +293,6 @@ class MediaController extends Controller
             'type'             => ['required', Rule::in(array_keys(static::$types))],
             'file'             => ['nullable'],
             'path'             => ['nullable', 'string', 'max:255'],
-            'poster_path'      => ['nullable', 'string', 'max:255'],
             'embed_url'        => ['nullable', 'url', 'max:255'],
             'alt_en'           => ['nullable', 'string', 'max:190'],
             'alt_vi'           => ['nullable', 'string', 'max:190'],

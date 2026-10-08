@@ -55,6 +55,26 @@ return [
             'visibility' => 'public',
         ],
 
+        /*
+        | Trỏ thẳng vào thư mục public/ của project.
+        |
+        | Toàn bộ file admin upload nằm ở public/upload/... và các cột *_path
+        | trong DB lưu đường dẫn TƯƠNG ĐỐI tính từ public/ (vd
+        | upload/media/2026/10/clip.mp4) để render bằng asset(). Disk 'public'
+        | mặc định của Laravel lại trỏ vào storage/app/public nên không dùng
+        | được cho các đường dẫn đó.
+        |
+        | laravel-ffmpeg làm việc theo disk, nên có disk này thì truyền thẳng
+        | giá trị cột path vào FFMpeg::fromDisk('public_root')->open($path)
+        | được, không phải chuyển đổi đường dẫn qua lại.
+        */
+        'public_root' => [
+            'driver' => 'local',
+            'root' => public_path(),
+            'url' => env('APP_URL'),
+            'visibility' => 'public',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
