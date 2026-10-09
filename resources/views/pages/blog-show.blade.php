@@ -31,7 +31,7 @@
 			<article class="ci-article__main">
 
 				<nav class="ci-crumbs" aria-label="Breadcrumb">
-					<a href="{{ route('page.home') }}">Trang chủ</a>
+					<a href="{{ route('page.home') }}">Home</a>
 					<span aria-hidden="true">/</span>
 					<a href="{{ route('page.blog') }}">{{ optional($post->category)->name ?: 'Blog' }}</a>
 				</nav>
@@ -39,7 +39,7 @@
 				<h1 class="ci-article__title">{{ $post->title }}</h1>
 
 				<p class="ci-article__updated">
-					Cập nhật lần cuối:
+					Last updated:
 					<time datetime="{{ $post->created_at->toDateString() }}">{{ $post->created_at->format('d/m/Y') }}</time>
 					@if ($post->author_name)
 						· {{ $post->author_name }}
@@ -65,7 +65,7 @@
 
 				@if (! empty($post->takeaways))
 					<section class="ci-takeaways" aria-labelledby="ci-takeaways-title">
-						<h2 class="ci-takeaways__title" id="ci-takeaways-title">Điểm chính</h2>
+						<h2 class="ci-takeaways__title" id="ci-takeaways-title">Key Takeaways</h2>
 						<ul class="ci-takeaways__list">
 							@foreach ($post->takeaways as $line)
 								<li class="ci-takeaways__item">
@@ -82,7 +82,7 @@
 				</div>
 
 				<p class="ci-article__back">
-					<a href="{{ route('page.blog') }}">&larr; Về danh sách bài viết</a>
+					<a href="{{ route('page.blog') }}">&larr; Back to Tattoo Blog</a>
 				</p>
 
 			</article>
@@ -91,7 +91,7 @@
 
 				@if ($guideLinks)
 					<section class="ci-side__block">
-						<h2 class="ci-side__title">Những điều cần biết trước khi xăm</h2>
+						<h2 class="ci-side__title">Things to Know Before Getting Inked</h2>
 						<ul class="ci-guide__list">
 							@foreach ($guideLinks as $link)
 								<li class="ci-guide__item">
@@ -104,7 +104,7 @@
 
 				@if ($relatedPosts->isNotEmpty())
 					<section class="ci-side__block">
-						<h2 class="ci-side__title">Bài viết liên quan</h2>
+						<h2 class="ci-side__title">Related Article</h2>
 						<ul class="ci-related__list">
 							@foreach ($relatedPosts as $item)
 								@php $d = $item->created_at; @endphp
