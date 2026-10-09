@@ -42,24 +42,10 @@
                         </a>
                     </li>
 
-                    <li class="{{$uri == 'faq'?'active':''}}">
-                        <a title="FAQ" href="{{route('admin.faq')}}" aria-expanded="false">
-                            <i class="fa fa-question-circle" aria-hidden="true"></i>
-                            <span class="mini-click-non">Câu hỏi thường gặp</span>
-                        </a>
-                    </li>
-
                     <li class="{{$uri == 'artist'?'active':''}}">
                         <a title="Artist" href="{{route('admin.artist')}}" aria-expanded="false">
                             <i class="fa fa-users" aria-hidden="true"></i>
                             <span class="mini-click-non">DS Artists</span>
-                        </a>
-                    </li>
-
-                    <li class="{{$uri == 'page'?'active':''}}">
-                        <a title="Trang" href="{{route('admin.page')}}" aria-expanded="false">
-                            <i class="fa fa-file-text-o" aria-hidden="true"></i>
-                            <span class="mini-click-non">Quản lý Trang</span>
                         </a>
                     </li>
 
@@ -74,6 +60,13 @@
                         <a title="Blog categories" href="{{route('admin.post-category')}}" aria-expanded="false">
                             <i class="fa fa-tags" aria-hidden="true"></i>
                             <span class="mini-click-non">Danh mục blog</span>
+                        </a>
+                    </li>
+
+                    <li class="{{$uri == 'faq'?'active':''}}">
+                        <a title="FAQ" href="{{route('admin.faq')}}" aria-expanded="false">
+                            <i class="fa fa-question-circle" aria-hidden="true"></i>
+                            <span class="mini-click-non">Câu hỏi thường gặp</span>
                         </a>
                     </li>
 
@@ -95,6 +88,13 @@
                         <a title="Menu" href="{{route('admin.menu')}}" aria-expanded="false">
                             <i class="fa fa-bars" aria-hidden="true"></i>
                             <span class="mini-click-non">Quản lý Menu</span>
+                        </a>
+                    </li>
+
+                    <li class="{{$uri == 'page'?'active':''}}">
+                        <a title="Trang" href="{{route('admin.page')}}" aria-expanded="false">
+                            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                            <span class="mini-click-non">Quản lý Trang</span>
                         </a>
                     </li>
 
