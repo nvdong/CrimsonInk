@@ -24,27 +24,68 @@ class ArtistController extends Controller
         $this->artist = $artist;
     }
 
-    private function validated(Request $request)
+    /**
+     * LƯU Ý khi sửa hàm này: $request->validate() CHỈ trả về các khóa có mặt
+     * trong mảng rule. Ô nào ở form mà quên khai ở đây thì không bao giờ được
+     * lưu — và nếu phía dưới còn gán $data['x'] = ... ?? null thì nó còn bị
+     * ghi đè thành NULL, tức là sửa một ô bất kỳ là mất dữ liệu ô đó.
+     * avatar_path / cover_path từng dính đúng lỗi này.
+     */
+    private function validated(Request $request, $ignoreId = null)
     {
         $data = $request->validate([
-            'name_en' => ['required', 'string', 'max:255'],
-            'slug' => ['required', 'string', 'max:255'],
-            'role_en'   => ['nullable', 'string'],
-            'slogan_en'   => ['nullable', 'string'],
-            'sort_order'  => ['nullable', 'integer'],
-            'bio_en'  => ['nullable', 'string'],
-            'content_en'  => ['nullable', 'string'],
-            'meta_title_en'  => ['nullable', 'string'],
-            'meta_description_en'  => ['nullable', 'string'],
-            'tattoo_style_ids'=>['nullable'],
-            'experience_years'  => ['nullable'],
-        ], [], [
-            'name_en' => 'Name (EN)',
-            'slug' => 'Slug (VI)',
+            'name_en'             => ['required', 'string', 'max:120'],
+            'slug'                => ['required', 'string', 'max:120', 'regex:/^[a-z0-9\-]+$/', Rule::unique('artists')->ignore($ignoreId)],
+            'role_en'             => ['nullable', 'string', 'max:160'],
+            'slogan_en'           => ['nullable', 'string', 'max:255'],
+            'sort_order'          => ['nullable', 'integer'],
+            'bio_en'              => ['nullable', 'string'],
+            'content_en'          => ['nullable', 'string'],
+            'meta_title_en'       => ['nullable', 'string', 'max:190'],
+            'meta_description_en' => ['nullable', 'string', 'max:300'],
+            'tattoo_style_ids'    => ['nullable', 'array'],
+            'tattoo_style_ids.*'  => ['integer'],
+            'experience_years'    => ['nullable', 'integer', 'min:0', 'max:80'],
+
+            // Hai ô đường dẫn ảnh: thiếu ở đây là mất ảnh mỗi lần bấm Cập nhật.
+            'avatar_path'         => ['nullable', 'string', 'max:255'],
+            'cover_path'          => ['nullable', 'string', 'max:255'],
+            'avatar_file'         => ['nullable', 'image', 'max:5120'],
+            'cover_file'          => ['nullable', 'image', 'max:5120'],
+
+            'instagram'           => ['nullable', 'url', 'max:255'],
+            'facebook'            => ['nullable', 'url', 'max:255'],
+        ], [
+            'slug.regex'      => 'Slug chỉ được dùng chữ thường không dấu, số và dấu gạch ngang.',
+            'slug.unique'     => 'Slug này đã có artist khác dùng.',
+            'avatar_file.max' => 'Ảnh đại diện không được quá 5MB.',
+            'cover_file.max'  => 'Ảnh bìa không được quá 5MB.',
+            'instagram.url'   => 'Link Instagram phải là URL đầy đủ, bắt đầu bằng https://',
+            'facebook.url'    => 'Link Facebook phải là URL đầy đủ, bắt đầu bằng https://',
+        ], [
+            'name_en'          => 'tên (EN)',
+            'slug'             => 'slug',
+            'avatar_file'      => 'ảnh đại diện',
+            'cover_file'       => 'ảnh bìa',
+            'experience_years' => 'số năm kinh nghiệm',
         ]);
 
-        $data['is_active']  = $request->boolean('is_active');
-        $data['sort_order'] = $data['sort_order'] ?? 0;
+        // Cột name_vi NOT NULL mà form chỉ có ô tiếng Anh -> thêm artist mới sẽ
+        // ném lỗi SQL. Lùi về bản tiếng Anh cho tới khi form có ô tiếng Việt.
+        $data['name_vi'] = $data['name_vi'] ?? $data['name_en'];
+
+        // Form để Instagram / Facebook thành hai ô riêng cho dễ nhập, DB lưu
+        // chung một cột json socials.
+        $data['socials'] = array_filter([
+            'instagram' => $request->input('instagram'),
+            'facebook'  => $request->input('facebook'),
+        ]) ?: null;
+
+        unset($data['instagram'], $data['facebook'], $data['avatar_file'], $data['cover_file']);
+
+        $data['is_featured'] = $request->boolean('is_featured');
+        $data['is_active']   = $request->boolean('is_active');
+        $data['sort_order']  = $data['sort_order'] ?? 0;
 
         return $data;
     }
@@ -116,7 +157,7 @@ class ArtistController extends Controller
     {
         $artist = $this->artist->withTrashed()->findOrFail($request->id);
 
-        $data = $this->validated($request);
+        $data = $this->validated($request, $artist->id);
 
         $data['avatar_path'] = $this->storeUpload($request, 'avatar_file', 'artist', $data['avatar_path'] ?? null);
         $data['cover_path']  = $this->storeUpload($request, 'cover_file', 'artist', $data['cover_path'] ?? null);
