@@ -1373,7 +1373,7 @@ body.ci-lightbox-open { overflow: hidden; }
 /* ----- Hero có tiêu đề + breadcrumb ----- */
 .ci-page-hero {
     /* Đổi ảnh hero: sửa đúng dòng này. */
-    --ci-hero-image: url('../images/header-eyebrows.jpg');
+    --ci-hero-image: url('../images/tattoo-artist-2.jpg');
 
     position: relative;
     display: flex;

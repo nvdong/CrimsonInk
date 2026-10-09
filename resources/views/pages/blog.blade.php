@@ -27,7 +27,7 @@
 		<div class="ci-page-hero__inner">
 			<h1 class="ci-page-hero__title">Blog</h1>
 			<nav class="ci-page-hero__crumbs" aria-label="Breadcrumb">
-				<a href="{{ route('page.home') }}">Trang chủ</a>
+				<a href="{{ route('page.home') }}">Home</a>
 				<span aria-hidden="true">/</span>
 				<span aria-current="page">Blog</span>
 			</nav>
@@ -47,7 +47,6 @@
 							@if ($post->cover_path)
 								<img class="ci-post__img" src="{{ asset($post->cover_path) }}" alt="" loading="lazy" decoding="async" />
 							@else
-								{{-- Không có ảnh bìa thì để ô tối, đừng nhét src rỗng vào <img> --}}
 								<span class="ci-post__img ci-post__img--empty" aria-hidden="true"></span>
 							@endif
 
@@ -64,9 +63,9 @@
 						<div class="ci-post__body">
 							<p class="ci-post__meta">
 								@if ($post->author_name)
-									Đăng bởi <span class="ci-post__author">{{ $post->author_name }}</span>
+									Posted by <span class="ci-post__author">{{ $post->author_name }}</span>
 								@endif
-								<button class="ci-post__share" type="button" aria-label="Chia sẻ bài viết">
+								<button class="ci-post__share" type="button" aria-label="Share">
 									<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92a2.92 2.92 0 0 0-2.92-2.92z"/></svg>
 								</button>
 							</p>
@@ -81,20 +80,20 @@
 						</div>
 
 						<div class="ci-post__cta">
-							<a class="ci-post__btn" href="{{ $post->url }}">Đọc tiếp</a>
+							<a class="ci-post__btn" href="{{ $post->url }}">Continue reading</a>
 						</div>
 					</article>
 				@empty
-					<p class="ci-blog__empty">Chưa có bài viết nào.</p>
+					<p class="ci-blog__empty">No articles yet.</p>
 				@endforelse
 
 				{{-- Tự dựng thay vì gọi $posts->links(): view phân trang mặc định
 				     của Laravel 8 là Tailwind, dán vào nền đen này sẽ lạc hẳn
 				     tông. Blog ít trang nên liệt kê hết số trang là đủ. --}}
 				@if ($posts->hasPages())
-					<nav class="ci-pager" aria-label="Phân trang">
+					<nav class="ci-pager" aria-label="Pagination">
 						@if (! $posts->onFirstPage())
-							<a class="ci-pager__item ci-pager__item--prev" href="{{ $posts->previousPageUrl() }}" rel="prev" aria-label="Trang trước">
+							<a class="ci-pager__item ci-pager__item--prev" href="{{ $posts->previousPageUrl() }}" rel="prev" aria-label="Previous">
 								<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
 							</a>
 						@endif
@@ -108,7 +107,7 @@
 						@endforeach
 
 						@if ($posts->hasMorePages())
-							<a class="ci-pager__item ci-pager__item--next" href="{{ $posts->nextPageUrl() }}" rel="next" aria-label="Trang sau">
+							<a class="ci-pager__item ci-pager__item--next" href="{{ $posts->nextPageUrl() }}" rel="next" aria-label="Next">
 								<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
 							</a>
 						@endif
@@ -117,7 +116,7 @@
 			</div>
 
 			<aside class="ci-blog__side">
-				<h2 class="ci-side__title">Bài viết mới nhất</h2>
+				<h2 class="ci-side__title">Lastest post</h2>
 
 				<ul class="ci-side__list">
 					@forelse ($latestPosts as $item)
@@ -126,7 +125,7 @@
 							<time class="ci-side__date" datetime="{{ $item->created_at->toDateString() }}">{{ $item->created_at->format('d/m/Y') }}</time>
 						</li>
 					@empty
-						<li class="ci-side__item"><span class="ci-side__date">Chưa có bài viết nào.</span></li>
+						<li class="ci-side__item"><span class="ci-side__date">No articles yet.</span></li>
 					@endforelse
 				</ul>
 			</aside>
