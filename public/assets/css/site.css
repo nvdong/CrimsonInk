@@ -2048,3 +2048,29 @@ body.ci-dark-page { background-color: #000; }
     .ci-article__title { font-size: 27px; }
     .ci-article__body h2 { font-size: 21px; }
 }
+
+/* ===== Link điều hướng dưới footer (cột "Crimson Ink Studio") =====
+   Thay cho hai dòng chữ tĩnh "Signature Styles" / "Master Artists" trước đây,
+   nên bám theo đúng cỡ chữ và màu của các dòng text-editor còn lại trong
+   footer để cột không bị lệch tông. */
+.ci-footer-links ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.ci-footer-links li { margin: 0 0 10px; }
+
+.ci-footer-links li:last-child { margin-bottom: 0; }
+
+.ci-footer-links a {
+    display: inline-block;
+    color: var(--e-global-color-1090670, #cfcfcf);
+    line-height: 1.6;
+    transition: color .25s ease;
+}
+
+.ci-footer-links a:hover,
+.ci-footer-links a:focus {
+    color: var(--e-global-color-accent, #a20000);
+}
