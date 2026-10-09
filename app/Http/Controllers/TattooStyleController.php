@@ -116,7 +116,7 @@ class TattooStyleController extends Controller
         if ($style->update($data)) {
             $mediaError = $this->syncImages($request, $style);
 
-            return $this->backToList('Cập nhật thành công', $mediaError);
+            return redirect()->route('admin.style.edit', $style->id)->with('success', 'Cập nhật thành công');
         }
 
         return redirect()->back()->with('error', 'Cập nhật không thành công');
