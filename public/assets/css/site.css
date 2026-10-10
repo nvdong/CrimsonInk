@@ -1692,6 +1692,14 @@ body.ci-lightbox-open { overflow: hidden; }
     opacity: .7;
 }
 
+.ci-post__cta a{
+    color: var(--e-global-color-39cd785, #fff) !important;
+    text-decoration: none;
+}
+.ci-post__cta a:hover,.ci-post__cta a:focus{
+    background-color: var(--e-global-color-accent, #a20000);
+}
+
 /* ----- Responsive ----- */
 @media (max-width: 1024px) {
     .ci-blog__inner { grid-template-columns: minmax(0, 1fr); gap: 54px; }
