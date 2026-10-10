@@ -1694,7 +1694,7 @@ body.ci-lightbox-open { overflow: hidden; }
 
 .ci-post__cta a{
     color: var(--e-global-color-39cd785, #fff) !important;
-    text-decoration: none;
+    text-decoration: none !important;
 }
 .ci-post__cta a:hover,.ci-post__cta a:focus{
     background-color: var(--e-global-color-accent, #a20000);
