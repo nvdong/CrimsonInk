@@ -2,12 +2,7 @@
 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-campaign">
 
     <div class="col-md-8 col-sm-12">
-        <div class="form-group">
-            <label for="title_vi" class="required-flag">Tiêu đề (VI)</label>
-            <input id="title_vi" name="title_vi" class="form-control" maxlength="190" required
-                   value="{{ old('title_vi', $page->title_vi) }}" type="text">
-            @error('title_vi') <span class="help-block has-error">{{ $message }}</span> @enderror
-        </div>
+
         <div class="form-group">
             <label for="title_en" class="required-flag">Tiêu đề (EN)</label>
             <input id="title_en" name="title_en" class="form-control" maxlength="190" required
@@ -16,20 +11,11 @@
         </div>
 
         <div class="form-group">
-            <label for="heading_vi">Tiêu đề lớn trong trang (VI)</label>
-            <input id="heading_vi" name="heading_vi" class="form-control" maxlength="190"
-                   value="{{ old('heading_vi', $page->heading_vi) }}" type="text">
-        </div>
-        <div class="form-group">
             <label for="heading_en">Tiêu đề lớn trong trang (EN)</label>
             <input id="heading_en" name="heading_en" class="form-control" maxlength="190"
                    value="{{ old('heading_en', $page->heading_en) }}" type="text">
         </div>
 
-        <div class="form-group">
-            <label for="body_vi">Nội dung (VI)</label>
-            <textarea id="body_vi" name="body_vi" class="summernote form-control" rows="10">{{ old('body_vi', $page->body_vi) }}</textarea>
-        </div>
         <div class="form-group">
             <label for="body_en">Nội dung (EN)</label>
             <textarea id="body_en" name="body_en" class="summernote form-control" rows="10">{{ old('body_en', $page->body_en) }}</textarea>
@@ -37,18 +23,9 @@
 
         <h5 style="margin-top:30px">SEO</h5>
         <div class="form-group">
-            <label for="meta_title_vi">Meta title (VI)</label>
-            <input id="meta_title_vi" name="meta_title_vi" class="form-control" maxlength="190"
-                   value="{{ old('meta_title_vi', $page->meta_title_vi) }}" type="text">
-        </div>
-        <div class="form-group">
             <label for="meta_title_en">Meta title (EN)</label>
             <input id="meta_title_en" name="meta_title_en" class="form-control" maxlength="190"
                    value="{{ old('meta_title_en', $page->meta_title_en) }}" type="text">
-        </div>
-        <div class="form-group">
-            <label for="meta_description_vi">Meta description (VI)</label>
-            <textarea id="meta_description_vi" name="meta_description_vi" class="form-control" rows="2" maxlength="300">{{ old('meta_description_vi', $page->meta_description_vi) }}</textarea>
         </div>
         <div class="form-group">
             <label for="meta_description_en">Meta description (EN)</label>
