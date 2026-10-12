@@ -8,7 +8,7 @@
 <link rel='stylesheet' id='swiper-css' href='{{ asset('assets/css/swiper.min.css') }}' media='all' />
 <link rel='stylesheet' id='e-swiper-css' href='{{ asset('assets/css/e-swiper.min.css') }}' media='all' />
 <link rel='stylesheet' id='widget-image-gallery-css' href='{{ asset('assets/css/widget-image-gallery.min.css') }}' media='all' />
-<link rel='stylesheet' id='elementor-post-606-css' href='{{ asset('assets/css/post-606.css') }}' media='all' />
+<link rel='stylesheet' id='elementor-post-606-css' href='{{ asset('assets/css/post-606.css?v=1.1') }}' media='all' />
 <style type="text/css">
 	.elementor-606 .elementor-element.elementor-element-fa41fb4 .gallery{
 		text-align: center;
