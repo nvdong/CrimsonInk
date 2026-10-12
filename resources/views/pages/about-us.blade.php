@@ -78,7 +78,7 @@
 			</div>
 		</div>
 	</section>
-	<div class="elementor-element elementor-element-ada4f72 e-flex e-con-boxed e-con e-parent elementor-aboutUs" data-id="ada4f72" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
+	{{-- <div class="elementor-element elementor-element-ada4f72 e-flex e-con-boxed e-con e-parent elementor-aboutUs" data-id="ada4f72" data-element_type="container" data-e-type="container" data-settings="{&quot;background_background&quot;:&quot;classic&quot;}">
 		<div class="e-con-inner">
 			<div class="elementor-element elementor-element-fa41fb4 gallery-spacing-custom elementor-widget elementor-widget-image-gallery" data-id="fa41fb4" data-element_type="widget" data-e-type="widget" data-widget_type="image-gallery.default">
 				<div class="elementor-widget-container">
@@ -108,7 +108,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> --}}
 </div>
 
 @include('partials.lightbox')
