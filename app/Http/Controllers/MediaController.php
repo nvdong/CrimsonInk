@@ -61,11 +61,14 @@ class MediaController extends Controller
         $uri = 'media';
         $requestData = $request->all();
 
-        $query = $this->media->orderBy('mediable_type')->orderBy('mediable_id')
-            ->orderBy('sort_order')->orderBy('id');
+        $query = $this->media->orderBy('id', 'desc');
 
         if (($type = $request->input('type')) !== null && $type !== '') {
             $query->where('type', $type);
+        }
+
+        if (($style_id = $request->input('style_id')) !== null && $style_id !== '') {
+            $query->where('tattoo_style_id', $style_id);
         }
 
         if (($collection = $request->input('collection')) !== null && $collection !== '') {
@@ -88,7 +91,7 @@ class MediaController extends Controller
             $query->where('is_active', (int) $active);
         }
 
-        $media = $query->paginate(24);
+        $media = $query->paginate(30);
 
         // nhãn chủ sở hữu, nạp sẵn để không query trong vòng lặp view
         $ownerLabels = $this->ownerLabels();
