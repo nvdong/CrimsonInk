@@ -771,14 +771,14 @@ body.ci-dark-page {
 }
 
 .ci-faq__item.is-open .ci-faq__q {
-    background-color: rgba(162, 0, 0, .55);
+    background-color: var( --e-global-color-accent );
     color: #ffffff;
 }
 
 .ci-faq__item.is-open .ci-faq__chevron { color: #ffffff; }
 
 .ci-faq__item:not(.is-open) .ci-faq__q:hover {
-    background-color: rgba(162, 0, 0, .55);
+    background-color: var( --e-global-color-accent );
     color: #ffffff;
 }
 
