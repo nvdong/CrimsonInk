@@ -74,7 +74,7 @@ class PageController extends Controller
     public function faqs(): View
     {
         $page = Page::where('slug','faqs')->first();
-        $faqs = Faq::active()->orderBy('group')->ordered()->get()->groupBy('group');
+        $faqs = Faq::active()->orderBy('id')->ordered()->get()->groupBy('group');
 
         return view('pages.faqs', compact('faqs','page'));
     }
