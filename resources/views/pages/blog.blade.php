@@ -7,15 +7,14 @@
      Dữ liệu từ bảng posts — quản lý ở admin > Bài viết blog. --}}
 @extends('layouts.app')
 
-@section('title', 'Blog | Crimson Ink Tattoo Studio Hanoi')
+@section('title', 'Tattoo Blog | Crimson Ink Tattoo Studio Hanoi')
 @section('body_class', 'wp-singular page-template page-template-elementor_header_footer page wp-custom-logo wp-embed-responsive wp-theme-hello-elementor ehf-header ehf-footer ehf-template-hello-elementor ehf-stylesheet-hello-elementor hello-elementor-default elementor-default elementor-template-full-width elementor-kit-6 elementor-page')
 
+@section('meta_description', 'Tattoo guides from the Crimson Ink artists in Hanoi: choosing a style, what a session is like, healing stages, aftercare and tattoo culture in Vietnam.')
+@section('og_image', asset('assets/images/header-eyebrows.jpg'))
+
 @section('head')
-<meta name="description" content="Kiến thức về xăm hình, chăm sóc sau xăm và văn hóa xăm từ đội ngũ Crimson Ink Tattoo Studio Hà Nội." />
 <link rel="canonical" href="{{ route('page.blog') }}" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="{{ route('page.blog') }}" />
-<meta property="og:image" content="{{ asset('assets/images/header-eyebrows.jpg') }}" />
 @endsection
 
 @section('content')
@@ -25,7 +24,7 @@
 	<section class="ci-page-hero">
 		<div class="ci-page-hero__media" role="img" aria-label="Crimson Ink Tattoo Studio"></div>
 		<div class="ci-page-hero__inner">
-			<h1 class="ci-page-hero__title">Blog</h1>
+			<h1 class="ci-page-hero__title">Tattoo Blog</h1>
 			<nav class="ci-page-hero__crumbs" aria-label="Breadcrumb">
 				<a href="{{ route('page.home') }}">Home</a>
 				<span aria-hidden="true">/</span>

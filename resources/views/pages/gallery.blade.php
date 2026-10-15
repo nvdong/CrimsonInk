@@ -8,15 +8,11 @@
 <link rel='stylesheet' id='elementor-post-76-css' href='{{ asset('assets/css/post-76.css') }}' media='all' />
 @endpush
 
+@section('meta_description', 'Browse real tattoos done at Crimson Ink in Hanoi — fineline, blackwork, realism, Japanese, lettering and more, grouped by style.')
+@section('og_image', asset('assets/images/tattoo-gallery-2.jpg'))
+
 @section('head')
-<meta name="description" content="Get inspired by our Hanoi tattoo gallery. Explore unique tattoo styles, custom artwork, and creative designs crafted by professional artists." />
 <link rel="canonical" href="{{ route('page.gallery') }}" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="{{ route('page.gallery') }}" />
-<meta property="og:image" content="{{ asset('assets/images/tattoo-gallery-2.jpg') }}" />
-<meta property="og:image:width" content="600" />
-<meta property="og:image:height" content="900" />
-<meta property="og:image:type" content="image/jpeg" />
 @endsection
 
 @section('content')

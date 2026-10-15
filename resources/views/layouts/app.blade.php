@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+{{-- Site chỉ phục vụ tiếng Anh (khách du lịch Âu/Mỹ/Úc tới Hà Nội) nên khai
+     cứng lang="en". Nếu sau này mở lại song ngữ thì trả về app()->getLocale()
+     và thêm thẻ hreflang. --}}
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="profile" href="http://gmpg.org/xfn/11" />
-<meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+{{-- Trang lỗi khai @section('robots', 'noindex, follow') để không bị index. --}}
+<meta name="robots" content="@yield('robots', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1')" />
 <style id="wp-img-auto-sizes-contain-inline-css">
 img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 /*# sourceURL=wp-img-auto-sizes-contain-inline-css */
@@ -97,6 +101,10 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 <link rel="apple-touch-icon" href="{{ asset('assets/imgs/apple-touch-icon.png') }}" />
 <meta name="msapplication-TileImage" content="{{ asset('assets/imgs/apple-touch-icon.png') }}" />
 <title>@yield('title', config('app.name'))</title>
+
+{{-- Mô tả + Open Graph + Twitter Card, sinh từ @section('meta_description'),
+     @section('og_image'), @section('og_type') của từng trang. --}}
+@include('partials.social-meta')
 @stack('styles')
 {{-- CSS tu viet cua du an, nap sau cung de de ghi de --}}
 {{-- ?v= theo thời điểm sửa file, để trình duyệt không dùng bản cache cũ --}}

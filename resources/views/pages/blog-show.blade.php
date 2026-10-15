@@ -12,15 +12,15 @@
 @section('title', ($post->meta_title ?: $post->title).' | Crimson Ink Tattoo Studio')
 @section('body_class', 'wp-singular post-template-default single single-post wp-custom-logo wp-embed-responsive wp-theme-hello-elementor ehf-header ehf-footer ehf-template-hello-elementor ehf-stylesheet-hello-elementor hello-elementor-default elementor-default elementor-kit-6 ci-dark-page')
 
+@section('meta_description', \Illuminate\Support\Str::limit(strip_tags($post->meta_description ?: $post->excerpt), 155))
+@section('og_image', $post->cover_path ? asset($post->cover_path) : '')
+@section('og_type', 'article')
+
 @section('head')
-<meta name="description" content="{{ \Illuminate\Support\Str::limit(strip_tags($post->meta_description ?: $post->excerpt), 155) }}" />
 <link rel="canonical" href="{{ $post->url }}" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="{{ $post->url }}" />
-@if ($post->cover_path)
-<meta property="og:image" content="{{ asset($post->cover_path) }}" />
-@endif
+{{-- Ngày của riêng bài viết — không phải thẻ dùng chung nên để lại đây. --}}
 <meta property="article:published_time" content="{{ $post->created_at->toIso8601String() }}" />
+<meta property="article:modified_time" content="{{ $post->updated_at->toIso8601String() }}" />
 @endsection
 
 @section('content')

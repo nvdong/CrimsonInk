@@ -2097,3 +2097,112 @@ body.ci-dark-page { background-color: #000; }
 .ci-footer-links a:focus {
     color: var(--e-global-color-accent, #a20000);
 }
+
+/* ===== Trang lỗi 404 / 500 / 503 =====
+   Dùng lại hero .ci-page-hero và nút .elementor-button của site, chỉ thêm
+   phần mã lỗi, câu dẫn và lưới link gợi ý. Tiêu đề hero mặc định 72px nên
+   phải hạ xuống ở mobile vì "Page not found" dài hơn chữ "Blog". */
+.ci-error-hero { min-height: 380px; }
+
+.ci-error__code {
+    margin: 0 0 6px;
+    color: var(--e-global-color-accent, #a20000);
+    font-family: var(--e-global-typography-primary-font-family, "Work Sans"), Sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: .34em;
+}
+
+.ci-error__lead {
+    max-width: 620px;
+    margin: 18px auto 0;
+    color: var(--e-global-color-1090670, #cfcfcf);
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+.ci-error {
+    padding: 70px 20px 100px;
+    background-color: #000;
+}
+
+.ci-error__inner {
+    max-width: 1140px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.ci-error__subtitle {
+    margin: 0 0 32px;
+    color: var(--e-global-color-39cd785, #fff);
+    font-family: var(--e-global-typography-primary-font-family, "Work Sans"), Sans-serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+}
+
+.ci-error__links {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    margin: 0 0 46px;
+    padding: 0;
+    list-style: none;
+    text-align: left;
+}
+
+.ci-error__links a {
+    display: block;
+    height: 100%;
+    padding: 22px 24px;
+    border: 1px solid rgba(255, 255, 255, .12);
+    color: var(--e-global-color-1090670, #cfcfcf);
+    font-size: 15px;
+    line-height: 1.6;
+    transition: border-color .25s ease, background-color .25s ease, color .25s ease;
+}
+
+.ci-error__links a span {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--e-global-color-39cd785, #fff);
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: .03em;
+}
+
+.ci-error__links a:hover,
+.ci-error__links a:focus {
+    border-color: var(--e-global-color-accent, #a20000);
+    background-color: rgba(162, 0, 0, .14);
+    color: #fff;
+}
+
+.ci-error__cta { display: block; }
+
+.ci-error__home {
+    display: block;
+    margin-top: 18px;
+    color: var(--e-global-color-1090670, #cfcfcf);
+    font-size: 15px;
+    text-decoration: underline;
+}
+
+.ci-error__home:hover,
+.ci-error__home:focus { color: var(--e-global-color-accent, #a20000); }
+
+@media (max-width: 1024px) {
+    .ci-error__links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 767px) {
+    .ci-error-hero .ci-page-hero__title { font-size: 38px; }
+    .ci-error-hero { min-height: 320px; }
+    .ci-error { padding: 50px 16px 76px; }
+    .ci-error__links { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ci-error__links a { transition: none; }
+}

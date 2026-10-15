@@ -3,8 +3,9 @@
 @section('title', 'Our Tattoo Artists | Crimson Ink Tattoo Studio Hanoi')
 @section('body_class', 'wp-singular page-template page-template-elementor_header_footer page wp-custom-logo wp-embed-responsive wp-theme-hello-elementor ehf-header ehf-footer ehf-template-hello-elementor ehf-stylesheet-hello-elementor hello-elementor-default elementor-default elementor-template-full-width elementor-kit-6 elementor-page ci-dark-page')
 
+@section('meta_description', 'Meet the tattoo artists at Crimson Ink Hanoi — their styles, experience and portfolio.')
+
 @section('head')
-<meta name="description" content="Meet the tattoo artists at Crimson Ink Hanoi — their styles, experience and portfolio." />
 <link rel="canonical" href="{{ route('page.artists') }}" />
 @endsection
 

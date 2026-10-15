@@ -21,18 +21,12 @@
 </style>
 @endpush
 
+@section('meta_description', 'Crimson Ink is a tattoo studio in Ba Dinh, Hanoi. English-speaking artists, sterile single-use needles and custom designs for travellers and locals alike.')
+@section('og_image', asset('assets/images/tattoo-artist-2.jpg'))
+@section('og_type', 'article')
+
 @section('head')
-<meta name="description" content="Discover CrimsonInk Tattoo Studio, the first tattooist in Hanoi offering safe, clean, and artistic tattoos by expert artists." />
 <link rel="canonical" href="{{ route('page.about-us') }}" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="{{ route('page.about-us') }}" />
-<meta property="article:modified_time" content="2025-11-03T08:30:52+00:00" />
-<meta property="og:image" content="{{ asset('assets/images/tattoo-artist-2.jpg') }}" />
-<meta property="og:image:width" content="1920" />
-<meta property="og:image:height" content="1280" />
-<meta property="og:image:type" content="image/jpeg" />
-<meta name="twitter:label1" content="Est. reading time" />
-<meta name="twitter:data1" content="5 minutes" />
 @endsection
 
 @section('content')

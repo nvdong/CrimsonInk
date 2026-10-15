@@ -10,18 +10,13 @@
 <link rel='stylesheet' id='elementor-post-806-css' href='{{ asset('assets/css/post-806.css') }}' media='all' />
 @endpush
 
+@section('meta_description', 'Explore tattoo styles at Crimson Ink Tattoo in Hanoi — fineline, blackwork, realism, Japanese, tribal and more, drawn by our resident artists.')
+{{-- Trước đây khai "/imgs/tattoo-categories.jpg": đường dẫn tương đối nên
+     Facebook/X không lấy được ảnh. og:image bắt buộc là URL tuyệt đối. --}}
+@section('og_image', asset('imgs/tattoo-categories.jpg'))
+
 @section('head')
-<meta name="description" content="Explore tattoo styles at Crimson Ink Tattoo in Hanoi — fineline, blackwork, realism, Japanese, tribal and more, drawn by our resident artists." />
 <link rel="canonical" href="{{ route('page.tattoo-styles') }}" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="{{ route('page.tattoo-styles') }}" />
-<meta property="article:modified_time" content="2026-01-13T03:47:50+00:00" />
-<meta property="og:image" content="/imgs/tattoo-categories.jpg" />
-<meta property="og:image:width" content="1353" />
-<meta property="og:image:height" content="764" />
-<meta property="og:image:type" content="image/png" />
-<meta name="twitter:label1" content="Est. reading time" />
-<meta name="twitter:data1" content="2 minutes" />
 @endsection
 
 @section('content')

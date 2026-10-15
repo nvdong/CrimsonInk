@@ -73,6 +73,27 @@ class SettingsSeeder extends Seeder
             // Ba khóa này chỉ là con số hiển thị, nhập tay. Nội dung từng
             // review quản lý ở màn hình riêng (admin > Đánh giá khách hàng).
             ['studio', 'reviews_url',   'text', 'https://maps.app.goo.gl/zjJVxSN8SqzV4162A', null, null, 20],
+
+            // ----- studio: dữ liệu máy đọc cho schema LocalBusiness/TattooParlor -----
+            // Đây là phần Google Maps và các trợ lý AI (ChatGPT, Perplexity) đọc khi
+            // khách tra "tattoo studio in Hanoi". Khóa nào để trống thì schema bỏ
+            // qua khóa đó, không khai bừa. Toạ độ mặc định lấy từ map_embed_url.
+            ['studio', 'street_address',   'text', '98 Quan Thanh', null, null, 30],
+            ['studio', 'city',             'text', 'Hanoi', null, null, 31],
+            ['studio', 'region',           'text', 'Hanoi', null, null, 32],
+            ['studio', 'postal_code',      'text', null, null, null, 33],
+            ['studio', 'latitude',         'text', '21.042259', null, null, 34],
+            ['studio', 'longitude',        'text', '105.841259', null, null, 35],
+            // Khoảng giá, vd "200.000₫ - 5.000.000₫" hoặc "$$". Khách du lịch tra
+            // Google Maps rất hay lọc theo mục này.
+            ['studio', 'price_range',      'text', null, null, null, 36],
+            // vd "Cash, Credit Card, Bank Transfer" — tự điền đúng thực tế studio.
+            ['studio', 'payment_accepted', 'text', null, null, null, 37],
+            ['studio', 'founding_year',    'text', '2015', null, null, 38],
+            ['studio', 'languages',        'text', 'English, Vietnamese', null, null, 39],
+            // Ảnh mặc định khi link site được dán lên Facebook/X/Zalo.
+            // Nên là ảnh ngang, tối thiểu 1200x630.
+            ['studio', 'og_image',         'image', 'assets/images/tattoo-artist-2.jpg', null, null, 40],
             ['studio', 'rating',        'text', null, null, null, 21],
             ['studio', 'rating_count',  'text', null, null, null, 22],
 
@@ -81,17 +102,25 @@ class SettingsSeeder extends Seeder
             // tiết bài viết. Danh sách cố định, không thuộc bài nào nên để ở
             // settings chứ không phải bảng posts.
             ['blog', 'guide_links', 'json', json_encode([
-                ['label' => 'Giá xăm ở Hà Nội',           'url' => '#'],
-                ['label' => 'Gặp gỡ đội ngũ artist',      'url' => '/artists'],
-                ['label' => 'Các giai đoạn lành da',      'url' => '#'],
-                ['label' => 'Hướng dẫn chăm sóc sau xăm', 'url' => '#'],
-                ['label' => 'Vì sao hình xăm bị ngứa?',   'url' => '#'],
+                ['label' => 'Tattoo prices in Hanoi',      'url' => '#'],
+                ['label' => 'Meet our artists',            'url' => '/artists'],
+                ['label' => 'Tattoo healing stages',       'url' => '#'],
+                ['label' => 'Tattoo aftercare guide',      'url' => '#'],
+                ['label' => 'Why is my tattoo itchy?',     'url' => '#'],
             ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES), null, null, 1],
         ];
 
         // Các khóa admin tự nhập giá trị; chạy lại seeder thì giữ nguyên,
         // không ghi đè về mặc định.
-        $keepExisting = ['studio.rating', 'studio.rating_count', 'studio.reviews_url', 'blog.guide_links'];
+        $keepExisting = [
+            'studio.rating', 'studio.rating_count', 'studio.reviews_url', 'blog.guide_links',
+            // Nhóm schema: seed một lần lấy giá trị mặc định, sau đó admin sửa gì
+            // thì chạy lại seeder vẫn giữ nguyên.
+            'studio.street_address', 'studio.city', 'studio.region', 'studio.postal_code',
+            'studio.latitude', 'studio.longitude', 'studio.price_range',
+            'studio.payment_accepted', 'studio.founding_year', 'studio.languages',
+            'studio.og_image',
+        ];
 
         foreach ($rows as $r) {
             if (in_array($r[0].'.'.$r[1], $keepExisting, true)

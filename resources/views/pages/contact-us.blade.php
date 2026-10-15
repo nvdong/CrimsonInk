@@ -10,18 +10,11 @@
 <link rel='stylesheet' id='elementor-post-85-css' href='{{ asset('assets/css/post-85.css') }}' media='all' />
 @endpush
 
+@section('meta_description', 'Book a tattoo appointment at Crimson Ink Hanoi. Send us your idea, pick an artist and a date, and we will confirm pricing before you arrive.')
+@section('og_image', asset('assets/images/piercing.jpg'))
+
 @section('head')
-<meta name="description" content="Book a tattoo appointment at Crimson Ink Hanoi. Send us your idea, pick an artist and a date, and we will confirm pricing before you arrive." />
 <link rel="canonical" href="{{ route('page.contact-us') }}" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="{{ route('page.contact-us') }}" />
-<meta property="article:modified_time" content="2026-01-13T03:18:57+00:00" />
-<meta property="og:image" content="{{ asset('assets/images/piercing.jpg') }}" />
-<meta property="og:image:width" content="960" />
-<meta property="og:image:height" content="640" />
-<meta property="og:image:type" content="image/jpeg" />
-<meta name="twitter:label1" content="Est. reading time" />
-<meta name="twitter:data1" content="1 minute" />
 @endsection
 
 @section('content')

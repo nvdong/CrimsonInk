@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Câu hỏi thường gặp | Crimson Ink Tattoo Studio Hanoi')
+@section('title', 'Tattoo FAQs | Crimson Ink Tattoo Studio Hanoi')
 @section('body_class', 'wp-singular page-template page-template-elementor_header_footer page page-id-226 wp-custom-logo wp-embed-responsive wp-theme-hello-elementor ehf-header ehf-footer ehf-template-hello-elementor ehf-stylesheet-hello-elementor hello-elementor-default elementor-default elementor-template-full-width elementor-kit-6 elementor-page elementor-page-226')
 
 @push('styles')
@@ -11,18 +11,12 @@
 <link rel='stylesheet' id='elementor-post-226-css' href='{{ asset('assets/css/post-226.css') }}' media='all' />
 @endpush
 
+@section('meta_description', 'Tattoo FAQs for visitors to Hanoi: how to book, what a session costs, pain, hygiene, healing time and aftercare — answered by the Crimson Ink artists.')
+@section('og_image', asset('assets/images/header-eyebrows.jpg'))
+@section('og_type', 'article')
+
 @section('head')
-<meta name="description" content="Câu hỏi thường gặp về đặt lịch, quy trình xăm và chăm sóc sau khi xăm tại Crimson Ink Tattoo Studio Hà Nội." />
 <link rel="canonical" href="{{ route('page.faqs') }}" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="{{ route('page.faqs') }}" />
-<meta property="article:modified_time" content="2026-01-13T05:29:05+00:00" />
-<meta property="og:image" content="{{ asset('assets/images/header-eyebrows.jpg') }}" />
-<meta property="og:image:width" content="1920" />
-<meta property="og:image:height" content="1280" />
-<meta property="og:image:type" content="image/jpeg" />
-<meta name="twitter:label1" content="Est. reading time" />
-<meta name="twitter:data1" content="2 minutes" />
 
 @php
     $faqEntities = [];

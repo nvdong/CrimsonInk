@@ -15,16 +15,12 @@
 <link rel='stylesheet' id='elementor-post-593-css' href='{{ asset('assets/css/post-593.css') }}' media='all' />
 @endpush
 
+{{-- og:* và twitter:* do partials/social-meta lo, ở đây chỉ khai nội dung.
+     Không khai og_image: trang chủ dùng ảnh mặc định studio.og_image trong admin. --}}
+@section('meta_description', $page->meta_description)
+
 @section('head')
-<meta name="description" content="{{ $page->meta_description }}" />
 <link rel="canonical" href="{{ route('page.home') }}" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="{{ route('page.home') }}" />
-<meta property="article:modified_time" content="2026-10-04T14:19:17+00:00" />
-<meta property="og:image" content="{{ asset('assets/imgs/logo.png') }}" />
-<meta property="og:image:width" content="1920" />
-<meta property="og:image:height" content="1280" />
-<meta property="og:image:type" content="image/jpeg" />
 @endsection
 
 @section('content')

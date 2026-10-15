@@ -8,16 +8,20 @@
 <link rel='stylesheet' id='elementor-post-681-css' href='{{ asset('assets/css/post-681.css') }}' media='all' />
 @endpush
 
+{{-- Thứ tự lấy mô tả: meta_description nhập trong admin -> excerpt -> câu
+     sinh sẵn theo tên style. Không trang nào được ra Google mà thiếu mô tả,
+     vì khi thiếu Google tự cắt một đoạn bất kỳ trong trang. --}}
+@php
+    $moTaStyle = trim(strip_tags((string) $style->meta_description))
+        ?: trim(strip_tags((string) $style->excerpt))
+        ?: $style->name.' tattoos at Crimson Ink in Hanoi — see real work by our resident artists, what a session involves and how to book.';
+@endphp
+@section('meta_description', \Illuminate\Support\Str::limit($moTaStyle, 155))
+@section('og_image', $style->cover_path ? asset($style->cover_path) : '')
+@section('og_type', 'article')
+
 @section('head')
-@if ($style->meta_description)
-<meta name="description" content="{{ $style->meta_description }}" />
-@endif
 <link rel="canonical" href="{{ route('page.tattoo-styles.show', $style->slug) }}" />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="{{ route('page.tattoo-styles.show', $style->slug) }}" />
-@if ($style->cover_path)
-<meta property="og:image" content="{{ asset($style->cover_path) }}" />
-@endif
 @endsection
 
 @section('content')
