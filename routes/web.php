@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\LoginController;
@@ -45,6 +46,10 @@ Route::get('/tattoo-styles',                   [PageController::class, 'tattooSt
 Route::get('/tattoo-styles/{slug}',            [PageController::class, 'tattooStyle'])->name('page.tattoo-styles.show');
 
 Route::post('/contact-us', [ContactController::class, 'store'])->name('contact.store');
+
+/* sitemap.xml sinh từ DB — xem SitemapController. robots.txt vẫn là file tĩnh
+   trong public/ vì nginx phục vụ trước khi request chạm tới Laravel. */
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
 /* Đổi ngôn ngữ (2 lá cờ trên menu) */
 Route::get('/lang/{locale}', [LocaleController::class, 'switch'])->name('locale.switch');

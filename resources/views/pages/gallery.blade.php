@@ -49,7 +49,7 @@
 				<div class="elementor-widget-container">
 					<div class="ekit-wid-con" >
 						<div class="ekit-heading elementskit-section-title-wraper text_center   ekit_heading_tablet-   ekit_heading_mobile-">
-							<h2 class="ekit-heading--title elementskit-section-title "><span>CrimsonInk</span> Tattoo Studio</h2>
+							<h1 class="ekit-heading--title elementskit-section-title ">Tattoo Gallery &mdash; <span>CrimsonInk</span> Hanoi</h1>
 						</div>
 					</div>
 				</div>

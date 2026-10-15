@@ -77,7 +77,7 @@
 				<div class="elementor-widget-container">
 					<div class="ekit-wid-con" >
 						<div class="ekit-heading elementskit-section-title-wraper text_center   ekit_heading_tablet-   ekit_heading_mobile-">
-							<h2 class="ekit-heading--title elementskit-section-title ">{!! $page->heading !!}</h2>
+							<h1 class="ekit-heading--title elementskit-section-title ">{!! $page->heading ?: e($page->title) !!}</h1>
 						</div>
 					</div>
 				</div>

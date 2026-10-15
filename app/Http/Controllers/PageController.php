@@ -210,7 +210,10 @@ class PageController extends Controller
     public function tattooStyles(): View
     {
         $page = Page::where('slug','tattoo-styles')->first();
-        $tattooStyles = TattooStyle::where('has_detail_page', 1)->where('is_active', 1)->get();
+        // Liệt kê mọi style đang bật (có sort_order) chứ không chỉ has_detail_page = 1:
+        // trang chi tiết của style nào cũng truy cập được nên bỏ sót dòng nào là
+        // bỏ trang đó thành mồ côi. Xem thêm TattooStyle::getUrlAttribute().
+        $tattooStyles = TattooStyle::active()->ordered()->get();
         return view('pages.tattoo-styles.index', compact('page','tattooStyles'));
     }
 

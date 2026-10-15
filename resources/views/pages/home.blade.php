@@ -37,7 +37,7 @@
 				<div class="elementor-widget-wrap elementor-element-populated">
 					<div class="elementor-element elementor-element-1c1e799 elementor-widget elementor-widget-heading" data-id="1c1e799" data-element_type="widget" data-e-type="widget" data-widget_type="heading.default">
 						<div class="elementor-widget-container">
-							<h2 class="elementor-heading-title elementor-size-default">{{ $sectionHero->eyebrow }}</h2>
+							<div class="elementor-heading-title elementor-size-default">{{ $sectionHero->eyebrow }}</div>
 						</div>
 					</div>
 					<div class="elementor-element elementor-element-2381997 elementor-widget elementor-widget-elementskit-heading" data-id="2381997" data-element_type="widget" data-e-type="widget" data-widget_type="elementskit-heading.default">
@@ -53,7 +53,7 @@
 						<div class="elementor-widget-container">
 							<div class="ekit-wid-con" >
 								<div class="ekit-heading elementskit-section-title-wraper text_center   ekit_heading_tablet-   ekit_heading_mobile-">
-									<h1 class="ekit-heading--title elementskit-section-title "><span>Crimson Ink</span></h1>
+									<div class="ekit-heading--title elementskit-section-title "><span>Crimson Ink</span></div>
 								</div>
 							</div>
 						</div>

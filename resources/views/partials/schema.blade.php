@@ -77,20 +77,45 @@
         ];
     }
 
-    /* Giờ mở cửa: rút 2 con số giờ từ chuỗi tự do ("10 am – 18 pm" -> 10:00/18:00).
+    /* Giờ mở cửa: rút 2 mốc giờ từ chuỗi tự do. Phải hiểu được cả 2 cách viết mà
+       admin hay nhập: 24h ("10:00 - 18:00", "10 am – 18 pm") và 12h ("10:00 AM -
+       06:00 PM"). Trước đây regex bỏ qua am/pm nên "06:00 PM" ra closes = 06:00,
+       tức schema khai studio đóng cửa lúc 6 giờ sáng.
        Hiện studio mở tất cả các ngày nên khai đủ 7 ngày. Nếu sau này mỗi ngày một
        giờ khác nhau thì phải tách thành nhiều dòng settings và sửa lại đoạn này. */
-    if (preg_match_all('/(\d{1,2})(?::(\d{2}))?/', (string) Settings::get('studio.open_hours'), $m) && count($m[1]) >= 2) {
-        $gio = function ($i) use ($m) {
-            return str_pad($m[1][$i], 2, '0', STR_PAD_LEFT).':'.($m[2][$i] !== '' ? $m[2][$i] : '00');
+    if (preg_match_all('/(\d{1,2})(?:[:h.](\d{2}))?\s*(am|pm|sa|ch)?/i', (string) Settings::get('studio.open_hours'), $mGio, PREG_SET_ORDER) && count($mGio) >= 2) {
+        /* Trả về [giờ 0-23, phút, có ghi rõ buổi hay không]. */
+        $docMoc = function (array $moc) {
+            $gio  = (int) $moc[1];
+            $phut = isset($moc[2]) && $moc[2] !== '' ? $moc[2] : '00';
+            $buoi = isset($moc[3]) ? strtolower($moc[3]) : '';
+            $buoi = $buoi === 'sa' ? 'am' : ($buoi === 'ch' ? 'pm' : $buoi);
+
+            if ($buoi === 'pm' && $gio < 12) {
+                $gio += 12;      // 6 pm -> 18. "18 pm" giữ nguyên 18.
+            } elseif ($buoi === 'am' && $gio === 12) {
+                $gio = 0;        // 12 am -> 00.
+            }
+
+            return [$gio, $phut, $buoi !== ''];
         };
 
-        $doanhNghiep['openingHoursSpecification'] = [[
-            '@type'     => 'OpeningHoursSpecification',
-            'dayOfWeek' => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-            'opens'     => $gio(0),
-            'closes'    => $gio(1),
-        ]];
+        [$gioMo, $phutMo, $roMo]       = $docMoc($mGio[0]);
+        [$gioDong, $phutDong, $roDong] = $docMoc($mGio[1]);
+
+        /* "10:00 - 6:00" không ghi buổi: giờ đóng nhỏ hơn giờ mở thì chắc chắn là chiều. */
+        if (! $roDong && $gioDong < $gioMo) {
+            $gioDong += 12;
+        }
+
+        if ($gioMo <= 23 && $gioDong <= 23 && $gioDong > $gioMo) {
+            $doanhNghiep['openingHoursSpecification'] = [[
+                '@type'     => 'OpeningHoursSpecification',
+                'dayOfWeek' => ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+                'opens'     => str_pad((string) $gioMo, 2, '0', STR_PAD_LEFT).':'.$phutMo,
+                'closes'    => str_pad((string) $gioDong, 2, '0', STR_PAD_LEFT).':'.$phutDong,
+            ]];
+        }
     }
 
     /* sameAs: chỉ nhận link http(s) có đường dẫn thật. Bỏ tel:/mailto: và bỏ

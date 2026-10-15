@@ -1,2 +1,33 @@
+# https://crimsontattoo.com/robots.txt
+
 User-agent: *
-Disallow:
+Disallow: /admin
+Disallow: /admin/
+Disallow: /login
+Disallow: /lang/
+Allow: /
+
+# Cho phép các crawler AI đọc nội dung (GEO) — mặc định User-agent: * đã cho,
+# khai lại cho rõ ràng để sau này ai đọc file cũng biết là có chủ ý.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://crimsontattoo.com/sitemap.xml

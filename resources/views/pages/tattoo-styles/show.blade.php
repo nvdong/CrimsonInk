@@ -37,7 +37,7 @@
 							<div class="elementor-widget-container">
 								<div class="elementor-divider">
 									<span class="elementor-divider-separator">
-										<span class="elementor-divider__text elementor-divider__element">{{ $style->name }} Tattoo in Hanoi</span>
+										<span class="elementor-divider__text elementor-divider__element">Crimson Ink Tattoo Studio</span>
 									</span>
 								</div>
 							</div>
@@ -47,7 +47,7 @@
 							<div class="elementor-widget-container">
 								<div class="ekit-wid-con">
 									<div class="ekit-heading elementskit-section-title-wraper text_center   ekit_heading_tablet-   ekit_heading_mobile-">
-										<h2 class="ekit-heading--title elementskit-section-title "><span>CrimsonInk</span> Tattoo Studio</h2>
+										<h1 class="ekit-heading--title elementskit-section-title "><span>{{ $style->name }}</span> Tattoo in Hanoi</h1>
 									</div>
 								</div>
 							</div>

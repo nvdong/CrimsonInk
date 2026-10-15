@@ -61,7 +61,7 @@
 				<div class="elementor-widget-container">
 					<div class="ekit-wid-con" >
 						<div class="ekit-heading elementskit-section-title-wraper text_center   ekit_heading_tablet-   ekit_heading_mobile-">
-							<h2 class="ekit-heading--title elementskit-section-title ">{{ $t::get('booking.form.heading') }} <span>{{ $t::get('booking.form.heading_accent') }}</span></h2>
+							<h1 class="ekit-heading--title elementskit-section-title ">{{ $t::get('booking.form.heading') }} <span>{{ $t::get('booking.form.heading_accent') }}</span></h1>
 							<p class="ci-booking__lead">{{ $t::get('booking.form.lead') }}</p>
 						</div>
 					</div>
