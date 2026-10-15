@@ -25,7 +25,7 @@
                 <h2 class="ci-error__subtitle">Try one of these instead</h2>
 
                 <ul class="ci-error__links">
-                    <li><a href="{{ route('page.tattoo-styles') }}"><span>Tattoo Styles</span>Fineline, blackwork, realism, Japanese and more</a></li>
+                    <li><a href="{{ route('page.tattoo-styles') }}"><span>Tattoo Styles</span>Line work, black and grey, Japanese, lettering and more</a></li>
                     <li><a href="{{ route('page.gallery') }}"><span>Gallery</span>Real work from our studio in Hanoi</a></li>
                     <li><a href="{{ route('page.artists') }}"><span>Artists</span>Who you will be sitting with</a></li>
                     <li><a href="{{ route('page.blog') }}"><span>Tattoo Blog</span>Aftercare, healing and what to expect</a></li>
