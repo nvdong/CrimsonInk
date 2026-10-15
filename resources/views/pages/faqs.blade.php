@@ -12,7 +12,7 @@
 @endpush
 
 @section('meta_description', 'Tattoo FAQs for visitors to Hanoi: how to book, what a session costs, pain, hygiene, healing time and aftercare — answered by the Crimson Ink artists.')
-@section('og_image', asset('assets/images/header-eyebrows.jpg'))
+@section('og_image', asset('assets/images/tattoo-artist-2.jpg'))
 @section('og_type', 'article')
 
 @section('head')

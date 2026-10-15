@@ -11,7 +11,7 @@
 @endpush
 
 @section('meta_description', 'Book a tattoo appointment at Crimson Ink Hanoi. Send us your idea, pick an artist and a date, and we will confirm pricing before you arrive.')
-@section('og_image', asset('assets/images/piercing.jpg'))
+@section('og_image', asset('assets/images/tattoo-artist-3.jpg'))
 
 @section('head')
 <link rel="canonical" href="{{ route('page.contact-us') }}" />

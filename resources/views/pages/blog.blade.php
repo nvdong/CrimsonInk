@@ -11,7 +11,7 @@
 @section('body_class', 'wp-singular page-template page-template-elementor_header_footer page wp-custom-logo wp-embed-responsive wp-theme-hello-elementor ehf-header ehf-footer ehf-template-hello-elementor ehf-stylesheet-hello-elementor hello-elementor-default elementor-default elementor-template-full-width elementor-kit-6 elementor-page')
 
 @section('meta_description', 'Tattoo guides from the Crimson Ink artists in Hanoi: choosing a style, what a session is like, healing stages, aftercare and tattoo culture in Vietnam.')
-@section('og_image', asset('assets/images/header-eyebrows.jpg'))
+@section('og_image', asset('assets/images/tattoo-artist-1.jpg'))
 
 @section('head')
 <link rel="canonical" href="{{ route('page.blog') }}" />
