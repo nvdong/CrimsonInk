@@ -185,7 +185,7 @@ h1, h2, h3, h4, h5, h6 {
     line-height: 1;
 }
 
-.ci-reviews__score-meta { font-size: 15px; opacity: .8; }
+.ci-reviews__score-meta { font-size: 15px; opacity: .8; color: var(--e-global-color-39cd785, #fff);font-weight: 600;}
 
 .ci-reviews__score .ci-review__stars { margin: 0; }
 
