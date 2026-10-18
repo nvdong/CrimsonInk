@@ -330,7 +330,7 @@
 		window.ciStylesSwiper = new Swiper(el, {
 			slidesPerView: 1.2,
 			spaceBetween: 16,
-			centeredSlides: true,
+			centeredSlides: false,
 			loop: true,
 			watchOverflow: true,
 			grabCursor: true,
