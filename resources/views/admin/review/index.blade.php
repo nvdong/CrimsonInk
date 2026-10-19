@@ -25,7 +25,7 @@
                                         <th>ID</th>
                                         <th style="width:70px">Ảnh</th>
                                         <th>Khách</th>
-                                        <th>Nội dung (VI)</th>
+                                        <th>Nội dung</th>
                                         <th style="width:80px">Sao</th>
                                         <th style="width:110px">Nguồn</th>
                                         <th style="width:70px">Thứ tự</th>
@@ -81,7 +81,7 @@
                                                     <br><small class="text-muted">{{ $row->reviewed_at->format('d/m/Y') }}</small>
                                                 @endif
                                             </td>
-                                            <td>{{ Str::limit($row->content_vi ?: $row->content_en, 110) }}</td>
+                                            <td>{{ Str::limit($row->content_en, 110) }}</td>
                                             <td>{{ $row->rating }} / 5</td>
                                             <td><span class="label label-default">{{ $sources[$row->source] ?? $row->source }}</span></td>
                                             <td>{{ $row->sort_order }}</td>

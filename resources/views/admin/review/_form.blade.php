@@ -9,12 +9,6 @@
 		</div>
 
 		<div class="form-group">
-			<label for="content_vi">Nội dung (VI)</label>
-			<textarea id="content_vi" name="content_vi" class="form-control" rows="5">{{ old('content_vi', $review->content_vi) }}</textarea>
-			@error('content_vi') <span class="help-block has-error">{{ $message }}</span> @enderror
-		</div>
-
-		<div class="form-group">
 			<label for="content_en">Nội dung (EN)</label>
 			<textarea id="content_en" name="content_en" class="form-control" rows="5">{{ old('content_en', $review->content_en) }}</textarea>
 			<small class="text-muted">
