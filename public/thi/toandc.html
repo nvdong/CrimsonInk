@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mô phỏng đề thi Toán Đại Cương</title>
+<style>
+:root{color-scheme:light;
+ --navy:#12355B; --blue:#1F6FB2; --lblue:#E8F1F8; --green:#1E7A46; --lgreen:#E7F4EC;
+ --orange:#C2571A; --lorange:#FDF0E4; --red:#B03030; --lred:#FBE7E7; --purple:#6B4E9B;
+ --lpurple:#F0EAF8; --grey:#5A5A5A; --lgrey:#F3F5F7; --line:#D6DEE6; --yel:#FFF6D9;}
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:#111;font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+.wrap{max-width:1040px;margin:0 auto;padding:18px 16px 60px}
+h1{font-size:25px;margin:0 0 6px;color:var(--navy);letter-spacing:-.3px}
+h2{font-size:19px;margin:26px 0 10px;color:var(--navy)}
+.sub{color:var(--grey);font-size:14px;margin:0 0 18px}
+.card{border:1px solid var(--line);border-radius:12px;padding:18px;background:#fff}
+.btn{appearance:none;border:1px solid var(--blue);background:var(--blue);color:#fff;font:inherit;
+ font-weight:600;padding:10px 20px;border-radius:9px;cursor:pointer}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:#fff;color:var(--blue)}
+.btn.warn{background:var(--orange);border-color:var(--orange)}
+.btn.grey{background:#fff;color:var(--grey);border-color:var(--line)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.spacer{flex:1}
+.hide{display:none!important}
+
+/* start */
+.feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:12px;margin:16px 0}
+.feat div{background:var(--lblue);border-left:3px solid var(--blue);border-radius:8px;padding:11px 13px;font-size:14px}
+.feat b{color:var(--navy)}
+table.mix{width:100%;border-collapse:collapse;margin:10px 0 4px;font-size:14px}
+table.mix th,table.mix td{border:1px solid var(--line);padding:7px 10px;text-align:left}
+table.mix th{background:var(--navy);color:#fff;font-weight:600}
+table.mix tr:nth-child(even) td{background:var(--lgrey)}
+
+/* exam header */
+.bar{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line);
+ padding:10px 0 9px;margin-bottom:14px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.timer{font-variant-numeric:tabular-nums;font-weight:700;font-size:23px;color:var(--navy);
+ background:var(--lblue);padding:4px 14px;border-radius:9px;border:1px solid #cfe0ef}
+.timer.warn{background:var(--lorange);color:var(--orange);border-color:#f0cdb0}
+.timer.crit{background:var(--lred);color:var(--red);border-color:#f0bcbc;animation:bl 1s steps(2,end) infinite}
+@keyframes bl{50%{opacity:.45}}
+.meta{font-size:13.5px;color:var(--grey)}
+.meta b{color:var(--navy)}
+
+/* nav grid */
+.nav{display:grid;grid-template-columns:repeat(25,1fr);gap:4px;margin-bottom:16px}
+@media(max-width:760px){.nav{grid-template-columns:repeat(10,1fr)}}
+.nav button{aspect-ratio:1;border:1px solid var(--line);background:#fff;color:var(--grey);
+ border-radius:6px;font:600 11.5px/1 inherit;cursor:pointer;padding:0}
+.nav button.done{background:var(--lblue);border-color:var(--blue);color:var(--navy)}
+.nav button.flag{background:var(--lorange);border-color:var(--orange);color:var(--orange)}
+.nav button.cur{outline:2.5px solid var(--navy);outline-offset:1px}
+.nav button.ok{background:var(--lgreen);border-color:var(--green);color:var(--green)}
+.nav button.bad{background:var(--lred);border-color:var(--red);color:var(--red)}
+
+/* question */
+.qhead{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.pill{font-size:12px;font-weight:700;padding:3px 10px;border-radius:20px}
+.c1{background:var(--lblue);color:var(--navy)} .c2{background:var(--lblue);color:var(--blue)}
+.c3{background:var(--lpurple);color:var(--purple)} .c4{background:var(--lgreen);color:var(--green)}
+.qtext{font-size:16.5px;line-height:1.6;margin:0 0 15px}
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{display:flex;gap:11px;align-items:flex-start;border:1.5px solid var(--line);border-radius:10px;
+ padding:11px 14px;cursor:pointer;background:#fff;text-align:left;font:inherit;width:100%}
+.opt:hover{border-color:var(--blue);background:#fafcfe}
+.opt.sel{border-color:var(--blue);background:var(--lblue)}
+.opt .k{flex:0 0 25px;height:25px;border-radius:50%;border:1.5px solid var(--line);display:grid;
+ place-items:center;font-weight:700;font-size:13px;color:var(--grey);background:#fff}
+.opt.sel .k{background:var(--blue);border-color:var(--blue);color:#fff}
+.opt.right{border-color:var(--green);background:var(--lgreen)}
+.opt.right .k{background:var(--green);border-color:var(--green);color:#fff}
+.opt.wrong{border-color:var(--red);background:var(--lred)}
+.opt.wrong .k{background:var(--red);border-color:var(--red);color:#fff}
+.exp{margin-top:12px;background:var(--yel);border-left:3px solid var(--orange);
+ border-radius:8px;padding:11px 14px;font-size:14.2px;line-height:1.6}
+.exp b{color:#000}
+
+/* result */
+.score{display:flex;gap:22px;align-items:center;flex-wrap:wrap;background:var(--lgreen);
+ border:1px solid #bfe0cc;border-radius:12px;padding:18px 20px;margin-bottom:16px}
+.score .big{font-size:46px;font-weight:800;color:var(--green);line-height:1}
+.score .ten{font-size:28px;font-weight:700;color:var(--navy)}
+.score.low{background:var(--lred);border-color:#f0bcbc}
+.score.low .big{color:var(--red)}
+.brk{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-bottom:16px}
+.brk div{border:1px solid var(--line);border-radius:10px;padding:11px 13px}
+.brk .t{font-size:12.5px;color:var(--grey);font-weight:600;text-transform:uppercase;letter-spacing:.4px}
+.brk .v{font-size:21px;font-weight:700;color:var(--navy);margin:2px 0 5px}
+.pb{height:7px;background:var(--lgrey);border-radius:4px;overflow:hidden}
+.pb i{display:block;height:100%;background:var(--green)}
+.rev{border:1px solid var(--line);border-radius:11px;padding:15px 17px;margin-bottom:11px}
+.rev.bad{border-color:#eec2c2;background:#fffafa}
+.rev.skip{border-color:#e6d6b8;background:#fffdf5}
+.tag{font-size:12px;font-weight:700;padding:2px 9px;border-radius:5px}
+.tag.ok{background:var(--lgreen);color:var(--green)} .tag.no{background:var(--lred);color:var(--red)}
+.tag.sk{background:var(--yel);color:var(--orange)}
+.note{background:var(--lblue);border-left:3px solid var(--blue);border-radius:8px;padding:12px 15px;
+ font-size:14.2px;margin:14px 0}
+kbd{background:var(--lgrey);border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;
+ padding:1px 6px;font:600 12px/1.5 ui-monospace,monospace}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ============ START ============ -->
+<section id="start">
+  <h1>Mô phỏng đề thi Toán Đại Cương</h1>
+  <p class="sub">50 câu trắc nghiệm · 60 phút · xem đáp án và lời giải sau khi nộp bài</p>
+
+  <div class="card">
+    <div class="feat">
+      <div><b>Bấm giờ thật</b><br>Đồng hồ đếm ngược 60 phút, tự động nộp bài khi hết giờ.</div>
+      <div><b>Đảo đề mỗi lần làm</b><br>Thứ tự câu hỏi và thứ tự phương án A/B/C/D đều được xáo lại.</div>
+      <div><b>Đánh dấu câu nghi ngờ</b><br>Gắn cờ để quay lại ở vòng hai, giống kỳ thi thật.</div>
+      <div><b>Lời giải từng câu</b><br>Sau khi nộp mới hiện đáp án, kèm cách làm và bẫy thường gặp.</div>
+    </div>
+
+    <h2 style="margin-top:4px">Cơ cấu đề</h2>
+    <table class="mix">
+      <tr><th>Chương</th><th>Số câu</th><th>Nội dung</th></tr>
+      <tr><td><b>1 — Đại số tuyến tính</b></td><td>20</td><td>Ma trận · định thức · hạng · nghịch đảo · hệ phương trình · không gian véctơ</td></tr>
+      <tr><td><b>2 — Giải tích</b></td><td>9</td><td>Đạo hàm riêng · điểm dừng · cực trị · giá trị cận biên · tối ưu kinh tế</td></tr>
+      <tr><td><b>3 — Xác suất</b></td><td>9</td><td>Xác suất cổ điển · E, Var, Mod · nhị thức · phân phối chuẩn</td></tr>
+      <tr><td><b>4 — Thống kê toán</b></td><td>12</td><td>Mô tả mẫu · ước lượng khoảng · kiểm định giả thuyết</td></tr>
+    </table>
+    <p class="sub" style="margin:8px 0 16px">Tỉ trọng này bám theo thống kê 215 câu trong 5 bộ đề luyện tập và bài kiểm tra đã làm.</p>
+
+    <div class="note">
+      <b>Phím tắt:</b> <kbd>1</kbd>–<kbd>4</kbd> chọn phương án · <kbd>←</kbd> <kbd>→</kbd> chuyển câu ·
+      <kbd>F</kbd> gắn cờ. Trung bình bạn có <b>72 giây/câu</b> — câu nào tính quá lâu thì gắn cờ, bỏ qua, quay lại sau.
+    </div>
+
+    <div class="row">
+      <button class="btn" id="go">Bắt đầu làm bài</button>
+      <span class="meta" id="best"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXAM ============ -->
+<section id="exam" class="hide">
+  <div class="bar">
+    <span class="timer" id="clock">60:00</span>
+    <span class="meta">Đã làm <b id="cnt">0</b>/50 · gắn cờ <b id="fcnt">0</b></span>
+    <span class="spacer"></span>
+    <button class="btn warn" id="submit">Nộp bài</button>
+  </div>
+  <div class="nav" id="nav"></div>
+  <div class="card">
+    <div class="qhead">
+      <span class="meta" style="font-weight:700;font-size:15px">Câu <span id="qno">1</span>/50</span>
+      <span class="pill" id="qch">Chương 1</span>
+      <span class="spacer"></span>
+      <button class="btn grey" id="flag">⚑ Gắn cờ</button>
+    </div>
+    <p class="qtext" id="qtext"></p>
+    <div class="opts" id="opts"></div>
+    <div class="row" style="margin-top:18px">
+      <button class="btn ghost" id="prev">← Câu trước</button>
+      <button class="btn ghost" id="next">Câu sau →</button>
+      <span class="spacer"></span>
+      <button class="btn grey" id="clear">Bỏ chọn câu này</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RESULT ============ -->
+<section id="result" class="hide">
+  <h1>Kết quả bài thi</h1>
+  <div class="score" id="scorebox">
+    <div><div class="big" id="sc">0/50</div><div class="meta">câu đúng</div></div>
+    <div><div class="ten" id="sc10">0,0</div><div class="meta">điểm hệ 10</div></div>
+    <div><div class="ten" id="tused">—</div><div class="meta">thời gian làm bài</div></div>
+    <div style="flex:1;min-width:190px"><div class="meta" id="verdict"></div></div>
+  </div>
+  <div class="brk" id="brk"></div>
+  <div class="row" style="margin-bottom:14px">
+    <button class="btn ghost" id="fAll">Tất cả 50 câu</button>
+    <button class="btn ghost" id="fBad">Chỉ câu sai / bỏ trống</button>
+    <span class="spacer"></span>
+    <button class="btn" id="again">Làm lại (đảo đề)</button>
+  </div>
+  <div id="review"></div>
+</section>
+
+</div>
+<script>
+const BANK = [{"ch": 1, "q": "Cho A, B là các ma trận có cỡ thích hợp. Tính chất nào sau đây là <b>đúng</b>?", "opts": ["AB = BA", "A − B = B − A", "A + B = B + A", "(A + B)² = A² + 2AB + B²"], "ans": 2, "exp": "Phép <b>cộng</b> ma trận có tính giao hoán nên A + B = B + A. Phép nhân <b>không</b> giao hoán (AB ≠ BA); A − B = −(B − A); và (A+B)² = A² + AB + BA + B² chỉ rút gọn được khi A, B giao hoán."}, {"ch": 1, "q": "Phép biến đổi nào sau đây <b>KHÔNG</b> phải là phép biến đổi sơ cấp trên ma trận?", "opts": ["Đổi chỗ hai dòng của ma trận", "Nhân các phần tử của một dòng với cùng một số thực <b>bất kỳ</b>", "Nhân các phần tử của một dòng với cùng một số thực <b>khác 0</b>", "Nhân một dòng với một số rồi cộng vào một dòng khác"], "ans": 1, "exp": "Ở phép nhân một dòng với một số, hệ số bắt buộc phải <b>khác 0</b>. Nhân một dòng với 0 làm mất thông tin (hạng có thể giảm) nên không phải phép biến đổi sơ cấp."}, {"ch": 1, "q": "Hạng của ma trận A = [[3, 0, 0, 0], [0, 5, 0, 0], [0, 0, 7, 0], [0, 0, 0, 0], [0, 0, 0, 0]] bằng:", "opts": ["2", "3", "4", "5"], "ans": 1, "exp": "Ma trận đã ở dạng bậc thang, có <b>3 dòng khác 0</b> ⇒ r(A) = 3. Lưu ý r(A) ≤ min{5, 4} = 4 nên phương án 5 là bất khả thi ngay từ đầu."}, {"ch": 1, "q": "Khẳng định nào sau đây <b>KHÔNG</b> đúng?", "opts": ["Ma trận vuông A khả nghịch khi và chỉ khi det(A) ≠ 0", "A khả nghịch khi và chỉ khi tồn tại B sao cho AB = BA = E", "A vuông cấp n khả nghịch khi và chỉ khi r(A) = n", "Ma trận vuông A khả nghịch khi và chỉ khi det(A) = 1"], "ans": 3, "exp": "Điều kiện khả nghịch là <b>det(A) ≠ 0</b>, chứ không phải det(A) = 1. Ba phương án còn lại đều nằm trong chuỗi tương đương: |A| ≠ 0 ⇔ khả nghịch ⇔ r(A) = n."}, {"ch": 1, "q": "Cho A là ma trận vuông cấp n có |A| ≠ 0. Khi đó:", "opts": ["r(A) = n", "r(A) = n − 1", "r(A) > n", "r(A) < n"], "ans": 0, "exp": "|A| ≠ 0 nghĩa là tồn tại định thức con cấp n khác 0 ⇒ <b>r(A) = n</b> (hạng đạt tối đa). Không thể lớn hơn n vì r(A) ≤ min{n, n}."}, {"ch": 1, "q": "Cho A là ma trận vuông cấp 6 có định thức bằng 0. Khi đó:", "opts": ["r(A) = 6", "r(A) > 6", "r(A) < 6", "r(A) ≥ 6"], "ans": 2, "exp": "|A| = 0 ⇒ không có định thức con cấp 6 khác 0 ⇒ <b>r(A) < 6</b> (nhiều nhất là 5)."}, {"ch": 1, "q": "Cho A, B, C là các ma trận có cỡ thích hợp. Tính chất nào sau đây <b>SAI</b>?", "opts": ["(AB)C = A(BC)", "(A + B)C = AC + BC", "(AB)′ = A′B′", "α(A + B) = αA + αB"], "ans": 2, "exp": "Công thức đúng là <b>(AB)′ = B′A′</b> — phải <b>đảo thứ tự</b>. Tương tự với nghịch đảo: (AB)⁻¹ = B⁻¹A⁻¹."}, {"ch": 1, "q": "Cho A = [[1, 3], [2, −1], [0, 4]] và B = [[2, 1], [−1, 3], [5, 0]]. Tính 3A − 2B.", "opts": ["[[−1, 7], [8, −9], [−10, 12]]", "[[1, 7], [8, −9], [−10, 12]]", "[[−1, 7], [8, 9], [10, 12]]", "[[−1, 11], [4, −9], [−10, 12]]"], "ans": 0, "exp": "3A = [[3, 9], [6, −3], [0, 12]]; 2B = [[4, 2], [−2, 6], [10, 0]].<br/>3A − 2B = [[3−4, 9−2], [6+2, −3−6], [0−10, 12−0]] = <b>[[−1, 7], [8, −9], [−10, 12]]</b>. Phải so khớp <b>cả 6 ô</b> — các phương án nhiễu chỉ khác 1–2 ô."}, {"ch": 1, "q": "Cho ma trận A = [[3, 1, −2], [2, −4, 5], [1, 6, 2]]. Phần bù đại số A₂₃ của phần tử a₂₃ là:", "opts": ["17", "−17", "19", "−19"], "ans": 1, "exp": "Bỏ <b>dòng 2, cột 3</b> ⇒ M₂₃ = |[[3, 1], [1, 6]]| = 18 − 1 = 17.<br/>A₂₃ = (−1)<sup>2+3</sup> · 17 = <b>−17</b>. Đừng quên dấu (−1)<sup>i+j</sup> — ô (2,3) mang dấu trừ."}, {"ch": 1, "q": "Hạng của ma trận A = [[1, 2, 3, 4], [2, 4, 6, 8], [0, 1, 1, 1], [0, 0, 0, 0]] bằng:", "opts": ["1", "2", "3", "4"], "ans": 1, "exp": "Nhận ra ngay <b>dòng 2 = 2 × dòng 1</b> ⇒ hai dòng tỉ lệ, chỉ tính một. Dòng 4 toàn 0.<br/>Còn lại dòng 1 và dòng 3 độc lập ⇒ <b>r(A) = 2</b>."}, {"ch": 1, "q": "Hạng của ma trận A = [[1, 2, 1, 3], [2, 4, 3, 7], [1, 2, 2, 5], [0, 0, 0, 0]] bằng:", "opts": ["1", "2", "3", "4"], "ans": 2, "exp": "d₂ − 2d₁ = (0, 0, 1, 1); d₃ − d₁ = (0, 0, 1, 2). Hai dòng này <b>không tỉ lệ</b> nên đều giữ lại.<br/>Bậc thang còn 3 dòng khác 0 ⇒ <b>r(A) = 3</b>. <i>So sánh với câu trước: chỉ khác một con số mà hạng đã đổi.</i>"}, {"ch": 1, "q": "Khẳng định nào sau đây <b>SAI</b>? Hạng của ma trận A bằng:", "opts": ["hạng của hệ véctơ dòng của A", "hạng của ma trận chuyển vị A′", "cấp của ma trận vuông con cỡ lớn nhất chứa trong A", "hạng của hệ véctơ cột của A"], "ans": 2, "exp": "Định nghĩa đúng là <b>cấp cao nhất của một định thức con KHÁC 0</b>. Ma trận vuông con lớn nhất hoàn toàn có thể có định thức bằng 0."}, {"ch": 1, "q": "Biểu diễn tuyến tính véctơ X = (3, 4, 6) theo X₁ = (1, 1, 1), X₂ = (1, 0, 1), X₃ = (0, 1, 1).", "opts": ["X = X₁ + 2X₂ + 3X₃", "X = 2X₁ + X₂ + 3X₃", "X = X₁ + 3X₂ + 2X₃", "Không có cách biểu diễn"], "ans": 0, "exp": "Đặt X = aX₁ + bX₂ + cX₃ ⇒ {a + b = 3 ; a + c = 4 ; a + b + c = 6} ⇒ a = 1, b = 2, c = 3.<br/>⇒ <b>X = X₁ + 2X₂ + 3X₃</b>. <i>Mẹo kiểm tra nhanh:</i> chỉ cần thử toạ độ thứ hai — phương án A cho 1 + 0 + 3 = 4 ✓, phương án B cho 2 + 0 + 3 = 5 ✗."}, {"ch": 1, "q": "Tìm toạ độ của véctơ X = (2, 1, 3) theo cơ sở p₁ = (1, 0, 0), p₂ = (1, 1, 0), p₃ = (1, 1, 1).", "opts": ["(1, −2, 3)", "(1, 2, 3)", "(3, −2, 1)", "(2, 1, 3)"], "ans": 0, "exp": "x₁p₁ + x₂p₂ + x₃p₃ = (x₁ + x₂ + x₃ ; x₂ + x₃ ; x₃) = (2, 1, 3).<br/>Từ toạ độ 3: x₃ = 3 ⇒ toạ độ 2: x₂ = 1 − 3 = −2 ⇒ toạ độ 1: x₁ = 2 + 2 − 3 = 1.<br/>⇒ toạ độ là <b>(1, −2, 3)</b>."}, {"ch": 1, "q": "Ma trận hệ số mở rộng của hệ phương trình { 3x₁ + 2x₂ = 7 ; x₁ − 4x₂ = −1 } là:", "opts": ["[[3, 2, 7], [1, −4, −1]]", "[[3, 2], [1, −4]]", "[[3, 1, 7], [2, −4, −1]]", "[[3, 2, 7], [1, 4, −1]]"], "ans": 0, "exp": "Ā = (A | B): lấy ma trận hệ số rồi <b>ghép thêm cột hệ số tự do</b> ⇒ <b>[[3, 2, 7], [1, −4, −1]]</b>, cỡ 2×3.<br/><i>Loại nhanh:</i> hệ 2 phương trình 2 ẩn thì Ā phải có <b>2 dòng, 3 cột</b>."}, {"ch": 1, "q": "Cho hệ phương trình tuyến tính n ẩn dạng AX = b. Khẳng định nào sau đây <b>đúng</b>?", "opts": ["Hệ có nghiệm khi và chỉ khi r(A) = r(Ā)", "Hệ có nghiệm duy nhất khi và chỉ khi r(Ā) = n", "Hệ có vô số nghiệm khi ma trận hệ số tự do bằng 0", "Hệ có nghiệm chỉ khi ma trận hệ số không suy biến"], "ans": 0, "exp": "Đây chính là định lý <b>Kronecker–Capelli</b>: hệ có nghiệm ⇔ r(A) = r(Ā).<br/>Nghiệm duy nhất cần thêm điều kiện r(A) = r(Ā) = n; hệ thuần nhất luôn có nghiệm nhưng chưa chắc vô số; A suy biến thì hệ vẫn có thể có vô số nghiệm."}, {"ch": 1, "q": "Phép biến đổi nào dưới đây trên ma trận hệ số mở rộng tương ứng với phép biến đổi <b>tương đương</b> của hệ phương trình?", "opts": ["Đổi chỗ hai cột của Ā", "Nhân một cột với một số khác 0", "Nhân một dòng với k rồi cộng vào dòng khác", "Cộng cùng một số vào mọi phần tử của một dòng"], "ans": 2, "exp": "Chỉ <b>ba phép biến đổi sơ cấp theo DÒNG</b> mới giữ nguyên tập nghiệm. Thao tác trên <b>cột</b> làm đổi vai trò của ẩn; còn 'cộng cùng một số vào mọi phần tử của một dòng' hoàn toàn không phải phép biến đổi sơ cấp."}, {"ch": 1, "q": "Cỡ của ma trận hệ số <b>mở rộng</b> của hệ m phương trình tuyến tính n ẩn là:", "opts": ["m × n", "m × (n + 1)", "(m + 1) × n", "n × m"], "ans": 1, "exp": "Ma trận hệ số A có cỡ m × n; ma trận <b>mở rộng</b> Ā = (A | B) thêm một cột hệ số tự do ⇒ cỡ <b>m × (n + 1)</b>."}, {"ch": 1, "q": "Cho hệ { x₁ + x₂ + x₃ = 6 ; x₁ + 2x₂ + x₃ = 8 ; 2x₁ + x₂ − x₃ = 1 }. Khi đó x₂ bằng:", "opts": ["1", "2", "3", "4"], "ans": 1, "exp": "<b>Mẹo:</b> hai phương trình đầu chỉ khác nhau ở hệ số của x₂. Lấy pt(2) − pt(1): x₂ = 8 − 6 = <b>2</b>. Xong, không cần giải cả hệ.<br/><i>Nghiệm đầy đủ nếu cần kiểm tra:</i> (x₁; x₂; x₃) = (1; 2; 3)."}, {"ch": 1, "q": "Tìm m để |A| = −7 với A = [[1, 0, 2], [3, m, 1], [2, 1, 0]].", "opts": ["m = 2", "m = 3", "m = 4", "m = −3"], "ans": 1, "exp": "Khai triển theo dòng 1: |A| = 1·|[[m, 1], [1, 0]]| − 0 + 2·|[[3, m], [2, 1]]|<br/>= 1·(0 − 1) + 2·(3 − 2m) = −1 + 6 − 4m = <b>5 − 4m</b>.<br/>5 − 4m = −7 ⇒ 4m = 12 ⇒ <b>m = 3</b>."}, {"ch": 2, "q": "Cho hàm số f(x, y) = 3x²y − 2y³ + 5x. Đạo hàm riêng cấp một theo biến x là:", "opts": ["6xy + 5", "6xy − 6y²", "3x² − 6y²", "6xy + 5x"], "ans": 0, "exp": "Tính f′<sub>x</sub> thì <b>coi y là hằng số</b>:<br/>(3x²y)′<sub>x</sub> = 6xy · (−2y³)′<sub>x</sub> = 0 · (5x)′<sub>x</sub> = 5 ⇒ <b>f′<sub>x</sub> = 6xy + 5</b>.<br/><i>Phương án 3x² − 6y² chính là f′<sub>y</sub> — đọc kỹ đề hỏi theo biến nào.</i>"}, {"ch": 2, "q": "Cho hàm số f(x, y) = xy + x/y. Tính f′<sub>y</sub>(2; 1).", "opts": ["0", "1", "2", "−2"], "ans": 0, "exp": "Khoá x lại; chú ý x/y = x·y⁻¹ nên (x/y)′<sub>y</sub> = −x/y².<br/>f′<sub>y</sub> = x − x/y² ⇒ tại (2; 1): 2 − 2/1 = <b>0</b>."}, {"ch": 2, "q": "Hàm hai biến f(x, y) = x² + y² − 4x + 6y + 1 có điểm dừng là:", "opts": ["(2; −3)", "(−2; 3)", "(4; −6)", "(2; 3)"], "ans": 0, "exp": "f′<sub>x</sub> = 2x − 4 = 0 ⇒ x = 2; f′<sub>y</sub> = 2y + 6 = 0 ⇒ y = −3.<br/>⇒ điểm dừng <b>(2; −3)</b>."}, {"ch": 2, "q": "Với hàm z = x² + y² − 4x + 6y + 1, khẳng định nào sau đây <b>đúng</b>?", "opts": ["Hàm đạt cực tiểu tại (2; −3) và z<sub>ct</sub> = −12", "Hàm đạt cực đại tại (2; −3) và z<sub>cđ</sub> = −12", "Hàm không có cực trị", "Hàm đạt cực tiểu tại (−2; 3) và z<sub>ct</sub> = −12"], "ans": 0, "exp": "Tại điểm dừng (2; −3): A = z″<sub>xx</sub> = 2; B = z″<sub>xy</sub> = 0; C = z″<sub>yy</sub> = 2.<br/>B² − AC = 0 − 4 = <b>−4 < 0</b> ⇒ có cực trị; A = 2 <b>> 0</b> ⇒ <b>cực tiểu</b>.<br/>z(2; −3) = 4 + 9 − 8 − 18 + 1 = <b>−12</b>."}, {"ch": 2, "q": "Tìm cực trị của hàm z = xy với điều kiện x + y = 10.", "opts": ["Cực đại tại (5; 5), z<sub>cđ</sub> = 25", "Cực tiểu tại (5; 5), z<sub>ct</sub> = 25", "Cực đại tại (10; 0), z<sub>cđ</sub> = 0", "Hàm số không có cực trị"], "ans": 0, "exp": "Ràng buộc bậc nhất ⇒ dùng <b>phép thế</b>: y = 10 − x ⇒ h(x) = x(10 − x) = −x² + 10x.<br/>h′(x) = −2x + 10 = 0 ⇒ x = 5 ⇒ y = 5. h″ = −2 <b>< 0</b> ⇒ <b>cực đại</b>, z = 5 · 5 = <b>25</b>."}, {"ch": 2, "q": "Hàm sản xuất của một công ty là F(K, L) = 100 + 12K + 8L + 3KL. Tính giá trị cận biên của sản lượng theo <b>lao động</b> tại mức K = 5 và L = 10.", "opts": ["23", "27", "38", "8"], "ans": 0, "exp": "'Cận biên theo lao động' ⇒ đạo hàm riêng theo <b>L</b> (khoá K lại):<br/>F′<sub>L</sub> = 8 + 3K ⇒ thay K = 5: 8 + 15 = <b>23</b>.<br/><i>L = 10 là dữ kiện thừa</i> vì F′<sub>L</sub> không chứa L. Ý nghĩa: thuê thêm 1 lao động thì sản lượng tăng khoảng 23 đơn vị."}, {"ch": 2, "q": "Hàm số y = f(x) có đạo hàm đến cấp hai và đạt <b>cực tiểu</b> tại x₀. Phát biểu nào sau đây <b>SAI</b>?", "opts": ["f′(x₀) = 0", "f′(x₀) = 0 và f″(x₀) > 0", "f′(x₀) = 0 và f″(x₀) < 0", "f″(x₀) > 0"], "ans": 2, "exp": "f″(x₀) <b>< 0</b> là dấu hiệu của cực <b>ĐẠI</b> (đồ thị hình ∩), mâu thuẫn với giả thiết cực tiểu.<br/>Cực tiểu ⇒ đồ thị hình ∪ ⇒ <b>f″(x₀) > 0</b>."}, {"ch": 2, "q": "Tìm tập xác định của hàm số f(x, y) = ln(9 − x² − y²).", "opts": ["{(x, y) | x² + y² < 9}", "{(x, y) | x² + y² ≤ 9}", "{(x, y) | x² + y² > 9}", "ℝ²"], "ans": 0, "exp": "Biểu thức trong ln phải <b>dương thực sự</b>: 9 − x² − y² > 0 ⇔ <b>x² + y² < 9</b>.<br/>Về hình học: phần <b>trong</b> đường tròn tâm O bán kính 3, <b>không kể</b> đường tròn (vì ln 0 không xác định)."}, {"ch": 2, "q": "Một doanh nghiệp cạnh tranh sản xuất hai loại sản phẩm với hàm chi phí kết hợp TC = Q₁² + 2Q₁Q₂ + 2Q₂². Giá thị trường p₁ = 10, p₂ = 14. Tìm (Q₁; Q₂) để lợi nhuận tối đa.", "opts": ["(3; 2)", "(2; 3)", "(5; 0)", "(1; 4)"], "ans": 0, "exp": "π = 10Q₁ + 14Q₂ − Q₁² − 2Q₁Q₂ − 2Q₂².<br/>π′<sub>Q₁</sub> = 10 − 2Q₁ − 2Q₂ = 0 ⇒ Q₁ + Q₂ = 5<br/>π′<sub>Q₂</sub> = 14 − 2Q₁ − 4Q₂ = 0 ⇒ Q₁ + 2Q₂ = 7<br/>⇒ Q₂ = 2, <b>Q₁ = 3</b>. Kiểm tra: A = −2, B = −2, C = −4 ⇒ B² − AC = −4 < 0 và A < 0 ⇒ cực đại ✓"}, {"ch": 3, "q": "Gieo đồng thời hai con xúc sắc cân đối và đồng chất. Xác suất để tổng số chấm xuất hiện bằng 7 là:", "opts": ["1/6", "1/9", "5/36", "1/12"], "ans": 0, "exp": "Không gian mẫu có 6 × 6 = <b>36</b> kết cục.<br/>Các cặp có tổng bằng 7: (1,6), (2,5), (3,4), (4,3), (5,2), (6,1) ⇒ <b>6</b> kết cục.<br/>⇒ P = 6/36 = <b>1/6</b>. <i>Tổng 7 là tổng có nhiều kết cục nhất khi gieo 2 xúc sắc.</i>"}, {"ch": 3, "q": "Một người bắn hai phát độc lập vào bia. Xác suất không trúng phát nào là 0,09. Tính xác suất trúng ít nhất một phát.", "opts": ["0,91", "0,81", "0,18", "0,09"], "ans": 0, "exp": "Gặp cụm '<b>ít nhất một</b>' ⇒ dùng ngay <b>biến cố đối</b>:<br/>P(ít nhất 1 phát trúng) = 1 − P(không trúng phát nào) = 1 − 0,09 = <b>0,91</b>."}, {"ch": 3, "q": "Cho ĐLNN rời rạc X có bảng phân phối xác suất: X = −2; 0; 3 với P = 0,3; 0,5; 0,2. Tính E(X).", "opts": ["0", "0,3", "−0,6", "1"], "ans": 0, "exp": "E(X) = (−2)(0,3) + 0(0,5) + 3(0,2) = −0,6 + 0 + 0,6 = <b>0</b>."}, {"ch": 3, "q": "Vẫn với bảng phân phối X = −2; 0; 3 và P = 0,3; 0,5; 0,2. Tính Var(X).", "opts": ["3", "1,8", "2,4", "3,6"], "ans": 0, "exp": "<b>B1:</b> E(X) = 0 (câu trên).<br/><b>B2:</b> E(X²) = 4(0,3) + 0(0,5) + 9(0,2) = 1,2 + 1,8 = <b>3</b>.<br/><b>B3:</b> Var(X) = E(X²) − [E(X)]² = 3 − 0² = <b>3</b>."}, {"ch": 3, "q": "Cho ĐLNN rời rạc X: 1; 2; 3; 4 với P = 0,2; 0,35; 0,35; 0,1. Tìm Mod(X).", "opts": ["2", "3", "2 hoặc 3", "4"], "ans": 2, "exp": "Mode là giá trị có <b>xác suất lớn nhất</b>. Ở đây xác suất lớn nhất là 0,35, đạt tại <b>hai</b> giá trị x = 2 và x = 3.<br/>⇒ Mod(X) = <b>2 hoặc 3</b> — phân phối có hai mode. Mode không nhất thiết duy nhất."}, {"ch": 3, "q": "Một xạ thủ bắn 20 viên đạn độc lập, xác suất trúng đích mỗi viên là 0,8. Số viên trúng đích tuân theo quy luật nhị thức với hai tham số:", "opts": ["n = 20; p = 0,8", "n = 20; p = 0,2", "n = 16; p = 0,8", "n = 8; p = 0,2"], "ans": 0, "exp": "<b>n</b> = số phép thử = số viên đạn = <b>20</b>; <b>p</b> = xác suất thành công mỗi lần = <b>0,8</b>.<br/><i>Kiểm tra:</i> E(X) = np = 16 viên trúng — hợp lý. Số 0,2 là xác suất <b>trượt</b>; 16 là <b>kỳ vọng</b> chứ không phải n."}, {"ch": 3, "q": "Tỉ lệ phế phẩm của một lô hàng là 10%. Lấy ngẫu nhiên, lần lượt, <b>có hoàn lại</b> 4 sản phẩm. Xác suất để có đúng 1 phế phẩm là:", "opts": ["C₄¹ · 0,1 · 0,9³", "C₄¹ · 0,9 · 0,1³", "0,1 · 0,9³", "0,1⁴"], "ans": 0, "exp": "'Có hoàn lại' ⇒ p không đổi ⇒ dãy Bernoulli với n = 4, p = 0,1, k = 1.<br/>P(X = 1) = C₄¹ · 0,1¹ · 0,9³ = 4 × 0,1 × 0,729 = <b>0,2916</b>.<br/><i>Nhớ:</i> số mũ của p luôn bằng k (số lần thành công). Phương án thiếu C₄¹ là quên đếm số cách chọn vị trí của phế phẩm."}, {"ch": 3, "q": "Cho ĐLNN X ~ N(10; 25). Khẳng định nào sau đây <b>SAI</b>?", "opts": ["E(X) = 10", "Var(X) = 25", "Mod(X) = 10", "σ = 25"], "ans": 3, "exp": "Trong ký hiệu N(μ; σ²), tham số thứ hai là <b>PHƯƠNG SAI</b>: σ² = 25 ⇒ <b>σ = √25 = 5</b>.<br/>Phân phối chuẩn đối xứng nên E(X) = Mod(X) = μ = 10 ✓"}, {"ch": 3, "q": "Chiều cao của thanh niên một vùng là ĐLNN có phân phối chuẩn với trung bình 165 cm và độ lệch tiêu chuẩn 6 cm. Tìm xác suất để chiều cao sai lệch so với trung bình không vượt quá 12 cm. Cho φ(1) = 0,34134; φ(2) = 0,47725.", "opts": ["0,9545", "0,47725", "0,68268", "0,02275"], "ans": 0, "exp": "'Sai lệch không vượt quá 12' ⇒ khoảng <b>đối xứng</b> quanh μ:<br/>P(|X − 165| ≤ 12) = <b>2φ(12/6)</b> = 2φ(2) = 2 × 0,47725 = <b>0,9545</b>.<br/><i>Bẫy:</i> 0,47725 là kết quả nếu <b>quên nhân 2</b> — hàm φ chỉ tính nửa khoảng."}, {"ch": 4, "q": "Thống kê nào sau đây là ước lượng <b>không chệch</b> của phương sai σ²?", "opts": ["s² (phương sai mẫu)", "s′² (phương sai mẫu điều chỉnh)", "s (độ lệch chuẩn mẫu)", "x̄"], "ans": 1, "exp": "E(s′²) = σ² nên <b>s′²</b> (chia n − 1) là ước lượng không chệch của σ².<br/>Còn E(s²) = [(n−1)/n]·σ² ≠ σ² nên s² là ước lượng <b>chệch</b> — đây chính là lý do phải 'điều chỉnh' bằng cách chia n − 1."}, {"ch": 4, "q": "Cho N là kích thước của đám đông, n là kích thước mẫu. Phát biểu nào sau đây <b>đúng</b>?", "opts": ["n ≤ N", "n > N", "n > 30", "n ≤ 30"], "ans": 0, "exp": "Mẫu được lấy <b>ra từ</b> đám đông nên luôn <b>n ≤ N</b>. Các mốc 30 chỉ dùng để chọn công cụ u hay t, không phải ràng buộc của n."}, {"ch": 4, "q": "Cân ngẫu nhiên 20 sản phẩm thu được bảng tần số: x = 10; 12; 14; 16 với n = 3; 7; 6; 4. Tính trung bình mẫu x̄.", "opts": ["13,1", "13,0", "12,9", "13,5"], "ans": 0, "exp": "x̄ = (10·3 + 12·7 + 14·6 + 16·4)/20 = (30 + 84 + 84 + 64)/20 = 262/20 = <b>13,1</b>."}, {"ch": 4, "q": "Điều tra mức chi của 200 khách thu được bảng: lớp 1–3 có 40 người; 3–5 có 70; 5–7 có m; 7–9 có 30. Tìm m và trung bình mẫu x̄.", "opts": ["m = 60; x̄ = 4,8", "m = 60; x̄ = 5,0", "m = 50; x̄ = 4,8", "m = 70; x̄ = 5,2"], "ans": 0, "exp": "<b>B1 — tìm m:</b> 40 + 70 + m + 30 = 200 ⇒ <b>m = 60</b> (loại ngay hai phương án sai m).<br/><b>B2 — lấy giá trị giữa lớp:</b> 2; 4; 6; 8.<br/>x̄ = (2·40 + 4·70 + 6·60 + 8·30)/200 = (80 + 280 + 360 + 240)/200 = 960/200 = <b>4,8</b>."}, {"ch": 4, "q": "Công thức nào sau đây <b>đúng</b>?", "opts": ["s′² = (1/n)·Σ(xᵢ − x̄)²", "s² = 1/(n−1)·Σ(xᵢ − x̄)²", "s′ = √[ 1/(n−1)·Σ(xᵢ − x̄)² ]", "s = (1/n)·Σ(xᵢ − x̄)²"], "ans": 2, "exp": "<b>Mẹo phân biệt:</b> có <b>dấu phẩy (′)</b> ⇒ chia <b>n − 1</b>; không có ⇒ chia <b>n</b>. Có <b>mũ 2</b> ⇒ không có căn; không có mũ 2 ⇒ phải có dấu căn.<br/>Chỉ phương án s′ = √[1/(n−1)·Σ(xᵢ−x̄)²] thoả cả hai quy tắc."}, {"ch": 4, "q": "Lấy mẫu kích thước n = 20 từ một ĐLNN có phân phối chuẩn với σ² <b>chưa biết</b>. Với độ tin cậy 95%, để ước lượng khoảng tin cậy <b>đối xứng</b> của μ ta cần dùng phân vị nào?", "opts": ["u₀,₀₂₅", "t₀,₀₅⁽¹⁹⁾", "t₀,₀₂₅⁽¹⁹⁾", "t₀,₀₂₅⁽²⁰⁾"], "ans": 2, "exp": "σ² chưa biết và n = 20 ≤ 30 ⇒ dùng <b>Student</b>, bậc tự do = n − 1 = <b>19</b>.<br/>Khoảng <b>đối xứng</b> ⇒ mức <b>α/2</b>: γ = 95% ⇒ α = 0,05 ⇒ α/2 = 0,025.<br/>⇒ <b>t₀,₀₂₅⁽¹⁹⁾</b>."}, {"ch": 4, "q": "Biết σ = 4 (đã biết), n = 25, x̄ = 50, độ tin cậy 95%, u₀,₀₂₅ = 1,96. Khoảng tin cậy đối xứng của μ là:", "opts": ["(48,432 ; 51,568)", "(48,680 ; 51,320)", "(46,880 ; 53,120)", "(49,216 ; 50,784)"], "ans": 0, "exp": "σ <b>đã biết</b> ⇒ dùng <b>u</b> (dù n = 25 < 30).<br/>ε = u₀,₀₂₅ · σ/√n = 1,96 × 4/5 = <b>1,568</b><br/>⇒ KTC = (50 − 1,568 ; 50 + 1,568) = <b>(48,432 ; 51,568)</b>."}, {"ch": 4, "q": "Lấy mẫu n = 16 từ ĐLNN có phân phối chuẩn, tính được x̄ = 25 và s′ = 4. Với độ tin cậy 95%, cho t₀,₀₂₅⁽¹⁵⁾ = 2,131. Khoảng tin cậy đối xứng của μ là:", "opts": ["(22,869 ; 27,131)", "(23,040 ; 26,960)", "(21,740 ; 28,260)", "(24,470 ; 25,530)"], "ans": 0, "exp": "σ chưa biết (chỉ có s′), n = 16 ≤ 30 ⇒ dùng <b>t</b> với bậc tự do 15.<br/>ε = t · s′/√n = 2,131 × 4/4 = <b>2,131</b><br/>⇒ KTC = (25 − 2,131 ; 25 + 2,131) = <b>(22,869 ; 27,131)</b>."}, {"ch": 4, "q": "Kiểm tra ngẫu nhiên 500 sản phẩm thấy có 60 sản phẩm lỗi. Với độ tin cậy 95% (u₀,₀₂₅ = 1,96), khoảng tin cậy của tỉ lệ sản phẩm lỗi là:", "opts": ["(0,092 ; 0,148)", "(0,096 ; 0,144)", "(0,108 ; 0,132)", "(0,070 ; 0,170)"], "ans": 0, "exp": "<b>B1:</b> f = 60/500 = <b>0,12</b>.<br/><b>B2:</b> ε = u₀,₀₂₅ · √(f(1−f)/n) = 1,96 × √(0,12 × 0,88/500) = 1,96 × 0,01453 = <b>0,0285</b>.<br/><b>B3:</b> KTC = (0,12 − 0,0285 ; 0,12 + 0,0285) = <b>(0,092 ; 0,148)</b>.<br/><i>Nhớ:</i> ước lượng khoảng của tỉ lệ dùng f(1−f); kiểm định tỉ lệ mới dùng p₀q₀."}, {"ch": 4, "q": "Có ý kiến cho rằng năng suất trung bình của một giống lúa mới <b>cao hơn</b> 55 tạ/ha. Khi kiểm định nhận định này thì đối thuyết sẽ là:", "opts": ["H₁: μ > 55", "H₁: μ < 55", "H₁: μ ≠ 55", "H₁: μ ≥ 55"], "ans": 0, "exp": "Nhận định cần kiểm định là '<b>cao hơn</b> 55' ⇒ đưa vào <b>H₁: μ > 55</b> (còn H₀: μ = 55).<br/><i>Ghi nhớ:</i> H₁ <b>không bao giờ</b> chứa dấu '=' nên loại ngay phương án μ ≥ 55."}, {"ch": 4, "q": "Xét bài toán kiểm định H₀: μ = μ₀ với H₁: μ ≠ μ₀, biết X có phân phối chuẩn, σ² chưa biết, n = 12, mức ý nghĩa 5%, t₀,₀₂₅⁽¹¹⁾ = 2,201. Miền bác bỏ của bài toán là:", "opts": ["W = {t<sub>tn</sub> : t<sub>tn</sub> > 2,201}", "W = {t<sub>tn</sub> : |t<sub>tn</sub>| > 2,201}", "W = {t<sub>tn</sub> : t<sub>tn</sub> < −2,201}", "W = {u<sub>tn</sub> : |u<sub>tn</sub>| > 1,96}"], "ans": 1, "exp": "H₁ có dấu <b>≠</b> ⇒ kiểm định <b>hai phía</b> ⇒ miền bác bỏ dạng <b>|t<sub>tn</sub>| > t<sub>α/2</sub></b>.<br/>σ² chưa biết và n = 12 ≤ 30 ⇒ dùng <b>t</b> với bậc tự do 11, không dùng u.<br/>⇒ W = {|t<sub>tn</sub>| > 2,201}."}, {"ch": 4, "q": "Một báo cáo cho biết 70% sinh viên có việc làm sau 1 năm tốt nghiệp. Khảo sát 300 sinh viên thấy có 198 người có việc làm. Với mức ý nghĩa 5% (u₀,₀₂₅ = 1,96), kết quả nào sau đây <b>SAI</b>?", "opts": ["Tỉ lệ sinh viên có việc làm trên mẫu là 66%", "u<sub>tn</sub> ≈ −1,512", "Miền bác bỏ W = {u<sub>tn</sub> : |u<sub>tn</sub>| > 1,96}", "Tỉ lệ sinh viên có việc làm thực tế thấp hơn 70%"], "ans": 3, "exp": "<b>B1:</b> f = 198/300 = <b>0,66</b> = 66% ⇒ phương án 1 đúng.<br/><b>B2:</b> u<sub>tn</sub> = (0,66 − 0,70)/√(0,7 × 0,3/300) = −0,04/0,02646 = <b>−1,512</b> ⇒ phương án 2 đúng.<br/><b>B3:</b> đề không nói nghi ngờ cao hơn hay thấp hơn ⇒ kiểm định <b>hai phía</b> ⇒ phương án 3 đúng.<br/><b>B4:</b> |−1,512| < 1,96 ⇒ u<sub>tn</sub> <b>∉</b> W ⇒ <b>chấp nhận H₀</b> ⇒ <b>chưa có cơ sở</b> kết luận tỉ lệ thấp hơn 70% ⇒ phương án 4 <b>SAI</b>.<br/><i>Đây là bẫy kinh điển: f = 66% < 70% nhưng chưa đủ bằng chứng thống kê.</i>"}];
+const TOTAL = BANK.length, LIMIT = 60*60;
+const CH = {1:"Chương 1 · Đại số tuyến tính",2:"Chương 2 · Giải tích",
+            3:"Chương 3 · Xác suất",4:"Chương 4 · Thống kê toán"};
+const $ = id => document.getElementById(id);
+let order=[], perm=[], ans=[], flag=[], cur=0, left=LIMIT, tick=null, done=false, revFilter="all";
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function fmt(s){const m=Math.floor(s/60),x=s%60;return String(m).padStart(2,"0")+":"+String(x).padStart(2,"0");}
+
+function init(){
+  order = shuffle([...Array(TOTAL).keys()]);
+  perm  = order.map(()=>shuffle([0,1,2,3]));
+  ans   = Array(TOTAL).fill(null);
+  flag  = Array(TOTAL).fill(false);
+  cur=0; left=LIMIT; done=false; revFilter="all";
+  buildNav();
+  $("start").classList.add("hide"); $("result").classList.add("hide"); $("exam").classList.remove("hide");
+  render(); startClock(); window.scrollTo(0,0);
+}
+function startClock(){
+  clearInterval(tick); paint();
+  tick=setInterval(()=>{ left--; paint(); if(left<=0){clearInterval(tick); finish(true);} },1000);
+}
+function paint(){
+  const c=$("clock"); c.textContent=fmt(Math.max(0,left));
+  c.className="timer"+(left<=300?" crit":(left<=900?" warn":""));
+}
+function buildNav(){
+  const n=$("nav"); n.innerHTML="";
+  for(let i=0;i<TOTAL;i++){
+    const b=document.createElement("button");
+    b.textContent=i+1; b.onclick=()=>{cur=i;render();};
+    n.appendChild(b);
+  }
+  syncNav();
+}
+function syncNav(){
+  [...$("nav").children].forEach((b,i)=>{
+    b.className="";
+    if(done){ if(ans[i]===null) b.classList.add("bad");
+      else b.classList.add(ans[i]===BANK[order[i]].ans?"ok":"bad"); }
+    else { if(flag[i]) b.classList.add("flag"); else if(ans[i]!==null) b.classList.add("done"); }
+    if(i===cur) b.classList.add("cur");
+  });
+  $("cnt").textContent = ans.filter(x=>x!==null).length;
+  $("fcnt").textContent = flag.filter(Boolean).length;
+}
+function render(){
+  const q = BANK[order[cur]], p = perm[cur];
+  $("qno").textContent = cur+1;
+  $("qch").textContent = CH[q.ch]; $("qch").className = "pill c"+q.ch;
+  $("qtext").innerHTML = q.q;
+  const box=$("opts"); box.innerHTML="";
+  p.forEach((orig,slot)=>{
+    const b=document.createElement("button");
+    b.className="opt"+(ans[cur]===orig?" sel":"");
+    b.innerHTML='<span class="k">'+"ABCD"[slot]+'</span><span>'+q.opts[orig]+'</span>';
+    b.onclick=()=>{ ans[cur]= (ans[cur]===orig? null : orig); render(); };
+    box.appendChild(b);
+  });
+  $("flag").textContent = flag[cur] ? "⚑ Bỏ cờ" : "⚑ Gắn cờ";
+  $("flag").className = "btn "+(flag[cur]?"warn":"grey");
+  $("prev").disabled = cur===0; $("next").disabled = cur===TOTAL-1;
+  syncNav();
+}
+function finish(auto){
+  if(done) return;
+  const blank = ans.filter(x=>x===null).length;
+  if(!auto && blank>0 && !confirm("Bạn còn "+blank+" câu chưa làm. Vẫn nộp bài?")) return;
+  if(!auto && blank===0 && !confirm("Nộp bài và xem đáp án?")) return;
+  done=true; clearInterval(tick);
+  const used = LIMIT-Math.max(0,left);
+  let right=0; const by={1:[0,0],2:[0,0],3:[0,0],4:[0,0]};
+  order.forEach((qi,i)=>{ const q=BANK[qi]; by[q.ch][1]++;
+    if(ans[i]===q.ans){right++; by[q.ch][0]++;} });
+  $("sc").textContent = right+"/"+TOTAL;
+  $("sc10").textContent = (right/TOTAL*10).toFixed(1).replace(".",",");
+  $("tused").textContent = fmt(used);
+  $("scorebox").className = "score"+(right/TOTAL<0.5?" low":"");
+  $("verdict").innerHTML = auto
+    ? "<b>Hết giờ — bài được nộp tự động.</b><br>"+verdict(right)
+    : verdict(right);
+  const brk=$("brk"); brk.innerHTML="";
+  [1,2,3,4].forEach(c=>{
+    const [r,t]=by[c], pc=Math.round(r/t*100);
+    const d=document.createElement("div");
+    d.innerHTML='<div class="t">'+CH[c].split(" · ")[1]+'</div><div class="v">'+r+"/"+t+
+      '</div><div class="pb"><i style="width:'+pc+'%"></i></div>';
+    brk.appendChild(d);
+  });
+  try{ const prev=+(localStorage.getItem("tdc_best")||0);
+       if(right>prev) localStorage.setItem("tdc_best",right);
+       localStorage.setItem("tdc_last", JSON.stringify({right:right,used:used,at:Date.now()}));
+  }catch(e){}
+  buildReview();
+  $("exam").classList.add("hide"); $("result").classList.remove("hide"); window.scrollTo(0,0);
+}
+function verdict(r){
+  const p=r/TOTAL;
+  if(p>=0.9) return "Rất tốt — bạn đã nắm chắc cả 4 chương. Chỉ cần giữ tốc độ.";
+  if(p>=0.75) return "Khá — xem lại các chương có tỉ lệ thấp nhất ở bảng bên dưới.";
+  if(p>=0.5) return "Trung bình — nên đọc lại bản Tổng ôn phần tương ứng rồi làm lại đề này.";
+  return "Cần ôn lại nền tảng — bắt đầu từ bản Cấp tốc, sau đó đọc kỹ các chương bị sai nhiều.";
+}
+function buildReview(){
+  const box=$("review"); box.innerHTML="";
+  order.forEach((qi,i)=>{
+    const q=BANK[qi], my=ans[i], ok=my===q.ans;
+    if(revFilter==="bad" && ok) return;
+    const d=document.createElement("div");
+    d.className="rev"+(ok?"":(my===null?" skip":" bad"));
+    const tag = ok?'<span class="tag ok">ĐÚNG</span>'
+                  :(my===null?'<span class="tag sk">BỎ TRỐNG</span>':'<span class="tag no">SAI</span>');
+    let h='<div class="qhead"><span class="meta" style="font-weight:700">Câu '+(i+1)+'</span>'+
+          '<span class="pill c'+q.ch+'">'+CH[q.ch]+'</span>'+tag+'</div>'+
+          '<p class="qtext" style="font-size:15.5px">'+q.q+'</p><div class="opts">';
+    perm[i].forEach((orig,slot)=>{
+      let cls="opt";
+      if(orig===q.ans) cls+=" right"; else if(orig===my) cls+=" wrong";
+      h+='<div class="'+cls+'"><span class="k">'+"ABCD"[slot]+'</span><span>'+q.opts[orig]+
+         (orig===q.ans?'  <b style="color:#1E7A46">← đáp án đúng</b>':'')+
+         (orig===my&&!ok?'  <b style="color:#B03030">← bạn chọn</b>':'')+'</span></div>';
+    });
+    h+='</div><div class="exp"><b>Lời giải:</b> '+q.exp+'</div>';
+    d.innerHTML=h; box.appendChild(d);
+  });
+  if(!box.children.length) box.innerHTML='<div class="note">Không có câu nào sai hoặc bỏ trống. Xuất sắc!</div>';
+}
+function showBest(){
+  try{ const b=localStorage.getItem("tdc_best");
+    if(b) $("best").innerHTML="Kết quả tốt nhất của bạn: <b>"+b+"/50</b>";
+  }catch(e){}
+}
+$("go").onclick=init;
+$("again").onclick=init;
+$("prev").onclick=()=>{ if(cur>0){cur--;render();} };
+$("next").onclick=()=>{ if(cur<TOTAL-1){cur++;render();} };
+$("clear").onclick=()=>{ ans[cur]=null; render(); };
+$("flag").onclick=()=>{ flag[cur]=!flag[cur]; render(); };
+$("submit").onclick=()=>finish(false);
+$("fAll").onclick=()=>{revFilter="all";buildReview();};
+$("fBad").onclick=()=>{revFilter="bad";buildReview();};
+document.addEventListener("keydown",e=>{
+  if($("exam").classList.contains("hide")) return;
+  if(e.key>="1"&&e.key<="4"){ const slot=+e.key-1; ans[cur]=perm[cur][slot]; render(); }
+  else if(e.key==="ArrowRight"&&cur<TOTAL-1){cur++;render();}
+  else if(e.key==="ArrowLeft"&&cur>0){cur--;render();}
+  else if(e.key.toLowerCase()==="f"){flag[cur]=!flag[cur];render();}
+});
+showBest();
+console.log("Exam ready:", TOTAL, "questions");
+</script>
+</body>
+</html>
