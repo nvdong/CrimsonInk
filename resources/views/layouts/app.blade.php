@@ -113,28 +113,51 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 
 {{-- Structured data dùng chung, sinh từ bảng settings --}}
 @include('partials.schema')
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18518144998"></script>
+{{-- Google tag (gtag.js) — MỘT lần tải cho cả Analytics lẫn Google Ads.
+     Không tách thành 2 thẻ <script src=...>: tải gtag.js hai lần làm chậm trang
+     và dễ đếm trùng pageview. --}}
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XZ2EPNPQLV"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'AW-18518144998');
+  gtag('config', 'G-XZ2EPNPQLV');   // Google Analytics 4
+  gtag('config', 'AW-18518144998'); // Google Ads
 </script>
 <script>
-function gtag_report_conversion(url) {
-  var callback = function () {
-    if (typeof(url) != 'undefined') {
-      window.location = url;
-    }
-  };
-  gtag('event', 'conversion', {
-      'send_to': 'AW-18518144998/NcFlCJeL37EdEObvkf5E',
-      'event_callback': callback
-  });
-  return false;
-}
+/* ---------------------------------------------------------------------------
+   Bắn conversion Google Ads.
+
+   CỐ Ý KHÔNG dùng mẫu gtag_report_conversion(url) mà Google Ads đưa. Mẫu đó
+   chặn cú click (return false) rồi mới điều hướng bên trong event_callback,
+   nhưng không có timeout dự phòng: nếu gtag bị adblocker chặn — khách Âu/Mỹ/Úc
+   dùng rất nhiều — callback không bao giờ chạy và nút WhatsApp / số điện thoại
+   CHẾT HẲN. Mất khách thật để đổi lấy một con số thống kê.
+
+   Ở đây chỉ bắn event rồi để trình duyệt đi tiếp bình thường. gtag gửi bằng
+   sendBeacon nên request vẫn tới nơi kể cả khi trang đang chuyển đi.
+
+   Cách dùng:  onclick="ciConversion('whatsapp')"   (KHÔNG có return)
+
+   Mỗi hành động một conversion action riêng trong Google Ads, dán nhãn vào
+   CI_LABELS bên dưới. Nhãn để trống = không đếm, hàm tự bỏ qua.
+   Tạo nhãn: Google Ads > Goals > Conversions > New conversion action >
+   Website > "Add manually using code", lấy phần sau dấu "/" của send_to.
+--------------------------------------------------------------------------- */
+var CI_AW = 'AW-18518144998';
+var CI_LABELS = {
+    booking:   'NcFlCJeL37EdEObvkf5E', // Gửi form đặt lịch thành công — Primary, đếm Every
+    whatsapp:  '',                     // Click WhatsApp — Primary, đếm One
+    phone:     '',                     // Click số điện thoại (tel:) — Primary, đếm One
+    email:     '',                     // Click email (mailto:) — Secondary, đếm One
+    instagram: ''                      // Click Instagram — Secondary, đếm One
+};
+window.ciConversion = function (key) {
+    var label = CI_LABELS[key];
+    if (!label || typeof gtag !== 'function') { return; }
+    gtag('event', 'conversion', { send_to: CI_AW + '/' + label });
+};
 </script>
 </head>
 <body class="@yield('body_class')">

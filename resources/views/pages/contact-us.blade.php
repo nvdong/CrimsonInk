@@ -73,6 +73,11 @@
 						<div class="elementor-element ci-booking" id="booking">
 							@if (session('contact_success'))
 								<div class="ci-booking__alert ci-booking__alert--ok" role="alert">{{ session('contact_success') }}</div>
+								{{-- Conversion "đặt lịch" bắn ở ĐÂY chứ không phải ở onclick nút Submit:
+									 chỉ chạy khi ContactController đã lưu booking vào DB. Bắn ở nút submit
+									 sẽ đếm cả những lần form trượt validate (thiếu tên, sai email).
+									 session flash chỉ sống một request nên khách F5 cũng không đếm trùng. --}}
+								<script>if (window.ciConversion) { ciConversion('booking'); }</script>
 							@endif
 
 							@if ($errors->any())
