@@ -146,12 +146,22 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
    Website > "Add manually using code", lấy phần sau dấu "/" của send_to.
 --------------------------------------------------------------------------- */
 var CI_AW = 'AW-18518144998';
+/* Nhãn đọc trực tiếp từ "Đoạn mã sự kiện" của từng hành động chuyển đổi
+   trong Google Ads ngày 2026-11-04, không gõ tay. */
 var CI_LABELS = {
-    booking:   'NcFlCJeL37EdEObvkf5E', // Gửi form đặt lịch thành công — Primary, đếm Every
-    whatsapp:  '',                     // Click WhatsApp — Primary, đếm One
-    phone:     '',                     // Click số điện thoại (tel:) — Primary, đếm One
-    email:     '',                     // Click email (mailto:) — Secondary, đếm One
-    instagram: ''                      // Click Instagram — Secondary, đếm One
+    // "booking" (ID 7888946583) — Lượt đặt lịch hẹn, Chính, đếm Mỗi
+    booking:   'NcFlCJeL37EdEObvkf5E',
+    // "WhatsApp click" (tạo mới 2026-11-04) — Người liên hệ, Chính, đếm Một
+    whatsapp:  'BjN5CIC467EdEObvkf5E',
+    // "Phone" (ID 7888950671) — Người liên hệ, Chính, đếm Một
+    phone:     '5zt8CI-r37EdEObvkf5E',
+    // Chưa tạo hành động chuyển đổi cho email — để trống thì hàm tự bỏ qua.
+    email:     '',
+    /* Hành động "Instagram" bên Google Ads là loại đếm theo LƯỢT TẢI TRANG
+       (/gallery), không phải sự kiện có đoạn mã, nên không có nhãn để dán.
+       Muốn đếm click Instagram thật thì tạo action mới kiểu "Thủ công có lập
+       trình" rồi dán nhãn vào đây. */
+    instagram: ''
 };
 window.ciConversion = function (key) {
     var label = CI_LABELS[key];
