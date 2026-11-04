@@ -122,6 +122,20 @@ img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
 
   gtag('config', 'AW-18518144998');
 </script>
+<script>
+function gtag_report_conversion(url) {
+  var callback = function () {
+    if (typeof(url) != 'undefined') {
+      window.location = url;
+    }
+  };
+  gtag('event', 'conversion', {
+      'send_to': 'AW-18518144998/NcFlCJeL37EdEObvkf5E',
+      'event_callback': callback
+  });
+  return false;
+}
+</script>
 </head>
 <body class="@yield('body_class')">
 
