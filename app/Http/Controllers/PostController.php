@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Concerns\ExtractsInlineImages;
 use App\Http\Controllers\Concerns\GeneratesSlug;
 use App\Http\Controllers\Concerns\HandlesUploads;
 use App\Models\Post;
@@ -26,6 +27,7 @@ use Illuminate\Support\Carbon;
  */
 class PostController extends Controller
 {
+    use ExtractsInlineImages;
     use GeneratesSlug;
     use HandlesUploads;
 
@@ -171,6 +173,11 @@ class PostController extends Controller
         ]);
 
         $data['cover_path'] = $this->storeUpload($request, 'cover_file', 'post', $data['cover_path'] ?? null);
+
+        // Lưới an toàn: JS đã upload ảnh rồi mới chèn link, nhưng nội dung dán
+        // từ Word / trang khác vẫn có thể mang theo <img src="data:image/...">.
+        // Tách hết ra file trước khi lưu, DB chỉ chứa URL.
+        $data['content'] = $this->extractInlineImages($data['content'] ?? null, 'post/content');
 
         // Ô select "— Không gắn —" gửi lên chuỗi rỗng; để nguyên thì lọt số 0
         // vào cột category_id và bài trỏ vào một danh mục không tồn tại.

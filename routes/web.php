@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\EditorUploadController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\LocaleController;
 use App\Http\Controllers\PageController;
@@ -97,6 +98,11 @@ Route::prefix('admin')->namespace('Admin')->group(function () {
         Route::post('/update', [PostCategoryController::class, 'update'])->name('admin.post-category.update');
         Route::get('/{id}/delete', [PostCategoryController::class, 'delete'])->name('admin.post-category.delete');
     });
+
+    /* Ảnh chèn trong trình soạn thảo (summernote) của mọi màn admin.
+       Lưu file vào public/upload rồi trả URL, thay vì nhúng base64 vào DB. */
+    Route::post('/editor/upload-image', [EditorUploadController::class, 'store'])
+        ->middleware('auth')->name('admin.editor.upload-image');
 
     Route::prefix('post')->middleware('auth')->group(function () {
         Route::get('/', [PostController::class, 'index'])->name('admin.post');

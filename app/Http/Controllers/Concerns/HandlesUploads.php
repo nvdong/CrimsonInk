@@ -47,7 +47,14 @@ trait HandlesUploads
 
         $dir = 'upload/'.trim($folder, '/').'/'.date('Y/m');
 
-        foreach ((array) $request->file($field) as $file) {
+        /* $request->file() trả về mảng khi input có multiple, trả về một
+           UploadedFile khi không. Ép (array) lên object UploadedFile sẽ ra
+           mảng các thuộc tính nội bộ (toàn chuỗi) chứ không phải [$file], nên
+           phải bọc tay. */
+        $files = $request->file($field);
+        $files = is_array($files) ? $files : [$files];
+
+        foreach ($files as $file) {
             if (! $file || ! $file->isValid()) {
                 continue;
             }
