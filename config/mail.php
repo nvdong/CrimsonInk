@@ -51,7 +51,10 @@ return [
             'encryption' => env('MAIL_ENCRYPTION', 'tls'),
             'username' => env('MAIL_USERNAME'),
             'password' => env('MAIL_PASSWORD'),
-            'timeout' => null,
+            /* Khong de null: mac dinh SwiftMailer cho phep treo rat lau, neu
+               nha cung cap hosting chan port SMTP thi request dat lich se dung
+               hinh ca phut truoc khi khach thay trang thanh cong. */
+            'timeout' => (int) env('MAIL_TIMEOUT', 10),
             'auth_mode' => null,
         ],
 
