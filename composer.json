@@ -18,6 +18,8 @@
         "laravelcollective/html": "^6.2",
         "pbmedia/laravel-ffmpeg": "^7.8",
         "prettus/l5-repository": "^2.7",
+        "symfony/http-client": "^5.4",
+        "symfony/mailgun-mailer": "^6.2",
         "tucker-eric/eloquentfilter": "^2.4"
     },
     "require-dev": {

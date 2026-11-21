@@ -42,7 +42,7 @@ class ContactController extends Controller
         $booking->message= $data['message'];
         $booking->save();
 
-        if ($to = config('mail.contact_to')) {
+        /*if ($to = config('mail.contact_to')) {
             $body = implode("\n", array_filter([
                 'Name:    '.$data['full_name'],
                 'Phone:   '.$data['phone'],
@@ -62,7 +62,7 @@ class ContactController extends Controller
             } catch (\Throwable $e) {
                 Log::error('Không gửi được email báo đơn đặt lịch '.$booking->code.': '.$e->getMessage());
             }
-        }
+        }*/
 
         return redirect()
             ->to(route('page.contact-us').'#booking')
