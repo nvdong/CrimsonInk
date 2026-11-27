@@ -36,9 +36,9 @@
                             @error('phone') <span class="help-block has-error">{{ $message }}</span> @enderror
                         </div>
                         <div class="form-group">
-                            <label for="email" class="required-flag">Email</label>
-                            <input id="email" name="email" class="form-control" maxlength="190" required
-                                   value="{{ old('email', $booking->email) }}" type="email">
+                            <label for="email" class="required-flag">Social Account</label>
+                            <input id="email" name="email" class="form-control" maxlength="255" required
+                                   value="{{ old('email', $booking->email) }}" type="text">
                             @error('email') <span class="help-block has-error">{{ $message }}</span> @enderror
                         </div>
 

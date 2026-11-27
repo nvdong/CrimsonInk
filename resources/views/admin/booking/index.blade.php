@@ -31,7 +31,7 @@
                                         <th>ID</th>
                                         <th>Mã đặt chỗ</th>
                                         <th>Họ Tên</th>
-                                        <th>Email</th>
+                                        <th>Social Account</th>
                                         <th>Số ĐT</th>
                                         <th>Thời gian Hẹn</th>
                                         <th>Artists</th>
@@ -50,7 +50,7 @@
                                             {!! Form::text('full_name',Request::input('full_name'),array('class'=>'form-control','placeholder'=>'Họ tên')) !!}
                                         </td>
                                         <td class="hasinput">
-                                            {!! Form::text('email',Request::input('email'),array('class'=>'form-control','placeholder'=>'Email')) !!}
+                                            {!! Form::text('email',Request::input('email'),array('class'=>'form-control','placeholder'=>'Social Account')) !!}
                                         </td>
                                         <td class="hasinput">
                                             {!! Form::text('phone',Request::input('phone'),array('class'=>'form-control','placeholder'=>'Số ĐT')) !!}
