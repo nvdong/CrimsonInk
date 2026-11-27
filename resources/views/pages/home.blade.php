@@ -141,7 +141,11 @@
 								@foreach ($tattooStyles as $i => $style)
 									<a class="swiper-slide ci-style-card" href="{{ $style['url'] }}">
 										<img src="{{ asset($style['cover_path']) }}" alt="{{ $style['name'] }} tattoo" loading="lazy" decoding="async" width="600" height="750">
-										<span class="ci-style-card__label">{{ $i + 1 }}. {{ $style['name'] }}</span>
+										{{-- h3 chứ không phải span: 20 thẻ style là 20 chủ đề thật của
+										     trang chủ. Đối thủ OCD khai h3 cho từng style nên trang chủ họ
+										     có 29 heading, mình chỉ 12. Kiểu dáng không đổi vì CSS bắt theo
+										     class, chỉ thêm margin:0 để bù margin mặc định của h3. --}}
+										<h3 class="ci-style-card__label">{{ $style['name'] }}</h3>
 									</a>
 								@endforeach
 							</div>
@@ -299,6 +303,56 @@
 		</div>
 	</div>
 	</section>
+
+	{{--
+	| Khối FAQ rút gọn + giá khởi điểm.
+	|
+	| Đối thủ OCD trả lời ngay trên trang chủ: giá tối thiểu, đặt cọc, thanh
+	| toán, bảo hành. Nội dung của mình đã có đủ nhưng nằm hết ở /faqs, khách
+	| không bấm sang nên coi như không có. Khối này kéo 6 câu lên đây.
+	|
+	| $sectionFaq có thể null (chưa tạo bản ghi page_sections key="faq") nên
+	| mọi chỗ đều có chuỗi dự phòng.
+	--}}
+	@if ($homeFaqs->isNotEmpty())
+	{{-- Không dùng .elementor-container/.elementor-widget-wrap ở đây: chúng mang
+	     display:flex kèm selector rất đặc hiệu, ghi đè lại chỉ tổ gãy về sau.
+	     Khối này tự dựng lớp bọc riêng. --}}
+	<section class="ci-homefaq">
+		<div class="ci-homefaq__inner">
+
+					<h5 class="elementor-heading-title elementor-size-default ci-homefaq__eyebrow">{{ optional($sectionFaq)->eyebrow ?: 'Good to know' }}</h5>
+
+					<div class="ekit-heading elementskit-section-title-wraper text_center">
+						<h2 class="ekit-heading--title elementskit-section-title">{!! optional($sectionFaq)->heading ?: 'BEFORE YOU <span>BOOK</span>' !!}</h2>
+					</div>
+
+					@php $giaTu = \App\Support\Settings::get('studio.price_from'); @endphp
+					@if ($giaTu)
+						<p class="ci-homefaq__price">
+							<span class="ci-homefaq__price-label">Starting price</span>
+							<strong class="ci-homefaq__price-value">{{ $giaTu }}</strong>
+						</p>
+					@endif
+
+					<div class="ci-homefaq__list">
+						@foreach ($homeFaqs as $faq)
+							<details class="ci-homefaq__item"@if ($loop->first) open @endif>
+								<summary class="ci-homefaq__q">{{ $faq->question }}</summary>
+								<div class="ci-homefaq__a">{!! nl2br(e(strip_tags($faq->answer))) !!}</div>
+							</details>
+						@endforeach
+					</div>
+
+					<div class="ci-homefaq__more">
+						<a class="elementor-button elementor-button-link elementor-size-sm" href="{{ route('page.faqs') }}">
+							<span class="elementor-button-text">{{ optional($sectionFaq)->cta_label ?: 'See all questions' }}</span>
+						</a>
+					</div>
+
+		</div>
+	</section>
+	@endif
 </div>
 @endsection
 

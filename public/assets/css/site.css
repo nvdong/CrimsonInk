@@ -80,6 +80,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .ci-style-card__label {
+    margin: 0;              /* h3 co margin mac dinh, phai triet de khong lech */
     position: absolute;
     left: 0;
     right: 0;
@@ -2205,4 +2206,142 @@ body.ci-dark-page { background-color: #000; }
 
 @media (prefers-reduced-motion: reduce) {
     .ci-error__links a { transition: none; }
+}
+
+/* ------------------------------------------------------------------
+   Khối FAQ rút gọn + giá khởi điểm trên trang chủ (.ci-homefaq)
+
+   Dùng lại đúng bảng màu sẵn có: nền #0d0d0d như các section tối khác,
+   đỏ thương hiệu #a20000 cho nhấn, chữ #cfcfcf cho phần body. Font kế
+   thừa biến Work Sans của Elementor, không nạp thêm font nào.
+   ------------------------------------------------------------------ */
+.ci-homefaq {
+    padding: 90px 20px 100px;
+    background-color: #0d0d0d;
+}
+
+.ci-homefaq__inner {
+    max-width: 1140px;
+    margin: 0 auto;
+}
+
+.ci-homefaq__eyebrow {
+    margin: 0 0 6px;
+    color: #a20000;
+    font-family: var(--e-global-typography-primary-font-family, "Work Sans"), Sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.ci-homefaq .elementskit-section-title {
+    margin: 0 0 18px;
+    color: #fff;
+    font-size: 46px;
+    font-weight: 700;
+    line-height: 1.15;
+    text-align: center;
+}
+
+.ci-homefaq .elementskit-section-title span { color: #a20000; }
+
+/* Dải giá: thứ khách du lịch tìm đầu tiên, nên đặt ngay dưới tiêu đề. */
+.ci-homefaq__price {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: baseline;
+    justify-content: center;
+    margin: 0 auto 34px;
+    padding: 14px 26px;
+    width: fit-content;
+    border: 1px solid #a20000;
+    border-radius: 999px;
+    background-color: #141414;
+}
+
+.ci-homefaq__price-label {
+    color: #cfcfcf;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.ci-homefaq__price-value {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.ci-homefaq__list {
+    max-width: 860px;
+    margin: 0 auto;
+}
+
+.ci-homefaq__item {
+    border-bottom: 1px solid #1a1a1a;
+}
+
+.ci-homefaq__q {
+    position: relative;
+    padding: 20px 44px 20px 0;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.4;
+    cursor: pointer;
+    list-style: none;
+}
+
+/* Bỏ tam giác mặc định của <details> trên cả Safari lẫn Chrome. */
+.ci-homefaq__q::-webkit-details-marker { display: none; }
+
+/* Dấu + xoay thành × khi mở. Thuần CSS, không cần JS. */
+.ci-homefaq__q::after {
+    content: "+";
+    position: absolute;
+    top: 50%;
+    right: 6px;
+    color: #a20000;
+    font-size: 26px;
+    font-weight: 400;
+    line-height: 1;
+    transform: translateY(-50%);
+    transition: transform .2s ease;
+}
+
+.ci-homefaq__item[open] .ci-homefaq__q::after {
+    transform: translateY(-50%) rotate(45deg);
+}
+
+.ci-homefaq__q:hover { color: #e52222; }
+
+.ci-homefaq__a {
+    padding: 0 44px 22px 0;
+    color: #cfcfcf;
+    font-size: 16px;
+    line-height: 1.75;
+}
+
+.ci-homefaq__more {
+    margin-top: 36px;
+    text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ci-homefaq__q::after { transition: none; }
+}
+
+@media (max-width: 767px) {
+    .ci-homefaq { padding: 60px 16px 70px; }
+    .ci-homefaq .elementskit-section-title { font-size: 30px; }
+    .ci-homefaq__price {
+        width: 100%;
+        padding: 14px 18px;
+        border-radius: 14px;
+    }
+    .ci-homefaq__q { font-size: 16px; padding-right: 36px; }
+    .ci-homefaq__a { font-size: 15px; padding-right: 0; }
 }

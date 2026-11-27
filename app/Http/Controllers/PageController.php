@@ -15,6 +15,9 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PageController extends Controller
 {
+    /** Số câu FAQ hiện ở khối rút gọn trên trang chủ. */
+    const HOME_FAQ_COUNT = 6;
+
     public function home(): View
     {
         $page = Page::where('slug','home')->first();
@@ -33,6 +36,27 @@ class PageController extends Controller
         $sectionArtists = \App\Models\PageSection::where('key','artists')->first();
         $sectionStyles = \App\Models\PageSection::where('key','styles')->first();
         $sectionReview = \App\Models\PageSection::where('key','reviews')->first();
+        $sectionFaq    = \App\Models\PageSection::where('key','faq')->first();
+
+        /* FAQ rút gọn cho trang chủ.
+         |
+         | Khách du lịch Âu-Mỹ sàng studio bằng đúng mấy câu: hết bao nhiêu
+         | tiền, đặt cọc thế nào, trả bằng gì, có an toàn không. Trước đây 21
+         | câu nằm hết ở /faqs nên trang chủ không trả lời được câu nào.
+         |
+         | Ưu tiên theo nhóm chứ không theo id, để nhóm giá và đặt lịch luôn
+         | lên trước. Bản nháp đã bị loại từ tầng model. */
+        $uuTienNhom = ['pricing', 'booking', 'general', 'aftercare'];
+
+        $homeFaqs = Faq::locBanNhap(Faq::active()->ordered()->get())
+            ->sortBy(function ($item) use ($uuTienNhom) {
+                $thuTu = array_search($item->group, $uuTienNhom, true);
+
+                return ($thuTu === false ? count($uuTienNhom) : $thuTu) * 1000
+                    + (int) $item->sort_order;
+            })
+            ->take(self::HOME_FAQ_COUNT)
+            ->values();
 
         return view('pages.home', [
             'page'=> $page, 
@@ -45,6 +69,8 @@ class PageController extends Controller
             'sectionArtists'=>$sectionArtists,
             'sectionStyles'=>$sectionStyles,
             'sectionReview'=>$sectionReview,
+            'sectionFaq'=>$sectionFaq,
+            'homeFaqs'=>$homeFaqs,
             'studioRating'=>\App\Support\Settings::get('studio.rating'),
             'studioRatingCount'=>\App\Support\Settings::get('studio.rating_count'),
             'reviewsUrl'=>\App\Support\Settings::get('studio.reviews_url', 'https://maps.app.goo.gl/zjJVxSN8SqzV4162A'),
@@ -74,7 +100,11 @@ class PageController extends Controller
     public function faqs(): View
     {
         $page = Page::where('slug','faqs')->first();
-        $faqs = Faq::active()->orderBy('id')->ordered()->get()->groupBy('group');
+        /* Bỏ các câu còn chỗ trống chưa điền trước khi groupBy — xem
+           Faq::getIsDraftAttribute(). View /faqs dựng luôn schema FAQPage từ
+           biến này nên lọc ở đây là lọc được cả hai. */
+        $faqs = Faq::locBanNhap(Faq::active()->orderBy('id')->ordered()->get())
+            ->groupBy('group');
 
         return view('pages.faqs', compact('faqs','page'));
     }

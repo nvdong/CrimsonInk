@@ -89,6 +89,13 @@ class SettingsSeeder extends Seeder
             ['studio', 'price_range',      'text', null, null, null, 36],
             // vd "Cash, Credit Card, Bank Transfer" — tự điền đúng thực tế studio.
             ['studio', 'payment_accepted', 'text', null, null, null, 37],
+            /*
+             | Giá khởi điểm hiện trên trang chủ. Khác price_range (cái kia chỉ
+             | dành cho schema / Google Maps) — đây là chuỗi hiển thị cho người
+             | đọc, nên để cả quy đổi USD vì khách du lịch Âu-Mỹ so giá bằng USD.
+             | Tự viết nguyên câu thay vì tính tỷ giá, để không bao giờ lệch.
+             */
+            ['studio', 'price_from', 'text', null, 'from 800,000 VND (~$32 USD)', 'từ 800.000đ', 40],
             ['studio', 'founding_year',    'text', '2015', null, null, 38],
             ['studio', 'languages',        'text', 'English, Vietnamese', null, null, 39],
             // Ảnh mặc định khi link site được dán lên Facebook/X/Zalo.
@@ -119,6 +126,7 @@ class SettingsSeeder extends Seeder
             'studio.street_address', 'studio.city', 'studio.region', 'studio.postal_code',
             'studio.latitude', 'studio.longitude', 'studio.price_range',
             'studio.payment_accepted', 'studio.founding_year', 'studio.languages',
+            'studio.price_from',
             'studio.og_image',
         ];
 
