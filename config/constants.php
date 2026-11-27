@@ -53,8 +53,8 @@ return [
 
             'labels' => [
                 'full_name'      => ['vi' => 'Họ và tên',              'en' => 'Full name'],
-                'phone'          => ['vi' => 'Số điện thoại',          'en' => 'Phone number'],
-                'email'          => ['vi' => 'Địa chỉ email',          'en' => 'Email address'],
+                'phone'          => ['vi' => 'Số điện thoại',          'en' => 'WhatsApp number'],
+                'email'          => ['vi' => 'Địa chỉ email',          'en' => 'Facebook of Instagram account'],
                 'preferred_date' => ['vi' => 'Ngày mong muốn',         'en' => 'Preferred date'],
                 'artist'         => ['vi' => 'Nghệ sĩ xăm',            'en' => 'Tattoo artists'],
                 'message'        => ['vi' => 'Mô tả ý tưởng hình xăm', 'en' => 'Describe your tattoo idea'],
@@ -62,8 +62,8 @@ return [
 
             'placeholders' => [
                 'full_name' => ['vi' => 'Nhập họ và tên của bạn',  'en' => 'Enter your full name'],
-                'phone'     => ['vi' => 'Nhập số điện thoại',      'en' => 'Enter your phone number'],
-                'email'     => ['vi' => 'Nhập địa chỉ email',      'en' => 'Enter your email address'],
+                'phone'     => ['vi' => 'Nhập số điện thoại',      'en' => 'Enter your WhatsApp number'],
+                'email'     => ['vi' => 'Nhập địa chỉ email',      'en' => 'Enter your Facebook of Instagram account'],
                 'message'   => [
                     'vi' => 'Mô tả càng chi tiết càng tốt: chủ đề, hình khối, màu sắc, cảm xúc muốn truyền tải...',
                     'en' => 'Describe your tattoo idea in detail. Include themes, elements, colors, mood, etc.',
@@ -74,7 +74,7 @@ return [
 
             'submit' => [
                 'vi' => 'Gửi yêu cầu',
-                'en' => 'Send message',
+                'en' => 'Submit',
             ],
 
             'success' => [
@@ -100,8 +100,8 @@ return [
             */
             'attributes' => [
                 'full_name'      => ['vi' => 'họ và tên',      'en' => 'full name'],
-                'phone'          => ['vi' => 'số điện thoại',  'en' => 'phone number'],
-                'email'          => ['vi' => 'email',          'en' => 'email'],
+                'phone'          => ['vi' => 'số điện thoại',  'en' => 'WhatsApp number'],
+                'email'          => ['vi' => 'email',          'en' => 'Facebook of Instagram account'],
                 'preferred_date' => ['vi' => 'ngày mong muốn', 'en' => 'preferred date'],
                 'artist'         => ['vi' => 'nghệ sĩ xăm',    'en' => 'tattoo artist'],
                 'message'        => ['vi' => 'ý tưởng hình xăm', 'en' => 'tattoo idea'],
