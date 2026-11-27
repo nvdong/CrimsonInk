@@ -61,7 +61,7 @@
 													<a href="{{ $item['url'] }}"
 														@if (\Illuminate\Support\Str::startsWith($item['url'], 'http')) target="_blank" rel="noopener" @endif
 														aria-label="{{ $item['label'] }}" class="{{ $item['platform'] }}"
-														onclick="if (window.ciConversion) ciConversion('{{ $item['platform'] }}')">
+														@if (\App\Support\Settings::tracksConversion($item['platform'])) onclick="if (window.ciConversion) ciConversion('{{ $item['platform'] }}')" @endif>
 														@include('partials.social-icon', ['platform' => $item['platform']])
 													</a>
 												</li>

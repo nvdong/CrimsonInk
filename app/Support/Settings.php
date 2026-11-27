@@ -124,6 +124,26 @@ class Settings
     }
 
     /**
+     * Những platform đã có nhãn chuyển đổi trong Google Ads.
+     *
+     * Phải khớp với các key trong CI_LABELS ở layouts/app.blade.php. Platform
+     * nào không nằm đây thì ciConversion() thoát sớm, không gửi gì — nên cũng
+     * đừng gắn onclick cho nó, tránh để lại handler chết trong HTML.
+     */
+    const CONVERSION_PLATFORMS = ['whatsapp', 'phone', 'email', 'instagram'];
+
+    /**
+     * Platform này có đang được đo chuyển đổi không?
+     *
+     * @param  string|null  $platform
+     * @return bool
+     */
+    public static function tracksConversion($platform)
+    {
+        return in_array(strtolower((string) $platform), self::CONVERSION_PLATFORMS, true);
+    }
+
+    /**
      * Link mạng xã hội.
      *
      * @param  string|null  $slot  'footer' | 'dock' | 'header' — null thì lấy hết
