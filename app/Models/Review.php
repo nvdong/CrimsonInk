@@ -58,4 +58,20 @@ class Review extends Model
     {
         return $q->orderBy('sort_order')->orderBy('id');
     }
+
+    /**
+     * Mới thêm lên đầu — dùng cho carousel trang chủ.
+     *
+     * Sắp theo id giảm dần chứ không theo created_at: review nhập hàng loạt
+     * hoặc seed có thể trùng nhau đến từng giây, lúc đó created_at không đủ
+     * phân định và thứ tự sẽ nhảy loạn giữa các lần tải trang. id tăng đơn
+     * điệu nên luôn đúng bằng thứ tự thêm vào.
+     *
+     * Không đụng tới sort_order: admin vẫn kéo thả sắp xếp được, giá trị đó
+     * giờ chỉ còn dùng cho danh sách trong admin.
+     */
+    public function scopeNewest(Builder $q)
+    {
+        return $q->orderByDesc('id');
+    }
 }

@@ -25,7 +25,8 @@ class PageController extends Controller
 
         // Nhập trong admin > Đánh giá khách hàng. Chỉ review đang bật và có
         // tick "Hiện trang chủ" (is_featured) mới lên carousel.
-        $clientReviews = Review::active()->featured()->ordered()->get();
+        // newest(): review thêm sau nằm trước, khỏi phải sửa sort_order mỗi lần.
+        $clientReviews = Review::active()->featured()->newest()->get();
 
         $homeArtists    = Artist::active()->featured()->ordered()->get();
         $totalArtists   = Artist::active()->count();

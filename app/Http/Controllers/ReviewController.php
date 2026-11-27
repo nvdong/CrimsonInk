@@ -12,8 +12,11 @@ use Illuminate\Validation\Rule;
  * Đánh giá khách hàng (bảng reviews) — khối "My Happy Clients" ở trang chủ.
  *
  * Trang chủ chỉ lấy review đang bật VÀ có tick "Hiện trang chủ"
- * (is_active + is_featured), sắp theo sort_order rồi id. Nên muốn tạm giấu một
- * review thì bỏ tick thay vì xóa.
+ * (is_active + is_featured), và sắp theo Review::scopeNewest() — review thêm
+ * sau hiện trước. Nên muốn tạm giấu một review thì bỏ tick thay vì xóa.
+ *
+ * sort_order giờ chỉ còn chi phối danh sách trong admin, không ảnh hưởng thứ
+ * tự ngoài trang chủ nữa.
  *
  * source quyết định huy hiệu nguồn hiện cạnh tên khách ngoài trang chủ: hiện
  * mới chỉ có icon Google, các nguồn khác để trống chỗ đó.
