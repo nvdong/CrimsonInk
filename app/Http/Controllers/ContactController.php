@@ -21,7 +21,7 @@ class ContactController extends Controller
         $data = $request->validate([
             'full_name'      => ['required', 'string', 'max:120'],
             'phone'          => ['required', 'string', 'max:40'],
-            'email'          => ['required', 'string', 'max:255'],
+            'social_acc'     => ['required', 'string', 'max:255'],
             'preferred_date' => ['nullable', 'date', 'after_or_equal:today'],
             'artist'         => ['nullable', 'string'],
             'message'        => ['required', 'string', 'max:5000'],
@@ -35,7 +35,7 @@ class ContactController extends Controller
         $booking->code = Booking::nextCode();
         $booking->full_name = $data['full_name'];
         $booking->phone = $data['phone'];
-        $booking->email = $data['email'];
+        $booking->email = $data['social_acc'];
         $booking->preferred_date = $data['preferred_date'];
         $booking->artist_id = $data['artist'];
         $booking->status = Booking::STAT_NEW;

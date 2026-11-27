@@ -103,8 +103,8 @@
 
 									<div class="ci-field">
 										<label class="ci-field__label" for="bk-email">{{ $labels['email'] }}</label>
-										<input class="ci-field__control" type="email" id="bk-email" name="email"
-											   value="{{ old('email') }}" placeholder="{{ $placeholders['email'] }}" maxlength="190" required>
+										<input class="ci-field__control" type="text" id="bk-email" name="social_acc"
+											   value="{{ old('email') }}" placeholder="{{ $placeholders['email'] }}" maxlength="255" required>
 									</div>
 
 									<div class="ci-field">
