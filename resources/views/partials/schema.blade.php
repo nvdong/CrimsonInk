@@ -400,6 +400,44 @@
         ], $coGiaTri);
     }
 
+    /*
+     | Tác giả bài viết.
+     |
+     | Trước đây cứ có author_name là đóng gói thành Person. Nhưng dữ liệu thật
+     | đang để "Crimson Ink Studio" ở cột đó, nên cả 7 bài khai một studio dưới
+     | kiểu Person — sai về mặt ngữ nghĩa. Giờ xử lý ba nhánh:
+     |   - trống, hoặc trùng tên studio  -> trỏ thẳng vào node Organization
+     |   - khớp một artist trong DB      -> Person kèm url về trang artist
+     |   - còn lại                       -> Person chỉ có tên
+     | Nhánh hai là nhánh Google thích nhất: Article nên có author.url.
+     */
+    $tacGia = function ($ten) use ($bizId) {
+        $ten = trim((string) $ten);
+
+        /* So khớp lỏng: settings để "Crimson Ink" còn cột author_name để
+           "Crimson Ink Studio", so sánh bằng sẽ trượt. Chuỗi nào chứa chuỗi
+           kia thì coi như cùng một pháp nhân. */
+        $tenStudio = trim((string) \App\Support\Settings::get('studio.name', 'Crimson Ink'));
+        $a = mb_strtolower($ten);
+        $b = mb_strtolower($tenStudio);
+
+        if ($ten === '' || ($b !== '' && (strpos($a, $b) !== false || strpos($b, $a) !== false))) {
+            return ['@id' => $bizId];
+        }
+
+        $artist = \App\Models\Artist::where('name', $ten)->first();
+
+        if ($artist && $artist->slug) {
+            return [
+                '@type' => 'Person',
+                'name'  => $artist->name,
+                'url'   => route('page.artists.show', $artist->slug),
+            ];
+        }
+
+        return ['@type' => 'Person', 'name' => $ten];
+    };
+
     if ($baiViet) {
         $graph[] = array_filter([
             '@type'            => 'BlogPosting',
@@ -409,9 +447,7 @@
             'image'            => $anhTrang,
             'datePublished'    => $baiViet->created_at ? $baiViet->created_at->toAtomString() : null,
             'dateModified'     => $baiViet->updated_at ? $baiViet->updated_at->toAtomString() : null,
-            'author'           => $baiViet->author_name
-                ? ['@type' => 'Person', 'name' => $baiViet->author_name]
-                : ['@id' => $bizId],
+            'author'           => $tacGia($baiViet->author_name),
             'publisher'        => ['@id' => $bizId],
             'mainEntityOfPage' => ['@id' => $pageUrl],
             'inLanguage'       => $lang,
